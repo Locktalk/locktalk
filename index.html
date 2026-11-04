@@ -466,10 +466,10 @@ footer { border-top: 2px solid var(--ink); padding-block: 28px 44px; margin-top:
               </div>
               <div class="field"><label for="cMsg">Message</label><textarea id="cMsg" name="message" placeholder="Which machines, how many languages on your floor, what you do today for lockout/tagout instructions."></textarea></div>
               <div id="cErr" class="err" role="alert" hidden></div>
-              <div><button type="submit" class="btn primary" id="cSubmit">Prepare message</button></div>
+              <div><button type="submit" class="btn primary" id="cSubmit">Send message</button></div>
             </form>
             <div class="out" id="cOut" hidden>
-              <span class="eyebrow">Your message is ready</span>
+              <span class="eyebrow">Your message is sent!</span>
               <p id="cHow"></p>
               <pre id="cText"></pre>
               <div><button type="button" class="btn small" id="cCopy">Copy message</button> <span id="cCopied" style="font-size:14.5px;margin-left:8px"></span></div>
@@ -480,7 +480,7 @@ footer { border-top: 2px solid var(--ink); padding-block: 28px 44px; margin-top:
             <p>LockTalk is an early-stage venture in the Brainport region. The idea is simple: the right shutdown steps, at the right machine, in the language of the person standing there.</p>
             <div class="facts" style="margin-top:24px" aria-label="Quick facts">
               <div><span>Focus</span><span>Lockout / tagout</span></div>
-              <div><span>Delivery</span><span>NFC tag + phone</span></div>
+              <div><span>Delivery</span><span>NFC tag + Translation Software</span></div>
               <div><span>Translation</span><span>AI, approved by owner</span></div>
               <div><span>Region</span><span>Brainport, NL</span></div>
               <div><span>Stage</span><span>Early-stage</span></div>
@@ -680,46 +680,37 @@ footer { border-top: 2px solid var(--ink); padding-block: 28px 44px; margin-top:
   seed();
 
   /* ---------- contact: compose message ---------- */
-  var CONTACT_EMAIL = ""; /* add the team's address here, e.g. "hello@example.com" */
+/* ---------- contact: compose message ---------- */
+  var CONTACT_EMAIL = "522386@student.fontys.nl"; /* Vul hier jouw e-mailadres in */
   var form = document.getElementById("contactForm");
   var cErr = document.getElementById("cErr");
-  var cOut = document.getElementById("cOut");
-  var cText = document.getElementById("cText");
-  var cHow = document.getElementById("cHow");
-  var cCopied = document.getElementById("cCopied");
+
   form.addEventListener("submit", function (e) {
-    e.preventDefault();
+    e.preventDefault(); // Voorkom dat de pagina herlaadt
+    
     var name = document.getElementById("cName").value.trim();
     var company = document.getElementById("cCompany").value.trim();
     var role = document.getElementById("cRole").value;
     var msg = document.getElementById("cMsg").value.trim();
+    
     if (!name || !msg) {
       cErr.hidden = false;
-      cErr.textContent = !name ? "Add your name so we know who to answer." : "Add a short message so we know what you need.";
-      cOut.hidden = true;
+      cErr.textContent = !name ? "Add your name." : "Add a short message.";
       return;
     }
     cErr.hidden = true;
-    var text = "Hello LockTalk team,\n\nName: " + name + "\nCompany: " + (company || "-") + "\nRole: " + role + "\n\n" + msg;
-    cText.textContent = text;
-    cHow.textContent = CONTACT_EMAIL
-      ? "This page cannot send email. Copy the message below and send it to " + CONTACT_EMAIL + "."
-      : "This page cannot send email, and the team's contact address has not been added yet. Copy the message below and send it to the LockTalk team directly.";
-    cCopied.textContent = "";
-    cOut.hidden = false;
-  });
-  document.getElementById("cCopy").addEventListener("click", function () {
-    var t = cText.textContent;
-    function sel() {
-      var r = document.createRange(); r.selectNodeContents(cText);
-      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
-      cCopied.textContent = "Text selected. Press copy on your device.";
-    }
-    try {
-      navigator.clipboard.writeText(t).then(function () { cCopied.textContent = "Copied."; }, sel);
-    } catch (err) { sel(); }
+    
+    var text = "Name: " + name + "\nCompany: " + (company || "-") + "\nRole: " + role + "\n\n" + msg;
+    
+    // Open het e-mailprogramma met alles vooringevuld
+    window.location.href = "mailto:" + CONTACT_EMAIL + "?subject=Nieuw bericht van LockTalk website&body=" + encodeURIComponent(text);
   });
 
+  route();
+})();
+</script>
+
+</body></html>
   route();
 })();
 </script>
