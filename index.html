@@ -16,6 +16,223 @@
   >
 
   <style>
+/* Tekst onder See the product plaatsen */
+.product-head {
+  display: block;
+}
+
+.product-head h2 {
+  margin-bottom: 14px;
+}
+
+.product-head p {
+  max-width: 650px;
+}
+    /* Maak de drie vakjes onder See the product iets breder */
+.product-more {
+  width: calc(200% + 48px);
+  max-width: 1120px;
+  margin-top: 56px;
+}
+
+.more-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.more-item {
+  padding: 26px 24px 28px;
+}
+
+/* Op tablet en mobiel weer normale breedte */
+@media (max-width: 900px) {
+  .product-more {
+    width: 100%;
+    max-width: none;
+  }
+
+  .more-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+/* =========================================
+   HOME PRODUCT EN BREDERE INFORMATIEVAKKEN
+   ========================================= */
+
+/* Het interactieve product gebruikt de volledige paginabreedte */
+.home-product {
+  width: 100%;
+  padding-top: 36px;
+}
+
+/* De drie informatievakken breder en ruimer */
+.home-product .more-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+}
+
+.home-product .more-item {
+  min-width: 0;
+  padding: 28px 26px 30px;
+  border: 2px solid var(--ink);
+  background: var(--surface);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.home-product .more-item h3 {
+  margin-bottom: 12px;
+  font-size: 24px;
+}
+
+.home-product .more-item p {
+  font-size: 16.5px;
+  line-height: 1.6;
+}
+
+/* Het onderste introductieblok */
+.home-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  align-items: center;
+  gap: 48px;
+
+  padding-block: 64px;
+  border-top: 2px solid var(--ink);
+}
+
+.home-intro-copy {
+  max-width: 780px;
+}
+
+.home-intro h1 {
+  margin-top: 18px;
+  font-size: clamp(40px, 6.4vw, 78px);
+  font-weight: 900;
+  font-stretch: 112%;
+}
+
+.home-intro h1 mark {
+  padding-inline: 0.12em;
+  background: var(--accent);
+  color: var(--on-accent);
+
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.home-intro .lede {
+  max-width: 38em;
+}
+
+/* Geel accentvak naast de introductietekst */
+.home-intro-note {
+  padding: 28px 26px 30px;
+  border: 2px solid var(--ink);
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: 7px 7px 0 var(--ink);
+}
+
+.home-intro-note h2 {
+  margin-top: 10px;
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 900;
+}
+
+.home-intro-note p {
+  margin-top: 14px;
+  font-size: 16.5px;
+  line-height: 1.55;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .home-product .more-grid,
+  .home-intro {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-product .more-grid {
+    gap: 18px;
+  }
+
+  .home-intro {
+    gap: 30px;
+    padding-block: 48px;
+  }
+}
+
+/* Mobiel */
+@media (max-width: 600px) {
+  .home-product {
+    padding-top: 20px;
+  }
+
+  .home-product .more-item {
+    padding: 22px 20px 24px;
+  }
+
+  .home-intro {
+    padding-block: 40px;
+  }
+
+  .home-intro h1 {
+    font-size: clamp(38px, 12vw, 56px);
+  }
+
+  .home-intro-note {
+    padding: 22px 20px 24px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+}
+    /* Interactief product */
+.product-stage { border: 2px solid var(--ink); background: var(--surface); box-shadow: 5px 5px 0 var(--ink); }
+.product-svg { display: block; width: 100%; height: auto; }
+.product-svg .p-s { stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.product-svg .p-none { fill: none; }
+.product-svg .p-bg { fill: var(--bg); }
+.product-svg .p-sf { fill: var(--surface); }
+.product-svg .p-ac { fill: var(--accent); }
+.product-svg .p-ink { fill: var(--ink); }
+.product-svg text { font-family: var(--font-mono); font-size: 11px; fill: var(--ink); }
+.product-svg .p-txt-inv { fill: var(--bg); }
+
+.hot { cursor: pointer; outline: none; }
+.hot-hit { fill: transparent; }
+.hot-ring { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-dasharray: 6 5; opacity: 0; pointer-events: none; transition: opacity 160ms ease; }
+.hot-dot { fill: var(--accent); stroke: var(--ink); stroke-width: 2.5; transition: transform 160ms ease; transform-box: fill-box; transform-origin: center; }
+.hot-num { font-size: 13px !important; font-weight: 600; text-anchor: middle; pointer-events: none; }
+.hot:hover .hot-ring, .hot:focus-visible .hot-ring, .hot.is-active .hot-ring { opacity: 1; }
+.hot:hover .hot-dot, .hot:focus-visible .hot-dot, .hot.is-active .hot-dot { transform: scale(1.2); fill: var(--ink); }
+.hot:hover .hot-num, .hot:focus-visible .hot-num, .hot.is-active .hot-num { fill: var(--bg); }
+.hot:focus-visible .hot-ring { stroke-width: 4; }
+
+.product-caption { display: grid; gap: 6px; min-height: 112px; padding: 18px 22px 20px; border-top: 2px solid var(--ink); background: var(--bg); }
+.product-caption h3 { font-size: 22px; font-weight: 800; }
+.product-caption p { max-width: 46em; color: var(--muted); }
+
+.product-more { margin-top: 56px; }
+.more-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.more-item { padding: 20px 20px 22px; border: 2px solid var(--ink); background: var(--surface); }
+.more-item .eyebrow { display: block; margin-bottom: 8px; }
+.more-item h3 { margin-bottom: 8px; font-size: 21px; font-weight: 800; }
+.more-item p { color: var(--muted); font-size: 16px; }
+.more-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 500ms ease, transform 500ms ease; }
+.reveal.is-in { opacity: 1; transform: none; }
+.reveal:nth-child(2) { transition-delay: 90ms; }
+.reveal:nth-child(3) { transition-delay: 180ms; }
+
+/* Kleinere "Where to go next"-kaarten */
+.grid3.compact { gap: 16px; }
+.grid3.compact .teaser { gap: 6px; padding: 16px 18px 16px; box-shadow: 3px 3px 0 var(--ink); }
+.grid3.compact .teaser h3 { font-size: 19px; }
+.grid3.compact .teaser p { font-size: 14.5px; line-height: 1.45; }
+.grid3.compact .teaser .go { padding-top: 2px; font-size: 12px; }
+.grid3.compact .teaser:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--ink); }
     :root {
       --bg: #e8ebed;
       --surface: #f6f7f8;
@@ -1571,7 +1788,7 @@
       .contact {
         grid-template-columns: minmax(0, 1fr);
       }
-
+      .problem, .who, .flow, .grid2, .grid3, .more-grid { grid-template-columns: minmax(0, 1fr); }
       .hero {
         gap: 40px;
         padding-block: 24px 52px;
@@ -1655,6 +1872,134 @@
         animation-iteration-count: 1 !important;
       }
     }
+  /* See the product: tekst altijd onder de titel */
+#product > .sec-head {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  grid-template-columns: none !important;
+
+  gap: 14px !important;
+  margin-bottom: 40px;
+}
+
+#product > .sec-head h2 {
+  width: 100%;
+  margin: 0;
+}
+
+#product > .sec-head p {
+  width: 100%;
+  max-width: 650px;
+  margin: 0;
+  align-self: flex-start !important;
+}
+/* =========================================
+   NAVIGATIE AAN DE RECHTERKANT BIJ SCROLLEN
+   ========================================= */
+
+.side-nav {
+  position: fixed;
+  top: 50%;
+  right: 18px;
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  width: 175px;
+  padding: 10px;
+
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  background: var(--surface);
+  box-shadow: 6px 6px 0 var(--ink);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transform: translate(30px, -50%);
+
+  transition:
+    opacity 220ms ease,
+    visibility 220ms ease,
+    transform 220ms ease;
+}
+
+/* Wordt toegevoegd zodra de gebruiker omlaag scrolt */
+.side-nav.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+
+  transform: translate(0, -50%);
+}
+
+/* Knoppen in de rechter navigatie */
+.side-nav a {
+  display: block;
+  padding: 9px 11px;
+
+  border: 2px solid transparent;
+  border-radius: 2px;
+
+  color: var(--muted);
+
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-decoration: none;
+
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.side-nav a:hover {
+  border-color: var(--ink);
+  background: var(--accent);
+  color: var(--on-accent);
+
+  transform: translate(-3px, -3px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+/* Laat zien welke pagina actief is */
+.side-nav a[aria-current="page"] {
+  border-color: var(--ink);
+  background: var(--accent);
+  color: var(--on-accent);
+
+  font-weight: 800;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+/* Op kleinere schermen een kleinere rechterbalk */
+@media (max-width: 900px) {
+  .side-nav {
+    right: 10px;
+    width: 150px;
+    padding: 8px;
+  }
+
+  .side-nav a {
+    padding: 8px 9px;
+    font-size: 12.5px;
+  }
+}
+
+/* Op telefoons geen zijbalk, zodat inhoud niet wordt bedekt */
+@media (max-width: 600px) {
+  .side-nav {
+    display: none;
+  }
+}
   </style>
 </head>
 
@@ -1676,6 +2021,23 @@
         <a href="#contact" data-page="contact">Contact</a>
       </nav>
     </header>
+    <header class="bar">
+  <!-- Bestaande logo en navigatie -->
+</header>
+
+<nav
+  class="side-nav"
+  id="sideNav"
+  aria-label="Snelle paginanavigatie"
+  aria-hidden="true"
+>
+  <a href="#home" data-page="home">Home</a>
+  <a href="#how" data-page="how">How it works</a>
+  <a href="#features" data-page="features">What it does</a>
+  <a href="#who" data-page="who">Who it is for</a>
+  <a href="#team" data-page="team">About us</a>
+  <a href="#contact" data-page="contact">Contact</a>
+</nav>
 
     <main>
 
@@ -1685,6 +2047,116 @@
 
         <div class="hero">
           <div>
+            <section class="product" id="product">
+  <div class="sec-head product-head">
+  <h2>See the product.</h2>
+
+  <p>
+    Hover over the numbered points to see how each part works.
+    On a phone, tap them.
+  </p>
+</div>
+
+  <div class="product-stage">
+    <svg class="product-svg" viewBox="0 0 760 420" role="img" aria-label="A machine with an NFC tag, a phone tapping the tag, the translated procedure on the phone screen and a two-way translation chat">
+
+      <!-- machine -->
+      <rect class="p-s p-bg" x="30" y="110" width="300" height="270"></rect>
+      <rect class="p-s p-ac" x="30" y="110" width="300" height="22"></rect>
+      <rect class="p-s p-sf" x="200" y="160" width="100" height="80"></rect>
+      <circle class="p-s p-bg" cx="225" cy="200" r="10"></circle>
+      <circle class="p-s p-bg" cx="270" cy="200" r="10"></circle>
+      <path class="p-s p-none" d="M70 300h220M70 330h140"></path>
+      <text x="50" y="364">MACHINE M-114</text>
+
+      <!-- phone -->
+      <rect class="p-s p-sf" x="400" y="50" width="170" height="330" rx="22"></rect>
+      <path class="p-s p-none" d="M462 64h46"></path>
+      <rect class="p-s p-bg" x="414" y="78" width="142" height="274" rx="8"></rect>
+
+      <!-- 1: NFC tag -->
+      <g class="hot" tabindex="0" role="button" data-title="1 · The NFC tag" data-info="A small NFC tag is fixed to the machine. It is linked to the Lock-out/Tag-out procedure for exactly that machine.">
+        <rect class="hot-hit" x="58" y="144" width="130" height="90"></rect>
+        <rect class="hot-ring" x="58" y="144" width="130" height="90" rx="4"></rect>
+        <rect class="p-s p-ac" x="70" y="160" width="90" height="56"></rect>
+        <text x="115" y="193" text-anchor="middle">NFC</text>
+        <circle class="hot-dot" cx="172" cy="152" r="13"></circle>
+        <text class="hot-num" x="172" y="157">1</text>
+      </g>
+
+      <!-- 2: tap -->
+      <g class="hot" tabindex="0" role="button" data-title="2 · Tap your phone" data-info="No app search and no folders. Hold your phone to the tag and the procedure for this machine opens straight away.">
+        <rect class="hot-hit" x="196" y="140" width="190" height="100"></rect>
+        <rect class="hot-ring" x="196" y="140" width="190" height="100" rx="4"></rect>
+        <path class="p-s p-none" d="M215 172q16 16 0 32"></path>
+        <path class="p-s p-none" d="M245 160q24 28 0 56"></path>
+        <path class="p-s p-none" d="M275 148q32 40 0 80"></path>
+        <circle class="hot-dot" cx="342" cy="152" r="13"></circle>
+        <text class="hot-num" x="342" y="157">2</text>
+      </g>
+
+      <!-- 3: screen -->
+      <g class="hot" tabindex="0" role="button" data-title="3 · Read it in your language" data-info="The approved steps appear in your own language, in the same order and numbering as the original.">
+        <rect class="hot-hit" x="408" y="80" width="154" height="270"></rect>
+        <rect class="hot-ring" x="408" y="80" width="154" height="270" rx="8"></rect>
+        <rect class="p-s p-ink" x="422" y="90" width="29" height="18"></rect>
+        <rect class="p-s p-bg" x="454" y="90" width="29" height="18"></rect>
+        <rect class="p-s p-bg" x="487" y="90" width="29" height="18"></rect>
+        <rect class="p-s p-bg" x="520" y="90" width="29" height="18"></rect>
+        <text class="p-txt-inv" x="436" y="103" text-anchor="middle" style="font-size:9px">EN</text>
+        <text x="468" y="103" text-anchor="middle" style="font-size:9px">NL</text>
+        <text x="501" y="103" text-anchor="middle" style="font-size:9px">PL</text>
+        <text x="534" y="103" text-anchor="middle" style="font-size:9px">RO</text>
+        <circle class="p-s p-ac" cx="432" cy="150" r="9"></circle><path class="p-s p-none" d="M450 150h90"></path>
+        <circle class="p-s p-ac" cx="432" cy="195" r="9"></circle><path class="p-s p-none" d="M450 195h90"></path>
+        <circle class="p-s p-ac" cx="432" cy="240" r="9"></circle><path class="p-s p-none" d="M450 240h90"></path>
+        <circle class="p-s p-ac" cx="432" cy="285" r="9"></circle><path class="p-s p-none" d="M450 285h70"></path>
+        <circle class="hot-dot" cx="556" cy="84" r="13"></circle>
+        <text class="hot-num" x="556" y="89">3</text>
+      </g>
+
+      <!-- 4: live translation -->
+      <g class="hot" tabindex="0" role="button" data-title="4 · Ask when something is unclear" data-info="If a step is unclear, the technician and the person on site talk to each other, each in their own language. The original wording stays visible.">
+        <rect class="hot-hit" x="582" y="130" width="168" height="180"></rect>
+        <rect class="hot-ring" x="582" y="130" width="168" height="180" rx="4"></rect>
+        <rect class="p-s p-bg" x="592" y="156" width="140" height="62"></rect>
+        <text x="602" y="174" style="font-size:9px">NL → PL</text>
+        <path class="p-s p-none" d="M602 188h90M602 202h60"></path>
+        <rect class="p-s p-ac" x="602" y="234" width="140" height="62"></rect>
+        <text x="612" y="252" style="font-size:9px">PL → NL</text>
+        <path class="p-s p-none" d="M612 266h90M612 280h60"></path>
+        <circle class="hot-dot" cx="736" cy="140" r="13"></circle>
+        <text class="hot-num" x="736" y="145">4</text>
+      </g>
+    </svg>
+
+    <div class="product-caption" aria-live="polite">
+      <span class="eyebrow">Hover over a numbered point</span>
+      <h3 id="productCapTitle">How LockTalk works</h3>
+      <p id="productCapText">Four steps: a tag on the machine, a tap with your phone, the procedure in your language, and live help when something is unclear.</p>
+    </div>
+  </div>
+
+  <div class="product-more">
+    <div class="more-grid">
+      <div class="more-item reveal">
+        <span class="eyebrow">One tag per machine</span>
+        <h3>The tag never changes</h3>
+        <p>When a procedure changes, the owner updates it online. The tag stays on the machine and the next tap shows the new version. Nothing is reprinted.</p>
+      </div>
+      <div class="more-item reveal">
+        <span class="eyebrow">Approved first</span>
+        <h3>Reviewed before it goes live</h3>
+        <p>AI drafts the translations. The machine owner approves every language. Technicians only ever see approved text.</p>
+      </div>
+      <div class="more-item reveal">
+        <span class="eyebrow">Live help</span>
+        <h3>Ask on the spot</h3>
+        <p>A supervisor and a technician can talk in their own languages, with the original wording visible next to the translation.</p>
+      </div>
+    </div>
+  </div>
+</section>
             <div class="eyebrow">
               Lock-out / Tag-out instructions, by NFC
             </div>
@@ -1791,7 +2263,7 @@
             <p>Each page answers one question.</p>
           </div>
 
-          <div class="grid3">
+          <div class="grid3 compact">
             <a class="card teaser" href="#how">
               <span class="eyebrow">Page 2</span>
               <h3>How it works</h3>
@@ -2229,8 +2701,10 @@
       </div>
     </article>
 
-  </div>
+    </div>
 
+  </div>
+</section>
 </div>
 
       <!-- CONTACT -->
@@ -2808,7 +3282,81 @@
             encodeURIComponent(emailBody);
         });
       }
+/* Interactief product */
 
+var hotspots = document.querySelectorAll(".product-svg .hot");
+var capTitle = document.getElementById("productCapTitle");
+var capText = document.getElementById("productCapText");
+
+function activateHotspot(el) {
+  Array.prototype.forEach.call(hotspots, function (h) {
+    h.classList.remove("is-active");
+  });
+  el.classList.add("is-active");
+  capTitle.textContent = el.dataset.title;
+  capText.textContent = el.dataset.info;
+}
+
+Array.prototype.forEach.call(hotspots, function (el) {
+  el.addEventListener("mouseenter", function () { activateHotspot(el); });
+  el.addEventListener("focus", function () { activateHotspot(el); });
+  el.addEventListener("click", function () { activateHotspot(el); });
+  el.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      activateHotspot(el);
+    }
+  });
+});
+
+/* Onthul-animatie bij scrollen */
+
+var revealItems = document.querySelectorAll(".reveal");
+
+if ("IntersectionObserver" in window) {
+  var revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-in");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  Array.prototype.forEach.call(revealItems, function (item) {
+    revealObserver.observe(item);
+  });
+} else {
+  Array.prototype.forEach.call(revealItems, function (item) {
+    item.classList.add("is-in");
+  });
+}
+/* Rechter navigatie tonen tijdens scrollen */
+
+var sideNav = document.getElementById("sideNav");
+var topBar = document.querySelector(".bar");
+var scrollLimit = 140;
+
+function updateSideNavigation() {
+  if (!sideNav) {
+    return;
+  }
+
+  var shouldShow = window.scrollY > scrollLimit;
+
+  sideNav.classList.toggle("is-visible", shouldShow);
+
+  sideNav.setAttribute(
+    "aria-hidden",
+    shouldShow ? "false" : "true"
+  );
+}
+
+window.addEventListener("scroll", updateSideNavigation, {
+  passive: true
+});
+
+updateSideNavigation();
       route();
     })();
   </script>
