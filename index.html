@@ -2051,6 +2051,111 @@
     height: 25px;
   }
 }
+/* Gele achtergrond laadt van links naar rechts */
+.loading-highlight {
+  padding-left: 0.12em;
+  padding-right: 0.12em;
+  background-color: transparent;
+  background-image: linear-gradient(
+    to right,
+    var(--accent),
+    var(--accent)
+  );
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 0% 100%;
+  color: var(--ink);
+  animation: loadHighlight 1.2s ease 0.35s forwards;
+}
+
+@keyframes loadHighlight {
+  from {
+    background-size: 0% 100%;
+  }
+
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-highlight {
+    animation: none;
+    background-size: 100% 100%;
+  }
+}
+/* Bewegende gele markering */
+.hero h1 mark.loading-highlight,
+.home-final h1 mark.loading-highlight,
+mark.loading-highlight {
+  position: relative;
+  z-index: 0;
+
+  display: inline-block;
+  padding-left: 0.12em;
+  padding-right: 0.12em;
+
+  background: transparent !important;
+  color: var(--ink);
+  isolation: isolate;
+}
+
+mark.loading-highlight::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background: var(--accent);
+
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* Animatie start pas wanneer JavaScript deze class toevoegt */
+mark.loading-highlight.is-visible::before {
+  animation: highlightLoad 1.4s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    forwards;
+}
+
+@keyframes highlightLoad {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  mark.loading-highlight::before {
+    transform: scaleX(1);
+  }
+
+  mark.loading-highlight.is-visible::before {
+    animation: none;
+  }
+}
+
+@keyframes highlightLoad {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  mark.loading-highlight::before {
+    animation: none;
+    transform: scaleX(1);
+  }
+}
   </style>
 </head>
 
@@ -2212,10 +2317,10 @@
               Lock-out / Tag-out instructions, by NFC
             </div>
 
-            <h1>
-              The shutdown steps,
-              <mark>in the language you read.</mark>
-            </h1>
+<h1>
+  The shutdown steps,
+  <mark class="loading-highlight">in the language you read.</mark>
+</h1>
 
             <p class="lede">
               LockTalk puts machine-specific Lock-out/Tag-out instructions
@@ -2877,37 +2982,40 @@
         "contact"
       ];
 
-      function route() {
-        var hash = (window.location.hash || "").replace("#", "");
+function route() {
+  var hash = (window.location.hash || "").replace("#", "");
 
-        if (pages.indexOf(hash) < 0) {
-          hash = "home";
-        }
+  if (pages.indexOf(hash) < 0) {
+    hash = "home";
+  }
 
-        pages.forEach(function (page) {
-          var pageElement = document.getElementById("page-" + page);
+  pages.forEach(function (page) {
+    var pageElement = document.getElementById("page-" + page);
 
-          if (pageElement) {
-            pageElement.hidden = page !== hash;
-          }
-        });
+    if (pageElement) {
+      pageElement.hidden = page !== hash;
+    }
+  });
 
-        Array.prototype.forEach.call(
-          document.querySelectorAll("#mainNav a"),
-          function (link) {
-            if (link.dataset.page === hash) {
-              link.setAttribute("aria-current", "page");
-            } else {
-              link.removeAttribute("aria-current");
-            }
-          }
-        );
-
-        window.scrollTo(0, 0);
+  Array.prototype.forEach.call(
+    document.querySelectorAll("#mainNav a, #sideNav a"),
+    function (link) {
+      if (link.dataset.page === hash) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
       }
+    }
+  );
+
+
+
+  window.scrollTo(0, 0);
+}
+      
 
       window.addEventListener("hashchange", route);
-
+      route();
       /* Talen */
 
       var languageData = {
@@ -3374,8 +3482,73 @@ window.addEventListener("scroll", updateSideNavigation, {
 });
 
 updateSideNavigation();
-      route();
-    })();
+``*
+window.scrollTo(0, 0);
+/* Gele markering starten wanneer deze zichtbaar wordt */
+
+var loadingHighlights =
+  document.querySelectorAll(".loading-highlight");
+
+/* Gele markering starten wanneer deze zichtbaar wordt */
+
+var loadingHighlights =
+  document.querySelectorAll(".loading-highlight");
+
+var highlightObserver = null;
+
+if ("IntersectionObserver" in window) {
+  highlightObserver = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+
+          /* Na het starten niet meer observeren */
+          highlightObserver.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0,
+      rootMargin: "0px 0px -35% 0px"
+    }
+  );
+}
+
+/* Markering resetten en opnieuw observeren */
+function resetHighlightAnimation() {
+  Array.prototype.forEach.call(
+    loadingHighlights,
+    function (highlight) {
+      highlight.classList.remove("is-visible");
+
+      /* Beginstand opnieuw laten verwerken */
+      void highlight.offsetWidth;
+
+      if (highlightObserver) {
+        highlightObserver.unobserve(highlight);
+        highlightObserver.observe(highlight);
+      } else {
+        highlight.classList.add("is-visible");
+      }
+    }
+  );
+}
+
+/* Eerste keer observeren */
+Array.prototype.forEach.call(
+  loadingHighlights,
+  function (highlight) {
+    if (highlightObserver) {
+      highlightObserver.observe(highlight);
+    } else {
+      highlight.classList.add("is-visible");
+    }
+  }
+);
+
+route();
+})();
   </script>
 </body>
 </html>
