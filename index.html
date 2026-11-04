@@ -2000,6 +2000,57 @@
     display: none;
   }
 }
+/* Tekst onder Moments it is made for plaatsen */
+.moments-head {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 14px !important;
+}
+
+.moments-head h2,
+.moments-head p {
+  width: 100%;
+  margin: 0;
+}
+
+.moments-head p {
+  max-width: 650px;
+  align-self: flex-start !important;
+}
+/* Logo en LockTalk-naam iets groter */
+.mark {
+  gap: 12px;
+  font-size: 27px;
+  line-height: 1;
+}
+
+/* Gele tag links van de naam */
+.mark i {
+  width: 18px;
+  height: 28px;
+  border-width: 2px;
+}
+
+/* Rondje in het gele tag-icoon */
+.mark i::after {
+  top: 5px;
+  width: 5px;
+  height: 5px;
+}
+
+/* Op mobiele schermen iets kleiner */
+@media (max-width: 600px) {
+  .mark {
+    gap: 9px;
+    font-size: 23px;
+  }
+
+  .mark i {
+    width: 16px;
+    height: 25px;
+  }
+}
   </style>
 </head>
 
@@ -2224,7 +2275,6 @@
         <section>
           <div class="sec-head">
             <h2>Where to go next.</h2>
-            <p>Each page answers one question.</p>
           </div>
 
           <div class="grid3 compact">
@@ -2472,10 +2522,13 @@
         </section>
 
         <section>
-          <div class="sec-head">
-            <h2>Moments it is made for.</h2>
-            <p>Situations where one language is not enough.</p>
-          </div>
+          <div class="sec-head moments-head">
+          <h2>Moments it is made for.</h2>
+
+            <p>
+              Situations where one language is not enough.
+             </p>
+              </div>
 
           <div class="sit">
             <div>
