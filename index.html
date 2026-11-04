@@ -1,21 +1,31 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
   <title>LockTalk</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-  
+
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+  >
+
   <style>
     :root {
-      --bg: #E8EBED;
-      --surface: #F6F7F8;
-      --ink: #12161A;
-      --muted: #55606A;
-      --line: #C5CCD2;
-      --accent: #FFC400;
-      --on-accent: #12161A;
-      --ok: #1E7A46;
+      --bg: #e8ebed;
+      --surface: #f6f7f8;
+      --ink: #12161a;
+      --muted: #55606a;
+      --line: #c5ccd2;
+      --accent: #ffc400;
+      --on-accent: #12161a;
+      --ok: #1e7a46;
+
       --font-display: "Archivo", "Arial Narrow", Arial, sans-serif;
       --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
       --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
@@ -23,567 +33,2241 @@
 
     @media (prefers-color-scheme: dark) {
       :root:not([data-theme="light"]) {
-        --bg: #0F1215; --surface: #171B1F; --ink: #EDF0F2; --muted: #9AA5AE; --line: #2B3238;
-        --accent: #FFC93A; --on-accent: #12161A; --ok: #5FD08F; color-scheme: dark;
+        --bg: #0f1215;
+        --surface: #171b1f;
+        --ink: #edf0f2;
+        --muted: #9aa5ae;
+        --line: #2b3238;
+        --accent: #ffc93a;
+        --on-accent: #12161a;
+        --ok: #5fd08f;
+
+        color-scheme: dark;
       }
     }
 
     :root[data-theme="dark"] {
-      --bg: #0F1215; --surface: #171B1F; --ink: #EDF0F2; --muted: #9AA5AE; --line: #2B3238;
-      --accent: #FFC93A; --on-accent: #12161A; --ok: #5FD08F; color-scheme: dark;
+      --bg: #0f1215;
+      --surface: #171b1f;
+      --ink: #edf0f2;
+      --muted: #9aa5ae;
+      --line: #2b3238;
+      --accent: #ffc93a;
+      --on-accent: #12161a;
+      --ok: #5fd08f;
+
+      color-scheme: dark;
     }
 
-    * { box-sizing: border-box; }
-    
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
+      padding-block: 0;
+      padding-left: max(16px, env(safe-area-inset-left, 0px));
+      padding-right: max(16px, env(safe-area-inset-right, 0px));
+
       background: var(--bg);
       color: var(--ink);
+
       font-family: var(--font-body);
       font-size: 17px;
       line-height: 1.55;
-      padding-left: max(16px, env(safe-area-inset-left, 0px));
-      padding-right: max(16px, env(safe-area-inset-right, 0px));
-      padding-block: 0;
     }
 
-    a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-    :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
-    .wrap { max-width: 1120px; margin: 0 auto; }
-    h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.04; letter-spacing: -0.01em; }
-    p { margin: 0; }
-    .eyebrow { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    img {
+      max-width: 100%;
+    }
 
-    /* Top bar */
-    .bar { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; justify-content: space-between; padding-block: 22px; }
-    .mark { font-family: var(--font-display); font-stretch: 125%; font-weight: 900; font-size: 22px; letter-spacing: 0.01em; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
-    .mark i { display: inline-block; width: 14px; height: 22px; background: var(--accent); border: 2px solid var(--ink); border-radius: 3px 3px 7px 7px; position: relative; }
-    .mark i::after { content: ""; position: absolute; left: 50%; top: 4px; width: 4px; height: 4px; border-radius: 50%; background: var(--ink); transform: translateX(-50%); }
-    .nav { display: flex; flex-wrap: wrap; gap: 6px 4px; font-size: 15px; }
-    .nav a { text-decoration: none; color: var(--muted); padding: 6px 12px; border: 2px solid transparent; border-radius: 2px; }
-    .nav a:hover { color: var(--ink); border-color: var(--line); }
-    .nav a[aria-current="page"] { color: var(--on-accent); background: var(--accent); border-color: var(--ink); font-weight: 600; }
+    a {
+      color: inherit;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
 
-    /* Layout & Cards */
-    .page[hidden] { display: none; }
-    .pagehead { padding-block: 36px 52px; max-width: 860px; }
-    .pagehead h1 { font-stretch: 112%; font-weight: 900; font-size: clamp(36px, 5.6vw, 66px); margin-top: 16px; }
-    .pagehead p { margin-top: 22px; font-size: clamp(18px, 2vw, 21px); max-width: 34em; }
-    section { padding-block: 64px; border-top: 2px solid var(--ink); }
-    .sec-head { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 24px 48px; margin-bottom: 40px; }
-    .sec-head h2 { font-stretch: 108%; font-weight: 850; font-size: clamp(28px, 4vw, 44px); }
-    .sec-head p { color: var(--muted); max-width: 38em; font-size: 18px; align-self: end; }
-    
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--ink);
+      outline-offset: 3px;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+
+      font-family: var(--font-display);
+      line-height: 1.04;
+      letter-spacing: -0.01em;
+      text-wrap: balance;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* Navigatie */
+
+    .bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 12px 28px;
+      padding-block: 22px;
+    }
+
+    .mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 900;
+      font-stretch: 125%;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+
+    .mark i {
+      position: relative;
+
+      display: inline-block;
+      width: 14px;
+      height: 22px;
+
+      border: 2px solid var(--ink);
+      border-radius: 3px 3px 7px 7px;
+      background: var(--accent);
+    }
+
+    .mark i::after {
+      content: "";
+
+      position: absolute;
+      top: 4px;
+      left: 50%;
+
+      width: 4px;
+      height: 4px;
+
+      border-radius: 50%;
+      background: var(--ink);
+
+      transform: translateX(-50%);
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 4px;
+
+      font-size: 15px;
+    }
+
+    .nav a {
+      padding: 6px 12px;
+
+      border: 2px solid transparent;
+      border-radius: 2px;
+
+      color: var(--muted);
+      text-decoration: none;
+
+      transform: translate(0, 0);
+
+      transition:
+        transform 140ms ease,
+        box-shadow 140ms ease,
+        background-color 140ms ease,
+        color 140ms ease,
+        border-color 140ms ease;
+    }
+
+    .nav a:hover {
+      border-color: var(--ink);
+      background: var(--surface);
+      color: var(--ink);
+
+      transform: translateY(-2px);
+      box-shadow: 0 3px 0 var(--ink);
+    }
+
+    .nav a[aria-current="page"] {
+      border-color: var(--ink);
+      background: var(--accent);
+      color: var(--on-accent);
+
+      font-weight: 700;
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+
+    /* Algemene pagina-opmaak */
+
+    .pagehead {
+      max-width: 860px;
+      padding-block: 36px 52px;
+    }
+
+    .pagehead h1 {
+      margin-top: 16px;
+
+      font-size: clamp(36px, 5.6vw, 66px);
+      font-weight: 900;
+      font-stretch: 112%;
+    }
+
+    .pagehead p {
+      max-width: 34em;
+      margin-top: 22px;
+
+      font-size: clamp(18px, 2vw, 21px);
+    }
+
+    section {
+      padding-block: 64px;
+      border-top: 2px solid var(--ink);
+    }
+
+    .sec-head {
+      display: grid;
+      grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+
+      gap: 24px 48px;
+      margin-bottom: 40px;
+    }
+
+    .sec-head h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 850;
+      font-stretch: 108%;
+    }
+
+    .sec-head p {
+      align-self: end;
+      max-width: 38em;
+
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    /* Knoppen */
+
     .btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      position: relative; font-family: var(--font-body); font-weight: 700; font-size: 16px;
-      padding: 14px 22px; border: 2px solid var(--ink); text-decoration: none;
-      border-radius: 2px; background: transparent; color: var(--ink); cursor: pointer;
-      box-shadow: 4px 4px 0 var(--ink); transform: translate(0, 0);
-      transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease, color 160ms ease;
+      position: relative;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 14px 22px;
+
+      border: 2px solid var(--ink);
+      border-radius: 2px;
+
+      background: transparent;
+      color: var(--ink);
+
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+
+      cursor: pointer;
+      box-shadow: 4px 4px 0 var(--ink);
+      transform: translate(0, 0);
+
+      transition:
+        transform 160ms ease,
+        box-shadow 160ms ease,
+        background-color 160ms ease,
+        color 160ms ease;
     }
-    .btn:hover { transform: translate(-4px, -4px); box-shadow: 8px 8px 0 var(--ink); }
-    .btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
-    .btn.primary { background: var(--accent); color: var(--on-accent); }
-    .btn.primary:hover { background: var(--accent); color: var(--on-accent); }
-    .btn.ghost:hover { background: var(--ink); color: var(--bg); }
-    .btn.small { padding: 9px 14px; font-size: 14.5px; }
 
-    .card { border: 2px solid var(--ink); background: var(--surface); padding: 28px 26px 30px; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
-    .card h3 { font-size: 27px; font-weight: 850; font-stretch: 105%; }
-    .card > p { color: var(--muted); }
-    .rule { font-family: var(--font-mono); font-size: 13px; background: var(--accent); color: var(--on-accent); align-self: flex-start; padding: 4px 10px; border: 1.5px solid var(--ink); }
-    .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
-    .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+    .btn:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 8px 8px 0 var(--ink);
+    }
 
-    /* Hero */
-    .hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 48px; align-items: start; padding-block: 36px 68px; }
-    .hero h1 { font-stretch: 112%; font-weight: 900; font-size: clamp(40px, 6.4vw, 78px); margin-top: 18px; }
-    .hero h1 mark { background: var(--accent); color: var(--on-accent); padding: 0 0.12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-    .lede { font-size: clamp(18px, 2vw, 21px); max-width: 34em; margin-top: 26px; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
 
-    /* Tag component */
-    .tag { background: var(--surface); border: 2px solid var(--ink); border-radius: 2px; min-width: 0; }
-    .tag-stripe { height: 22px; background: repeating-linear-gradient(-45deg, var(--accent) 0 14px, var(--ink) 14px 28px); border-bottom: 2px solid var(--ink); }
-    .tag-head { display: flex; flex-wrap: wrap; gap: 10px 16px; justify-content: space-between; align-items: baseline; padding: 18px 20px 0; }
-    .tag-id { font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
-    .tag-title { font-family: var(--font-display); font-weight: 800; font-size: 25px; padding: 6px 20px 0; line-height: 1.1; }
-    .langs { display: flex; flex-wrap: wrap; gap: 6px; padding: 16px 20px 0; }
+    .btn.primary {
+      background: var(--accent);
+      color: var(--on-accent);
+    }
+
+    .btn.primary:hover {
+      background: var(--accent);
+      color: var(--on-accent);
+    }
+
+    .btn.ghost:hover {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    .btn.small {
+      padding: 9px 14px;
+      font-size: 14.5px;
+    }
+
+    /* Algemene kaarten */
+
+    .card {
+      display: flex;
+      flex-direction: column;
+
+      min-width: 0;
+      gap: 14px;
+      padding: 28px 26px 30px;
+
+      border: 2px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .card h3 {
+      font-size: 27px;
+      font-weight: 850;
+    }
+
+    .card > p {
+      color: var(--muted);
+    }
+
+    .rule {
+      align-self: flex-start;
+
+      padding: 4px 10px;
+
+      border: 1.5px solid var(--ink);
+      background: var(--accent);
+      color: var(--on-accent);
+
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    .grid3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    /* Homepage hero */
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      align-items: start;
+
+      gap: 48px;
+      padding-block: 36px 68px;
+    }
+
+    .hero h1 {
+      margin-top: 18px;
+
+      font-size: clamp(40px, 6.4vw, 78px);
+      font-weight: 900;
+      font-stretch: 112%;
+    }
+
+    .hero h1 mark {
+      padding-inline: 0.12em;
+
+      background: var(--accent);
+      color: var(--on-accent);
+
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .lede {
+      max-width: 34em;
+      margin-top: 26px;
+
+      font-size: clamp(18px, 2vw, 21px);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    /* NFC-tag */
+
+    .tag {
+      min-width: 0;
+
+      border: 2px solid var(--ink);
+      border-radius: 2px;
+      background: var(--surface);
+    }
+
+    .tag-stripe {
+      height: 22px;
+
+      border-bottom: 2px solid var(--ink);
+
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--accent) 0 14px,
+        var(--ink) 14px 28px
+      );
+    }
+
+    .tag-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+
+      gap: 10px 16px;
+      padding: 18px 20px 0;
+    }
+
+    .tag-id {
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+
+    .tag-title {
+      padding: 6px 20px 0;
+
+      font-family: var(--font-display);
+      font-size: 25px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+.team-head {
+  display: block;
+}
+
+.team-head h2 {
+  margin-bottom: 14px;
+}
+
+.team-head p {
+  max-width: 650px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.6;
+}
+    .langs {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 6px;
+      padding: 16px 20px 0;
+    }
+
     .lang {
-      font-family: var(--font-mono); font-size: 13px; padding: 7px 12px; border: 1.5px solid var(--ink);
-      background: transparent; color: var(--ink); cursor: pointer; border-radius: 2px;
-      transition: transform 140ms ease, box-shadow 140ms ease, background-color 140ms ease, color 140ms ease;
+      padding: 7px 12px;
+
+      border: 1.5px solid var(--ink);
+      border-radius: 2px;
+
+      background: transparent;
+      color: var(--ink);
+
+      font-family: var(--font-mono);
+      font-size: 13px;
+
+      cursor: pointer;
+
+      transition:
+        transform 140ms ease,
+        box-shadow 140ms ease,
+        background-color 140ms ease,
+        color 140ms ease;
     }
-    .lang:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--ink); background: var(--accent); color: var(--on-accent); }
-    .lang:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--ink); }
-    .lang[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
-    .steps { list-style: none; counter-reset: s; margin: 0; padding: 14px 20px 6px; }
-    .steps li { counter-increment: s; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); font-size: 16.5px; line-height: 1.4; }
-    .steps li:first-child { border-top: 0; }
-    .steps li::before { content: counter(s); font-family: var(--font-mono); font-weight: 500; width: 30px; height: 30px; display: grid; place-items: center; background: var(--accent); color: var(--on-accent); border: 1.5px solid var(--ink); border-radius: 50%; font-size: 14px; }
-    .tag-foot { padding: 12px 20px 18px; font-size: 13.5px; color: var(--muted); border-top: 2px solid var(--ink); margin-top: 8px; }
 
-    /* Problem band */
-    .problem { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 2px solid var(--ink); background: var(--surface); }
-    .problem > div { padding: 26px 24px 30px; border-left: 2px solid var(--ink); min-width: 0; }
-    .problem > div:first-child { border-left: 0; }
-    .problem h3 { font-size: 22px; font-weight: 800; margin-bottom: 10px; line-height: 1.15; }
-    .problem p { color: var(--muted); font-size: 16.5px; }
+    .lang:hover {
+      background: var(--accent);
+      color: var(--on-accent);
 
-    /* Teaser cards */
-    .teaser { text-decoration: none; transition: background 0.15s; }
-    .teaser:hover { background: var(--bg); }
-    .teaser .go { font-family: var(--font-mono); font-size: 13px; margin-top: auto; padding-top: 8px; letter-spacing: 0.06em; text-transform: uppercase; }
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
 
-    /* Flow */
-    .flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; list-style: none; margin: 0; padding: 0; counter-reset: f; }
-    .flow li { counter-increment: f; min-width: 0; }
-    .flow .n { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.1em; color: var(--muted); display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-    .flow .n::before { content: "STEP " counter(f); }
-    .flow .n::after { content: ""; flex: 1; height: 2px; background: var(--ink); }
-    .flow h3 { font-size: 26px; font-weight: 800; margin-bottom: 10px; }
-    .flow p { color: var(--muted); }
-    .glyph { height: 120px; border: 2px solid var(--ink); background: var(--surface); margin-bottom: 18px; display: grid; place-items: center; }
-    .glyph svg { width: 96px; height: 96px; display: block; }
-    .glyph .s { stroke: var(--ink); fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-    .glyph .f { fill: var(--accent); stroke: var(--ink); stroke-width: 3; }
+    .lang:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
 
-    /* Stepper */
-    .pipe { border: 2px solid var(--ink); background: var(--surface); }
-    .pipe-top { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 2px solid var(--ink); }
-    .pipe-top button { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.04em; text-align: left; padding: 14px 14px; border: 0; border-left: 2px solid var(--ink); background: transparent; color: var(--muted); cursor: pointer; min-width: 0; }
-    .pipe-top button:first-child { border-left: 0; }
-    .pipe-top button b { display: block; font-family: var(--font-display); font-size: 17px; font-weight: 800; color: var(--ink); margin-top: 2px; letter-spacing: 0; }
-    .pipe-top button[aria-selected="true"] { background: var(--accent); color: var(--on-accent); }
-    .pipe-top button[aria-selected="true"] b { color: var(--on-accent); }
-    .pipe-body { padding: 24px 24px 26px; display: grid; gap: 18px; }
-    .pipe-body h3 { font-size: 24px; font-weight: 800; }
-    .pipe-body p { color: var(--muted); max-width: 40em; }
-    .chips { display: flex; flex-wrap: wrap; gap: 10px; }
-    .chip { font-family: var(--font-mono); font-size: 13px; border: 1.5px solid var(--ink); padding: 6px 12px; background: var(--bg); display: inline-flex; gap: 8px; align-items: center; }
-    .chip em { font-style: normal; color: var(--muted); }
-    .chip[data-state="Approved"], .chip[data-state="Live"] { background: var(--ink); color: var(--bg); }
-    .chip[data-state="Approved"] em, .chip[data-state="Live"] em { color: var(--bg); opacity: 0.8; }
-    .pipe-actions { display: flex; flex-wrap: wrap; gap: 10px; }
-    .vis { font-size: 14.5px; padding: 10px 14px; border: 1.5px dashed var(--ink); }
+    .lang[aria-pressed="true"] {
+      background: var(--ink);
+      color: var(--bg);
+    }
 
-    /* Chat demo */
-    .chatbox { border: 2px solid var(--ink); background: var(--surface); }
-    .chat-log { padding: 18px; display: grid; gap: 12px; min-height: 220px; align-content: start; }
-    .msg { max-width: min(520px, 92%); padding: 10px 14px; border: 1.5px solid var(--ink); font-size: 16px; line-height: 1.4; min-width: 0; }
-    .msg small { display: block; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
-    .msg.a { background: var(--bg); justify-self: start; }
-    .msg.b { background: var(--accent); color: var(--on-accent); justify-self: end; }
-    .msg.b small { color: var(--on-accent); opacity: 0.75; }
-    .msg .orig { display: block; margin-top: 6px; padding-top: 6px; border-top: 1px dashed currentColor; opacity: 0.75; font-size: 14px; }
-    .chat-pick { border-top: 2px solid var(--ink); padding: 16px 18px 18px; display: grid; gap: 16px; }
-    .pick-group { display: grid; gap: 8px; }
-    .pick-group .eyebrow { font-size: 11.5px; }
-    .pick-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .steps {
+      margin: 0;
+      padding: 14px 20px 6px;
+
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .steps li {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+
+      gap: 12px;
+      padding: 12px 0;
+
+      border-top: 1px solid var(--line);
+
+      font-size: 16.5px;
+      line-height: 1.4;
+
+      counter-increment: step;
+    }
+
+    .steps li:first-child {
+      border-top: 0;
+    }
+
+    .steps li::before {
+      content: counter(step);
+
+      display: grid;
+      place-items: center;
+
+      width: 30px;
+      height: 30px;
+
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      background: var(--accent);
+      color: var(--on-accent);
+
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .tag-foot {
+      margin-top: 8px;
+      padding: 12px 20px 18px;
+
+      border-top: 2px solid var(--ink);
+
+      color: var(--muted);
+      font-size: 13.5px;
+    }
+
+    /* Problemen */
+
+    .problem {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+
+      border: 2px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .problem > div {
+      min-width: 0;
+      padding: 26px 24px 30px;
+
+      border-left: 2px solid var(--ink);
+    }
+
+    .problem > div:first-child {
+      border-left: 0;
+    }
+
+    .problem h3 {
+      margin-bottom: 10px;
+
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .problem p {
+      color: var(--muted);
+      font-size: 16.5px;
+    }
+
+    /* Klikbare homekaarten */
+
+    .teaser {
+      position: relative;
+
+      color: var(--ink);
+      text-decoration: none;
+
+      box-shadow: 4px 4px 0 var(--ink);
+      transform: translate(0, 0);
+
+      transition:
+        background-color 160ms ease,
+        transform 160ms ease,
+        box-shadow 160ms ease;
+    }
+
+    .teaser:hover {
+      background: var(--accent);
+
+      transform: translate(-4px, -4px);
+      box-shadow: 8px 8px 0 var(--ink);
+    }
+
+    .teaser:hover p,
+    .teaser:hover .eyebrow {
+      color: var(--on-accent);
+    }
+
+    .teaser .go {
+      margin-top: auto;
+      padding-top: 8px;
+
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* Stappen */
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+
+      gap: 28px;
+      margin: 0;
+      padding: 0;
+
+      list-style: none;
+      counter-reset: flow;
+    }
+
+    .flow li {
+      min-width: 0;
+      counter-increment: flow;
+    }
+
+    .flow .n {
+      display: flex;
+      align-items: center;
+
+      gap: 12px;
+      margin-bottom: 16px;
+
+      color: var(--muted);
+
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.1em;
+    }
+
+    .flow .n::before {
+      content: "STEP " counter(flow);
+    }
+
+    .flow .n::after {
+      content: "";
+
+      flex: 1;
+      height: 2px;
+
+      background: var(--ink);
+    }
+
+    .flow h3 {
+      margin-bottom: 10px;
+
+      font-size: 26px;
+      font-weight: 800;
+    }
+
+    .flow p {
+      color: var(--muted);
+    }
+
+    .glyph {
+      display: grid;
+      place-items: center;
+
+      height: 120px;
+      margin-bottom: 18px;
+
+      border: 2px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .glyph svg {
+      display: block;
+      width: 96px;
+      height: 96px;
+    }
+
+    .glyph .s {
+      fill: none;
+      stroke: var(--ink);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .glyph .f {
+      fill: var(--accent);
+      stroke: var(--ink);
+      stroke-width: 3;
+    }
+
+    /* Procedurestappen */
+
+    .pipe {
+      border: 2px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .pipe-top {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .pipe-top button {
+      min-width: 0;
+      padding: 14px;
+
+      border: 0;
+      border-left: 2px solid var(--ink);
+
+      background: transparent;
+      color: var(--muted);
+
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-align: left;
+
+      cursor: pointer;
+    }
+
+    .pipe-top button:first-child {
+      border-left: 0;
+    }
+
+    .pipe-top button b {
+      display: block;
+      margin-top: 2px;
+
+      color: var(--ink);
+
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .pipe-top button[aria-selected="true"] {
+      background: var(--accent);
+      color: var(--on-accent);
+    }
+
+    .pipe-top button[aria-selected="true"] b {
+      color: var(--on-accent);
+    }
+
+    .pipe-body {
+      display: grid;
+      gap: 18px;
+
+      padding: 24px 24px 26px;
+    }
+
+    .pipe-body h3 {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .pipe-body p {
+      max-width: 40em;
+      color: var(--muted);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 6px 12px;
+
+      border: 1.5px solid var(--ink);
+      background: var(--bg);
+
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+
+    .chip em {
+      color: var(--muted);
+      font-style: normal;
+    }
+
+    .chip[data-state="Approved"],
+    .chip[data-state="Live"] {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    .chip[data-state="Approved"] em,
+    .chip[data-state="Live"] em {
+      color: var(--bg);
+      opacity: 0.8;
+    }
+
+    .vis {
+      padding: 10px 14px;
+
+      border: 1.5px dashed var(--ink);
+
+      font-size: 14.5px;
+    }
+
+    /* Chat */
+
+    .chatbox {
+      border: 2px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .chat-log {
+      display: grid;
+      align-content: start;
+      gap: 12px;
+
+      min-height: 220px;
+      padding: 18px;
+    }
+
+    .msg {
+      min-width: 0;
+      max-width: min(520px, 92%);
+      padding: 10px 14px;
+
+      border: 1.5px solid var(--ink);
+
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .msg small {
+      display: block;
+      margin-bottom: 3px;
+
+      color: var(--muted);
+
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .msg.a {
+      justify-self: start;
+      background: var(--bg);
+    }
+
+    .msg.b {
+      justify-self: end;
+      background: var(--accent);
+      color: var(--on-accent);
+    }
+
+    .msg.b small {
+      color: var(--on-accent);
+      opacity: 0.75;
+    }
+
+    .msg .orig {
+      display: block;
+      margin-top: 6px;
+      padding-top: 6px;
+
+      border-top: 1px dashed currentColor;
+
+      font-size: 14px;
+      opacity: 0.75;
+    }
+
+    .chat-pick {
+      display: grid;
+      gap: 16px;
+
+      padding: 16px 18px 18px;
+      border-top: 2px solid var(--ink);
+    }
+
+    .pick-group {
+      display: grid;
+      gap: 8px;
+    }
+
+    .pick-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+.video-banner {
+  position: relative;
+  width: 68%;             /* video kleiner maken */
+  height: 320px;          /* video minder hoog maken */
+  margin-left: 0;      /* volledige video naar rechts */
+  margin-right: auto;
+  margin-bottom: 64px;
+
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  background: #000;
+  isolation: isolate;
+}
+
+.video-banner video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.55);
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+
+  padding: 28px;
+  color: #fff;
+  text-align: left;
+}
+
+.video-overlay h2 {
+  max-width: 520px;
+  color: #fff;
+  font-size: clamp(28px, 3.5vw, 46px);
+  margin-bottom: 12px;
+}
+
+.video-overlay p {
+  max-width: 500px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 16px;
+  line-height: 1.5;
+}
     .pick-row button {
-      font-family: var(--font-body); font-size: 14.5px; padding: 8px 12px; border: 1.5px solid var(--ink);
-      background: transparent; color: var(--ink); cursor: pointer; border-radius: 2px; text-align: left;
-      transition: transform 140ms ease, box-shadow 140ms ease, background-color 140ms ease, color 140ms ease;
-    }
-    .pick-row button:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--ink); background: var(--accent); color: var(--on-accent); }
-    .pick-row button:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--ink); }
+      padding: 8px 12px;
 
-    /* Audiences */
-    .who { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
-    .who .card h3 { font-size: 23px; }
-    .who ul { margin: 4px 0 0; padding-left: 18px; color: var(--muted); font-size: 16px; display: grid; gap: 6px; }
-    .sit { display: grid; gap: 0; border: 2px solid var(--ink); background: var(--surface); }
-    .sit > div { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 8px 28px; padding: 22px 24px; border-top: 2px solid var(--ink); }
-    .sit > div:first-child { border-top: 0; }
-    .sit h3 { font-size: 20px; font-weight: 800; }
-    .sit p { color: var(--muted); }
+      border: 1.5px solid var(--ink);
+      border-radius: 2px;
+
+      background: transparent;
+      color: var(--ink);
+
+      font-size: 14.5px;
+      text-align: left;
+
+      cursor: pointer;
+
+      transition:
+        transform 140ms ease,
+        box-shadow 140ms ease,
+        background-color 140ms ease,
+        color 140ms ease;
+    }
+
+    .pick-row button:hover {
+      background: var(--accent);
+      color: var(--on-accent);
+
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    /* Doelgroepen */
+
+    .who {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    .who .card h3 {
+      font-size: 23px;
+    }
+
+    .who ul {
+      display: grid;
+      gap: 6px;
+
+      margin: 4px 0 0;
+      padding-left: 18px;
+
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .sit {
+      display: grid;
+
+      border: 2px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .sit > div {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+
+      gap: 8px 28px;
+      padding: 22px 24px;
+
+      border-top: 2px solid var(--ink);
+    }
+
+    .sit > div:first-child {
+      border-top: 0;
+    }
+
+    .sit h3 {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .sit p {
+      color: var(--muted);
+    }
 
     /* Team */
-    .team-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
-    .team-card {
-      min-width: 0; border: 2px solid var(--ink); background: var(--surface);
-      box-shadow: 5px 5px 0 var(--ink); overflow: hidden;
-      transition: transform 180ms ease, box-shadow 180ms ease;
-    }
-    .team-card:hover { transform: translate(-5px, -5px); box-shadow: 10px 10px 0 var(--ink); }
-    .team-photo { position: relative; width: 100%; aspect-ratio: 4 / 3; background: var(--line); border-bottom: 2px solid var(--ink); overflow: hidden; }
-    .team-photo::after { content: ""; position: absolute; inset: auto 0 0; height: 12px; background: repeating-linear-gradient(-45deg, var(--accent) 0 10px, var(--ink) 10px 20px); }
-    .team-photo img { display: block; width: 100%; height: 100%; object-fit: cover; filter: grayscale(15%); transition: transform 300ms ease, filter 300ms ease; }
-    .team-card:hover .team-photo img { transform: scale(1.04); filter: grayscale(0%); }
-    .team-info { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 24px; }
-    .team-info h3 { font-size: 27px; font-weight: 850; }
-    .team-info p { color: var(--muted); min-height: 1.5em; }
-    .linkedin-btn {
-      display: inline-flex; align-items: center; justify-content: space-between; gap: 18px;
-      margin-top: 8px; padding: 10px 14px; border: 2px solid var(--ink); background: var(--accent); color: var(--on-accent);
-      font-family: var(--font-mono); font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none;
-      box-shadow: 3px 3px 0 var(--ink); transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease, color 150ms ease;
-    }
-    .linkedin-btn:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--ink); background: var(--ink); color: var(--bg); }
-    .linkedin-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--ink); }
-    .linkedin-btn span { font-size: 17px; line-height: 1; transition: transform 150ms ease; }
-    .linkedin-btn:hover span { transform: translate(2px, -2px); }
 
-    /* Contact & About */
-    .contact { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px 48px; align-items: start; }
-    form { display: grid; gap: 16px; border: 2px solid var(--ink); background: var(--surface); padding: 26px 24px 28px; }
-    .field { display: grid; gap: 6px; min-width: 0; }
-    label { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-    input, select, textarea { font-family: var(--font-body); font-size: 16px; color: var(--ink); background: var(--bg); border: 2px solid var(--ink); border-radius: 2px; padding: 11px 12px; width: 100%; min-width: 0; }
-    textarea { min-height: 130px; resize: vertical; }
-    .err { color: var(--ink); font-size: 14.5px; font-weight: 600; background: var(--accent); padding: 8px 12px; border: 1.5px solid var(--ink); }
-    .out { display: grid; gap: 12px; border: 2px solid var(--ink); background: var(--bg); padding: 16px; margin-top: 4px; }
-    .out pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--font-mono); font-size: 13.5px; line-height: 1.5; }
-    .facts { border: 2px solid var(--ink); background: var(--surface); font-family: var(--font-mono); font-size: 14px; }
-    .facts div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 16px; border-top: 1px solid var(--line); }
-    .facts div:first-child { border-top: 0; }
-    .facts span:first-child { color: var(--muted); }
-    .facts span:last-child { text-align: right; }
-    .about p { color: var(--muted); font-size: 17.5px; margin-top: 14px; max-width: 34em; }
-    .about h2 { font-size: 30px; font-weight: 850; font-stretch: 108%; }
+    /* Team cards */
+
+.team-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.team-row {
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+
+  width: 100%;
+}
+
+.team-card {
+  position: relative;
+
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 320px;
+
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+
+  background: var(--surface);
+  color: var(--ink);
+
+  box-shadow: 5px 5px 0 var(--ink);
+  overflow: hidden;
+  transform: translateY(0);
+
+  transition:
+    flex 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 300ms ease,
+    background-color 300ms ease,
+    opacity 300ms ease;
+}
+
+/* Geselecteerde kaart komt naar voren */
+
+.team-card:hover,
+.team-card:focus-within {
+  flex: 1.7 1 0;
+
+  background: var(--accent);
+  color: var(--on-accent);
+
+  transform: translateY(-14px);
+  box-shadow: 12px 18px 0 var(--ink);
+  z-index: 3;
+}
+
+/* Andere kaarten schuiven opzij */
+
+.team-row:has(.team-card:hover) .team-card:not(:hover) {
+  flex: 0.7 1 0;
+  opacity: 0.7;
+}
+
+.team-row:has(.team-card:focus-within) .team-card:not(:focus-within) {
+  flex: 0.7 1 0;
+  opacity: 0.7;
+}
+
+/* Groot nummer op de achtergrond */
+
+.team-number {
+  position: absolute;
+  right: -10px;
+  bottom: -35px;
+
+  color: transparent;
+  opacity: 0.14;
+
+  -webkit-text-stroke: 2px var(--ink);
+
+  font-family: var(--font-display);
+  font-size: 150px;
+  font-weight: 900;
+  line-height: 1;
+
+  pointer-events: none;
+
+  transition:
+    opacity 300ms ease,
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.team-card:hover .team-number,
+.team-card:focus-within .team-number {
+  opacity: 0.3;
+  transform: translate(-12px, -12px) scale(1.08);
+}
+
+/* Inhoud van teamkaart */
+
+.team-info {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 14px;
+  padding: 28px 24px;
+}
+
+.team-info .eyebrow {
+  display: inline-block;
+  padding: 5px 9px;
+
+  border: 1.5px solid var(--ink);
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.team-info h3 {
+  max-width: 100%;
+
+  font-size: clamp(25px, 2.8vw, 36px);
+  font-weight: 900;
+  line-height: 1;
+  overflow-wrap: anywhere;
+
+  transition: font-size 300ms ease;
+}
+
+.team-card:hover .team-info h3,
+.team-card:focus-within .team-info h3 {
+  font-size: clamp(29px, 3.2vw, 43px);
+}
+
+.team-info p {
+  max-width: 400px;
+  margin-bottom: 12px;
+
+  color: var(--muted);
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+
+.team-card:hover .team-info p,
+.team-card:focus-within .team-info p {
+  color: var(--on-accent);
+}
+
+/* LinkedIn-knop */
+
+.linkedin-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+
+  margin-top: auto;
+  padding: 9px 12px;
+
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+
+  background: var(--accent);
+  color: var(--on-accent);
+
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  box-shadow: 3px 3px 0 var(--ink);
+
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.team-card:hover .linkedin-btn,
+.team-card:focus-within .linkedin-btn {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.linkedin-btn:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.linkedin-btn span {
+  font-size: 16px;
+  line-height: 1;
+}
+    /* Alleen de coding-GIF van Shady */
+
+    .team-photo.transparent {
+      background: transparent;
+    }
+
+    .team-photo.transparent img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+      object-position: center;
+
+      filter: none;
+    }
+
+    .team-info {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      align-items: flex-start;
+
+      gap: 9px;
+      padding: 18px;
+    }
+
+    .team-info h3 {
+      font-size: 22px;
+      font-weight: 850;
+      line-height: 1.1;
+    }
+
+    .team-info p {
+      min-height: 1.5em;
+
+      color: var(--muted);
+
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .linkedin-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 14px;
+      margin-top: auto;
+      padding: 8px 11px;
+
+      border: 1.5px solid var(--ink);
+      border-radius: 2px;
+
+      background: var(--accent);
+      color: var(--on-accent);
+
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+
+      box-shadow: 2px 2px 0 var(--ink);
+      transform: translate(0, 0);
+
+      transition:
+        transform 150ms ease,
+        box-shadow 150ms ease,
+        background-color 150ms ease,
+        color 150ms ease;
+    }
+
+    .linkedin-btn:hover {
+      background: var(--ink);
+      color: var(--bg);
+
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+
+    .linkedin-btn:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    .linkedin-btn span {
+      font-size: 15px;
+      line-height: 1;
+    }
+
+    /* Contact */
+
+    .contact {
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+
+      align-items: start;
+      gap: 32px 48px;
+    }
+
+    form {
+      display: grid;
+      gap: 16px;
+
+      padding: 26px 24px 28px;
+
+      border: 2px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    label {
+      color: var(--muted);
+
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+.machine-head {
+  display: block;
+}
+
+.machine-head h2 {
+  margin-bottom: 14px;
+}
+
+.machine-head p {
+  max-width: 600px;
+}
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-width: 0;
+      padding: 11px 12px;
+
+      border: 2px solid var(--ink);
+      border-radius: 2px;
+
+      background: var(--bg);
+      color: var(--ink);
+
+      font-size: 16px;
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .err {
+      padding: 8px 12px;
+
+      border: 1.5px solid var(--ink);
+      background: var(--accent);
+      color: var(--ink);
+
+      font-size: 14.5px;
+      font-weight: 600;
+    }
+
+    .facts {
+      margin-top: 24px;
+
+      border: 2px solid var(--ink);
+      background: var(--surface);
+
+      font-family: var(--font-mono);
+      font-size: 14px;
+    }
+
+    .facts div {
+      display: flex;
+      justify-content: space-between;
+
+      gap: 16px;
+      padding: 12px 16px;
+
+      border-top: 1px solid var(--line);
+    }
+
+    .facts div:first-child {
+      border-top: 0;
+    }
+
+    .facts span:first-child {
+      color: var(--muted);
+    }
+
+    .facts span:last-child {
+      text-align: right;
+    }
+
+    .about h2 {
+      font-size: 30px;
+      font-weight: 850;
+    }
+
+    .about p {
+      max-width: 34em;
+      margin-top: 14px;
+
+      color: var(--muted);
+      font-size: 17.5px;
+    }
 
     /* Footer */
-    footer { border-top: 2px solid var(--ink); padding-block: 28px 44px; margin-top: 24px; }
-    .fstripe { height: 14px; background: repeating-linear-gradient(-45deg, var(--accent) 0 12px, var(--ink) 12px 24px); margin-bottom: 24px; }
-    .frow { display: flex; flex-wrap: wrap; gap: 10px 32px; justify-content: space-between; color: var(--muted); font-size: 14.5px; }
-    .frow nav { display: flex; flex-wrap: wrap; gap: 6px 18px; }
-    .frow a { text-decoration: none; }
-    .frow a:hover { color: var(--ink); text-decoration: underline; }
 
-    /* Responsive */
-    @media (max-width: 900px) {
-      .hero, .sec-head, .contact { grid-template-columns: minmax(0, 1fr); }
-      .hero { gap: 40px; padding-block: 24px 52px; }
-      .sec-head { gap: 14px; margin-bottom: 30px; }
-      .problem, .who, .flow, .grid2, .grid3, .team-grid { grid-template-columns: minmax(0, 1fr); }
-      .problem > div { border-left: 0; border-top: 2px solid var(--ink); }
-      .problem > div:first-child { border-top: 0; }
-      .sit > div { grid-template-columns: minmax(0, 1fr); }
-      .pipe-top { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .pipe-top button:nth-child(3) { border-left: 0; }
-      .pipe-top button:nth-child(n+3) { border-top: 2px solid var(--ink); }
-      section { padding-block: 48px; }
+    footer {
+      margin-top: 24px;
+      padding-block: 28px 44px;
+
+      border-top: 2px solid var(--ink);
     }
 
-    @media (prefers-reduced-motion: no-preference) {
-      .steps li { animation: rise 0.35s ease both; }
-      .steps li:nth-child(2) { animation-delay: 0.04s; }
-      .steps li:nth-child(3) { animation-delay: 0.08s; }
-      .steps li:nth-child(4) { animation-delay: 0.12s; }
-      .steps li:nth-child(5) { animation-delay: 0.16s; }
-      .msg.new { animation: rise 0.3s ease both; }
-      @keyframes rise { from { opacity: 0.2; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    .fstripe {
+      height: 14px;
+      margin-bottom: 24px;
+
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--accent) 0 12px,
+        var(--ink) 12px 24px
+      );
+    }
+
+    .frow {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      gap: 10px 32px;
+
+      color: var(--muted);
+      font-size: 14.5px;
+    }
+
+    .frow nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 18px;
+    }
+
+    .frow a {
+      text-decoration: none;
+    }
+
+    .frow a:hover {
+      color: var(--ink);
+      text-decoration: underline;
+    }
+
+    /* Tablet */
+
+    @media (max-width: 900px) {
+      .hero,
+      .sec-head,
+      .contact {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero {
+        gap: 40px;
+        padding-block: 24px 52px;
+      }
+
+      .sec-head {
+        gap: 14px;
+        margin-bottom: 30px;
+      }
+
+      .problem,
+      .who,
+      .flow,
+      .grid2,
+      .grid3 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .team-grid {
+        grid-template-columns: repeat(2, minmax(220px, 280px));
+      }
+
+      .team-photo {
+        height: 180px;
+      }
+
+      .problem > div {
+        border-top: 2px solid var(--ink);
+        border-left: 0;
+      }
+
+      .problem > div:first-child {
+        border-top: 0;
+      }
+
+      .sit > div {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .pipe-top {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .pipe-top button:nth-child(3) {
+        border-left: 0;
+      }
+
+      .pipe-top button:nth-child(n + 3) {
+        border-top: 2px solid var(--ink);
+      }
+
+      section {
+        padding-block: 48px;
+      }
+    }
+
+    /* Mobiel */
+
+    @media (max-width: 600px) {
+      .team-grid {
+        grid-template-columns: minmax(0, 300px);
+        gap: 22px;
+      }
+
+      .team-photo {
+        height: 190px;
+      }
+
+      .team-info {
+        padding: 17px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
     }
   </style>
 </head>
+
 <body>
+  <div class="wrap">
 
-<div class="wrap">
-  <header class="bar">
-    <a class="mark" href="#home"><i aria-hidden="true"></i>LockTalk</a>
-    <nav class="nav" aria-label="Pages" id="mainNav">
-      <a href="#home" data-page="home">Home</a>
-      <a href="#how" data-page="how">How it works</a>
-      <a href="#features" data-page="features">What it does</a>
-      <a href="#who" data-page="who">Who it is for</a>
-      <a href="#team" data-page="team">About Us</a>
-      <a href="#contact" data-page="contact">Contact</a>
-    </nav>
-  </header>
+    <header class="bar">
+      <a class="mark" href="#home">
+        <i aria-hidden="true"></i>
+        LockTalk
+      </a>
 
-  <main>
-    <!-- PAGE 1: HOME -->
-    <div class="page" id="page-home">
-      <div class="hero">
-        <div>
-          <div class="eyebrow">Lock-out / Tag-out instructions, by NFC</div>
-          <h1>The shutdown steps, <mark>in the language you read.</mark></h1>
-          <p class="lede">LockTalk puts machine-specific Lock-out/Tag-out instructions on an NFC tag fixed to the machine. A technician taps a phone to the tag and reads the approved procedure in their own language. If something is unclear, a live two-way translation connects them with the person on site.</p>
-          <div class="hero-actions">
-            <a class="btn primary" href="#how">See how it works</a>
-            <a class="btn ghost" href="#contact">Talk to us</a>
-          </div>
-        </div>
-        <aside class="tag" aria-label="Example of a LockTalk instruction tag">
-          <div class="tag-stripe" aria-hidden="true"></div>
-          <div class="tag-head">
-            <span class="eyebrow">Tap result</span>
-            <span class="tag-id">MACHINE M-114 · EXAMPLE</span>
-          </div>
-          <div class="tag-title" id="tagTitle">Shutdown procedure</div>
-          <div class="langs" role="group" aria-label="Choose language" id="langs"></div>
-          <ol class="steps" id="steps" aria-live="polite"></ol>
-          <div class="tag-foot">Example text. On a real machine, the procedure comes from the machine owner and is approved before it is translated.</div>
-        </aside>
-      </div>
+      <nav class="nav" aria-label="Pages" id="mainNav">
+        <a href="#home" data-page="home">Home</a>
+        <a href="#how" data-page="how">How it works</a>
+        <a href="#features" data-page="features">What it does</a>
+        <a href="#who" data-page="who">Who it is for</a>
+        <a href="#team" data-page="team">About us</a>
+        <a href="#contact" data-page="contact">Contact</a>
+      </nav>
+    </header>
 
-      <section>
-        <div class="sec-head">
-          <h2>Safety steps fail at the language gap.</h2>
-          <p>Manufacturing in the Brainport region runs on people from many countries: contractors, agency staff, service engineers. Lockout/tagout is the step before anyone opens a machine, and it has to be understood without guessing.</p>
-        </div>
-        <div class="problem">
+    <main>
+
+      <!-- HOME -->
+
+      <div class="page" id="page-home">
+
+        <div class="hero">
           <div>
-            <h3>One language on the machine</h3>
-            <p>Instructions are posted in the plant's language. A visiting technician reads a sign they only half understand.</p>
-          </div>
-          <div>
-            <h3>Paper goes out of date</h3>
-            <p>Binders and laminated sheets drift away from the machine they describe. Nobody is sure which version is current.</p>
-          </div>
-          <div>
-            <h3>Machine translation alone is risky</h3>
-            <p>A free translation tool can turn a shutdown step into something else. Safety text needs a reviewed wording, not a best guess.</p>
-          </div>
-        </div>
-      </section>
+            <div class="eyebrow">
+              Lock-out / Tag-out instructions, by NFC
+            </div>
 
-      <section>
-        <div class="sec-head">
-          <h2>Where to go next.</h2>
-          <p>Each page answers one question.</p>
-        </div>
-        <div class="grid3">
-          <a class="card teaser" href="#how"><span class="eyebrow">Page 2</span><h3>How it works</h3><p>What happens at the machine, and what the machine owner does behind the tag.</p><span class="go">Open →</span></a>
-          <a class="card teaser" href="#features"><span class="eyebrow">Page 3</span><h3>What it does</h3><p>Approved translation, version control, and a live two-way translation you can try.</p><span class="go">Open →</span></a>
-          <a class="card teaser" href="#who"><span class="eyebrow">Page 4</span><h3>Who it is for</h3><p>Safety leads, plant managers and international technicians, and the moments each one needs it.</p><span class="go">Open →</span></a>
-        </div>
-      </section>
-    </div>
+            <h1>
+              The shutdown steps,
+              <mark>in the language you read.</mark>
+            </h1>
 
-    <!-- PAGE 2: HOW IT WORKS -->
-    <div class="page" id="page-how" hidden>
-      <div class="pagehead">
-        <div class="eyebrow">How it works</div>
-        <h1>Tap, read, act. Approve once, update anytime.</h1>
-        <p>Two sides of one tag: what the technician does at the machine, and what the machine owner does before the tag goes live.</p>
+            <p class="lede">
+              LockTalk puts machine-specific Lock-out/Tag-out instructions
+              on an NFC tag fixed to the machine. A technician taps a phone
+              to the tag and reads the approved procedure in their own
+              language.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn primary" href="#how">
+                See how it works
+              </a>
+
+              <a class="btn ghost" href="#contact">
+                Talk to us
+              </a>
+            </div>
+          </div>
+
+          <aside
+            class="tag"
+            aria-label="Example of a LockTalk instruction tag"
+          >
+            <div class="tag-stripe" aria-hidden="true"></div>
+
+            <div class="tag-head">
+              <span class="eyebrow">Tap result</span>
+              <span class="tag-id">MACHINE M-114 · EXAMPLE</span>
+            </div>
+
+            <div class="tag-title" id="tagTitle">
+              Shutdown procedure
+            </div>
+
+            <div
+              class="langs"
+              role="group"
+              aria-label="Choose language"
+              id="langs"
+            ></div>
+
+            <ol
+              class="steps"
+              id="steps"
+              aria-live="polite"
+            ></ol>
+
+            <div class="tag-foot">
+              Example text. On a real machine, the procedure comes from
+              the machine owner and is approved before it is translated.
+            </div>
+          </aside>
+        </div>
+
+        <section>
+          <div class="sec-head">
+            <h2>Safety steps fail at the language gap.</h2>
+
+            <p>
+              Manufacturing in the Brainport region runs on people from
+              many countries. Lockout/tagout has to be understood without
+              guessing.
+            </p>
+          </div>
+
+          <div class="problem">
+            <div>
+              <h3>One language on the machine</h3>
+              <p>
+                A visiting technician may only partly understand the
+                instructions.
+              </p>
+            </div>
+
+            <div>
+              <h3>Paper goes out of date</h3>
+              <p>
+                Binders and laminated sheets can drift away from the
+                machine they describe.
+              </p>
+            </div>
+
+            <div>
+              <h3>Translation must be reviewed</h3>
+              <p>
+                Safety text needs approved wording, not an unchecked
+                translation.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="sec-head">
+            <h2>Where to go next.</h2>
+            <p>Each page answers one question.</p>
+          </div>
+
+          <div class="grid3">
+            <a class="card teaser" href="#how">
+              <span class="eyebrow">Page 2</span>
+              <h3>How it works</h3>
+              <p>See what happens at the machine and behind the tag.</p>
+              <span class="go">Open →</span>
+            </a>
+
+            <a class="card teaser" href="#features">
+              <span class="eyebrow">Page 3</span>
+              <h3>What it does</h3>
+              <p>Approved translation and two-way communication.</p>
+              <span class="go">Open →</span>
+            </a>
+
+            <a class="card teaser" href="#who">
+              <span class="eyebrow">Page 4</span>
+              <h3>Who it is for</h3>
+              <p>Safety leads, managers and international technicians.</p>
+              <span class="go">Open →</span>
+            </a>
+          </div>
+        </section>
       </div>
 
-      <section>
-        <div class="sec-head">
-          <h2>At the machine.</h2>
-          <p>The tag sits where the work starts. The instructions are always the ones for that exact machine.</p>
-        </div>
-        <ol class="flow">
-          <li>
-            <div class="n"></div>
-            <div class="glyph" aria-hidden="true"><svg viewBox="0 0 96 96"><rect class="f" x="16" y="30" width="64" height="40" rx="4"/><path class="s" d="M30 46h14M30 54h26"/><circle class="s" cx="68" cy="46" r="4"/></svg></div>
-            <h3>Tag on the machine</h3>
-            <p>An NFC tag is fixed to the machine and linked to its lockout/tagout procedure.</p>
-          </li>
-          <li>
-            <div class="n"></div>
-            <div class="glyph" aria-hidden="true"><svg viewBox="0 0 96 96"><rect class="s" x="30" y="14" width="36" height="68" rx="7"/><path class="s" d="M44 74h8"/><path class="s" d="M16 38c-5 6-5 14 0 20M80 38c5 6 5 14 0 20M8 31c-9 10-9 24 0 34M88 31c9 10 9 24 0 34"/></svg></div>
-            <h3>Tap your phone</h3>
-            <p>No searching through folders. The phone opens the procedure for the machine in front of you.</p>
-          </li>
-          <li>
-            <div class="n"></div>
-            <div class="glyph" aria-hidden="true"><svg viewBox="0 0 96 96"><path class="f" d="M18 22h44a6 6 0 0 1 6 6v22a6 6 0 0 1-6 6H40L28 66V56H18a6 6 0 0 1-6-6V28a6 6 0 0 1 6-6z"/><path class="s" d="M34 38h24M34 46h14"/></svg></div>
-            <h3>Read it in your language</h3>
-            <p>Each step appears in the technician's own language, in the same order as the original.</p>
-          </li>
-        </ol>
-      </section>
+      <!-- HOW IT WORKS -->
 
-      <section>
-        <div class="sec-head">
-          <h2>Behind the tag.</h2>
-          <p>A procedure only reaches technicians after the owner has approved every language. Select a stage to see what is visible and to whom.</p>
-        </div>
-        <div class="pipe">
-          <div class="pipe-top" role="tablist" aria-label="Procedure stages" id="pipeTabs"></div>
-          <div class="pipe-body" id="pipeBody" role="tabpanel" aria-live="polite"></div>
-        </div>
-      </section>
+      <div class="page" id="page-how" hidden>
+        <div class="pagehead">
+  <div class="eyebrow">How it works</div>
+  <h1>Tap, read, act. Approve once, update anytime.</h1>
+  <p>Two sides of one tag: what the technician does at the machine, and what the machine owner does before the tag goes live.</p>
+</div>
 
-      <section>
-        <div class="sec-head">
-          <h2>When a procedure changes.</h2>
-          <p>The owner edits the procedure and approves the new wording. The tag on the machine stays the same, and the next tap shows the new version. Nothing is reprinted.</p>
-        </div>
-        <div style="display:flex;flex-wrap:wrap;gap:12px"><a class="btn primary" href="#features">See what it does</a><a class="btn ghost" href="#contact">Talk to us</a></div>
-      </section>
-    </div>
+        <section>
+  <div class="sec-head machine-head">
+    <h2>At the machine.</h2>
 
-    <!-- PAGE 3: FEATURES -->
-    <div class="page" id="page-features" hidden>
-      <div class="pagehead">
-        <div class="eyebrow">What it does</div>
-        <h1>Two ways to make sure it is understood.</h1>
-        <p>One covers the written procedure. The other covers the questions that come up at the machine.</p>
+    <p>
+      The tag is placed where the work starts.
+    </p>
+  </div>
+<div class="video-banner how-video">
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+    poster="banner-placeholder.jpg">
+    <source src="locktalk-banner.mp4" type="video/mp4">
+  </video>
+  
+
+  <div class="video-overlay">
+    <h2>Tap the tag. Read the procedure. Work safely.</h2>
+
+    <p class="video-text">
+      Each machine has its own NFC tag.
+      A technician taps the tag with a phone and immediately receives the correct, 
+      machine-specific Lock-out/Tag-out instructions.
+    </p>
+  </div>
+</div>
+          <ol class="flow">
+            <li>
+              <div class="n"></div>
+              <div class="glyph" aria-hidden="true">
+                <svg viewBox="0 0 96 96">
+                  <rect class="f" x="16" y="30" width="55" height="280" rx="4"></rect>
+                  <path class="s" d="M30 46h14M30 54h26"></path>
+                  <circle class="s" cx="68" cy="46" r="4"></circle>
+                </svg>
+              </div>
+
+              <h3>Tag on the machine</h3>
+              <p>The NFC tag links to the correct procedure.</p>
+            </li>
+
+            <li>
+              <div class="n"></div>
+              <div class="glyph" aria-hidden="true">
+                <svg viewBox="0 0 96 96">
+                  <rect class="s" x="30" y="14" width="36" height="68" rx="7"></rect>
+                  <path class="s" d="M44 74h8"></path>
+                  <path class="s" d="M16 38c-5 6-5 14 0 20M80 38c5 6 5 14 0 20"></path>
+                </svg>
+              </div>
+
+              <h3>Tap your phone</h3>
+              <p>The correct instructions open immediately.</p>
+            </li>
+
+            <li>
+              <div class="n"></div>
+              <div class="glyph" aria-hidden="true">
+                <svg viewBox="0 0 96 96">
+                  <path
+                    class="f"
+                    d="M18 22h44a6 6 0 0 1 6 6v22a6 6 0 0 1-6 6H40L28 66V56H18a6 6 0 0 1-6-6V28a6 6 0 0 1 6-6z"
+                  ></path>
+                  <path class="s" d="M34 38h24M34 46h14"></path>
+                </svg>
+              </div>
+
+              <h3>Read your language</h3>
+              <p>The approved procedure appears in the selected language.</p>
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <div class="sec-head">
+            <h2>Behind the tag.</h2>
+            <p>Select a stage to see the procedure workflow.</p>
+          </div>
+
+          <div class="pipe">
+            <div
+              class="pipe-top"
+              role="tablist"
+              aria-label="Procedure stages"
+              id="pipeTabs"
+            ></div>
+
+            <div
+              class="pipe-body"
+              id="pipeBody"
+              role="tabpanel"
+              aria-live="polite"
+            ></div>
+          </div>
+        </section>
       </div>
 
-      <section>
-        <div class="grid2">
-          <div class="card">
-            <span class="rule">APPROVED TRANSLATION</span>
-            <h3>Reviewed wording for every step</h3>
-            <p>AI produces the translation, and the machine owner approves it before it goes live. Technicians always see the approved text, never an unchecked one.</p>
-            <p>The translated procedure keeps the order and numbering of the original, so a supervisor and a technician can point at "step 4" and mean the same thing.</p>
-          </div>
-          <div class="card">
-            <span class="rule">LIVE TWO-WAY TRANSLATION</span>
-            <h3>Ask a question, get an answer</h3>
-            <p>When a step is unclear, the technician and the supervisor talk to each other, each in their own language. The original wording stays visible next to the translation.</p>
-            <p>The demo below uses preset phrases to show the idea.</p>
-          </div>
-        </div>
-      </section>
+      <!-- FEATURES -->
 
-      <section>
-        <div class="sec-head">
-          <h2>Try the conversation.</h2>
-          <p>A Dutch-speaking supervisor and a Polish-speaking technician. Choose a phrase for either side and see what the other person reads.</p>
+      <div class="page" id="page-features" hidden>
+        <div class="pagehead">
+          <div class="eyebrow">What it does</div>
+          <h1>Two ways to make sure it is understood.</h1>
+          <p>Approved written procedures and two-way communication.</p>
         </div>
-        <div class="chatbox">
-          <div class="chat-log" id="chatLog" aria-live="polite"></div>
-          <div class="chat-pick">
-            <div class="pick-group"><span class="eyebrow">Supervisor says (Nederlands)</span><div class="pick-row" id="pickSup"></div></div>
-            <div class="pick-group"><span class="eyebrow">Technician says (Polski)</span><div class="pick-row" id="pickTech"></div></div>
-            <div><button type="button" class="btn small ghost" id="chatClear">Clear conversation</button></div>
+
+        <section>
+          <div class="grid2">
+            <div class="card">
+              <span class="rule">APPROVED TRANSLATION</span>
+              <h3>Reviewed wording</h3>
+              <p>
+                AI drafts the translation and the machine owner approves
+                it before publication.
+              </p>
+            </div>
+
+            <div class="card">
+              <span class="rule">TWO-WAY TRANSLATION</span>
+              <h3>Ask a question</h3>
+              <p>
+                A supervisor and technician can communicate in their own
+                languages.
+              </p>
+            </div>
           </div>
-        </div>
-        <p style="margin-top:14px;color:var(--muted);font-size:14.5px">Demo with preset phrases. It shows the layout and the idea, not live machine translation.</p>
-      </section>
+        </section>
 
-      <section>
-        <div class="sec-head">
-          <h2>What LockTalk is not.</h2>
-          <p>It does not replace training, permits or your own safety rules. It shows the procedure your organisation has already approved, in the language the reader needs.</p>
-        </div>
-        <div style="display:flex;flex-wrap:wrap;gap:12px"><a class="btn primary" href="#who">Who it is for</a><a class="btn ghost" href="#how">How it works</a></div>
-      </section>
-    </div>
+        <section>
+          <div class="sec-head">
+            <h2>Try the conversation.</h2>
+            <p>Choose a phrase for either side.</p>
+          </div>
 
-    <!-- PAGE 4: WHO -->
-    <div class="page" id="page-who" hidden>
-      <div class="pagehead">
-        <div class="eyebrow">Who it is for</div>
-        <h1>Built for manufacturing floors with mixed crews.</h1>
-        <p>LockTalk is for the people responsible for safe shutdowns and the people who carry them out.</p>
+          <div class="chatbox">
+            <div
+              class="chat-log"
+              id="chatLog"
+              aria-live="polite"
+            ></div>
+
+            <div class="chat-pick">
+              <div class="pick-group">
+                <span class="eyebrow">
+                  Supervisor says, Nederlands
+                </span>
+
+                <div class="pick-row" id="pickSup"></div>
+              </div>
+
+              <div class="pick-group">
+                <span class="eyebrow">
+                  Technician says, Polski
+                </span>
+
+                <div class="pick-row" id="pickTech"></div>
+              </div>
+
+              <div>
+                <button
+                  type="button"
+                  class="btn small ghost"
+                  id="chatClear"
+                >
+                  Clear conversation
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
 
-      <section>
-        <div class="who">
-          <div class="card">
-            <span class="eyebrow">Owns the procedure</span>
-            <h3>Safety and maintenance leads</h3>
-            <p>Keep one current procedure per machine and approve the wording once.</p>
-            <ul><li>One procedure per machine, one place to update it</li><li>Approve each language before it is visible</li><li>Know what every visitor sees</li></ul>
-          </div>
-          <div class="card">
-            <span class="rule">RUNS THE FLOOR</span>
-            <h3>Plant and production managers</h3>
-            <p>Bring in contractors and agency staff without a briefing in three languages before each job.</p>
-            <ul><li>Faster, clearer start of external jobs</li><li>Fewer questions relayed through colleagues</li><li>A consistent way to handle every machine</li></ul>
-          </div>
-          <div class="card">
-            <span class="eyebrow">Does the work</span>
-            <h3>International technicians</h3>
-            <p>Understand the procedure on the first read, and have a way to ask when you are not sure.</p>
-            <ul><li>Steps in your own language</li><li>Same order and numbering as the original</li><li>Live help when a step is unclear</li></ul>
-          </div>
-        </div>
-      </section>
+      <!-- WHO -->
 
-      <section>
-        <div class="sec-head">
-          <h2>Moments it is made for.</h2>
-          <p>Three everyday situations where a poster in one language is not enough.</p>
+      <div class="page" id="page-who" hidden>
+        <div class="pagehead">
+          <div class="eyebrow">Who it is for</div>
+          <h1>Built for manufacturing floors with mixed crews.</h1>
+          <p>
+            LockTalk is for the people responsible for safe shutdowns and
+            the people who carry them out.
+          </p>
         </div>
-        <div class="sit">
-          <div><h3>A new contractor on Monday</h3><p>The crew arrives, the machine is in the plant's language, and nobody has time for a full walkthrough. The technician taps the tag and reads the steps.</p></div>
-          <div><h3>A service call outside office hours</h3><p>A service engineer from another country needs to isolate a machine. The tag shows the current procedure, and live translation reaches the on-site contact.</p></div>
-          <div><h3>A machine that was modified</h3><p>After a change, the procedure is updated and approved. The next person to tap the tag reads the new steps, not an old printout.</p></div>
-        </div>
-        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:32px"><a class="btn primary" href="#contact">Talk to us</a></div>
-      </section>
-    </div>
 
-<!-- PAGE 5: About Us -->
-    <div class="page" id="page-team" hidden>
-      <div class="pagehead">
-        <div class="eyebrow">About Us</div>
-        <h1>The people behind LockTalk.</h1>
-        <p>Building intuitive safety solutions for multinational manufacturing teams in the Brainport region.</p>
-      </div>
-      <section>
-        <div class="team-grid">
-          <!-- Teamlid 1 -->
-          <div class="team-card">
-            <div class="team-photo"><img src="placeholder.jpg" alt="Teamlid 1"></div>
-            <div class="team-info">
-              <h3>Ayca Akça</h3>
-              <p>Role / Function</p>
-              <a class="linkedin-btn" href="https://www.linkedin.com/in/ayca-akca-517450436/" target="_blank" rel="noopener">LinkedIn <span>↗</span></a>
+        <section>
+          <div class="who">
+            <div class="card">
+              <span class="eyebrow">Owns the procedure</span>
+              <h3>Safety and maintenance leads</h3>
+              <p>Keep one current procedure for each machine.</p>
             </div>
-          </div>
-          <!-- Teamlid 2 -->
-          <div class="team-card">
-            <div class="team-photo"><img src="placeholder.jpg" alt="Teamlid 2"></div>
-            <div class="team-info">
-              <h3>Champoo Ketsoongnern</h3>
-              <p>Role / Function</p>
-              <a class="linkedin-btn" href="https://www.linkedin.com/in/naphatsorn-ketsoongnern-6a6312436/" target="_blank" rel="noopener">LinkedIn <span>↗</span></a>
-            </div>
-          </div>
-          <!-- Teamlid 3 -->
-          <div class="team-card">
-            <div class="team-photo"><img src="placeholder.jpg" alt="Teamlid 3"></div>
-            <div class="team-info">
-              <h3>Daan Reijneveld</h3>
-              <p>Role / Function</p>
-              <a class="linkedin-btn" href="https://www.linkedin.com/in/daan-reyneveld-93054b374/" target="_blank" rel="noopener">LinkedIn <span>↗</span></a>
-            </div>
-          </div>
-          <!-- Teamlid 4 -->
-          <div class="team-card">
-            <div class="team-photo"><img src="placeholder.jpg" alt="Teamlid 4"></div>
-            <div class="team-info">
-              <h3>Luc Broedermans</h3>
-              <p>Role / Function</p>
-              <a class="linkedin-btn" href="https://www.linkedin.com" target="_blank" rel="noopener">LinkedIn <span>↗</span></a>
-            </div>
-          </div>
-          <!-- Teamlid 5 -->
-          <div class="team-card">
-            <div class="team-photo"><img src="placeholder.jpg" alt="Teamlid 5"></div>
-            <div class="team-info">
-              <h3>Raina Al-Mussawi</h3>
-              <p>Role / Function</p>
-              <a class="linkedin-btn" href="https://www.linkedin.com" target="_blank" rel="noopener">LinkedIn <span>↗</span></a>
-            </div>
-          </div>
-          <!-- Teamlid 6 -->
-          <div class="team-card">
-            <div class="team-photo"><img src="placeholder.jpg" alt="Teamlid 6"></div>
-            <div class="team-info">
-              <h3>Shady Ghanam</h3>
-              <p>Role / Website Developer</p>
-              <a class="linkedin-btn" href="https://www.linkedin.com/in/shady-g-324933210/" target="_blank" rel="noopener">LinkedIn <span>↗</span></a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
 
-    <!-- PAGE 6: CONTACT -->
-    <div class="page" id="page-contact" hidden>
-      <div class="pagehead">
-        <div class="eyebrow">Contact</div>
-        <h1>Talk to us about your machines.</h1>
-        <p>Tell us what you run and who works on it. We are shaping the first version with manufacturers in the Brainport region.</p>
+            <div class="card">
+              <span class="rule">RUNS THE FLOOR</span>
+              <h3>Plant and production managers</h3>
+              <p>Give external workers consistent instructions.</p>
+            </div>
+
+            <div class="card">
+              <span class="eyebrow">Does the work</span>
+              <h3>International technicians</h3>
+              <p>Read the procedure in a familiar language.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="sec-head">
+            <h2>Moments it is made for.</h2>
+            <p>Situations where one language is not enough.</p>
+          </div>
+
+          <div class="sit">
+            <div>
+              <h3>A new contractor</h3>
+              <p>The technician taps the tag and reads the current steps.</p>
+            </div>
+
+            <div>
+              <h3>A service call</h3>
+              <p>The engineer receives current machine-specific instructions.</p>
+            </div>
+
+            <div>
+              <h3>A modified machine</h3>
+              <p>The next tap shows the newly approved procedure.</p>
+            </div>
+          </div>
+        </section>
       </div>
 
-      <section>
-        <div class="contact">
-          <div>
+      <!-- ABOUT US -->
+
+      <div class="page" id="page-team" hidden>
+        <div class="pagehead">
+          <div class="eyebrow">About us</div>
+          <h1>The people behind LockTalk.</h1>
+
+          <p>
+            Building intuitive safety solutions for multinational
+            manufacturing teams in the Brainport region.
+          </p>
+        </div>
+
+<section>
+  <div class="sec-head team-head">
+    <h2>Meet the team.</h2>
+
+    <p>
+      Six team members working on the business, technology,
+      communication and development of LockTalk.
+    </p>
+  </div>
+
+          <div class="team-grid">
+
+  <div class="team-row">
+
+    <article class="team-card">
+      <div class="team-number" aria-hidden="true">01</div>
+
+      <div class="team-info">
+        <span class="eyebrow">Team member</span>
+        <h3>Ayca Akça</h3>
+
+        <p>
+          Contributing to the research, development and communication
+          of LockTalk.
+        </p>
+
+        <a
+          class="linkedin-btn"
+          href="https://www.linkedin.com/in/ayca-akca-517450436/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </article>
+
+    <article class="team-card">
+      <div class="team-number" aria-hidden="true">02</div>
+
+      <div class="team-info">
+        <span class="eyebrow">Team member</span>
+        <h3>Champoo Ketsoongnern</h3>
+
+        <p>
+          Supporting the team with communication, research and further
+          development of the LockTalk concept.
+        </p>
+
+        <a
+          class="linkedin-btn"
+          href="https://www.linkedin.com/in/naphatsorn-ketsoongnern-6a6312436/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </article>
+
+    <article class="team-card">
+      <div class="team-number" aria-hidden="true">03</div>
+
+      <div class="team-info">
+        <span class="eyebrow">Team member</span>
+        <h3>Daan Reijneveld</h3>
+
+        <p>
+          Helping turn the team’s ideas into a focused and practical
+          business concept.
+        </p>
+
+        <a
+          class="linkedin-btn"
+          href="https://www.linkedin.com/in/daan-reyneveld-93054b374/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="team-row">
+
+    <article class="team-card">
+      <div class="team-number" aria-hidden="true">04</div>
+
+      <div class="team-info">
+        <span class="eyebrow">Team member</span>
+        <h3>Luc Broedermans</h3>
+
+        <p>
+          Contributing to the business development and value proposition
+          of LockTalk.
+        </p>
+
+        <a
+          class="linkedin-btn"
+          href="https://www.linkedin.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </article>
+
+    <article class="team-card">
+      <div class="team-number" aria-hidden="true">05</div>
+
+      <div class="team-info">
+        <span class="eyebrow">Team member</span>
+        <h3>Raina Al-Mussawi</h3>
+
+        <p>
+          Helping make the LockTalk concept clear, relevant and accessible
+          to its intended users.
+        </p>
+
+        <a
+          class="linkedin-btn"
+          href="https://www.linkedin.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </article>
+
+    <article class="team-card">
+      <div class="team-number" aria-hidden="true">06</div>
+
+      <div class="team-info">
+        <span class="eyebrow">Website Developer</span>
+        <h3>Shady Ghanam</h3>
+
+        <p>
+          Developing the LockTalk website and creating a clear, functional
+          and responsive digital experience.
+        </p>
+
+        <a
+          class="linkedin-btn"
+          href="https://www.linkedin.com/in/shady-g-324933210/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </article>
+
+  </div>
+
+</div>
+
+      <!-- CONTACT -->
+
+      <div class="page" id="page-contact" hidden>
+        <div class="pagehead">
+          <div class="eyebrow">Contact</div>
+          <h1>Talk to us about your machines.</h1>
+          <p>Tell us what you run and who works on it.</p>
+        </div>
+
+        <section>
+          <div class="contact">
             <form id="contactForm" novalidate>
-              <div class="field"><label for="cName">Your name</label><input id="cName" name="name" type="text" autocomplete="name"></div>
-              <div class="field"><label for="cCompany">Company</label><input id="cCompany" name="company" type="text" autocomplete="organization"></div>
-              <div class="field"><label for="cRole">Your role</label>
+              <div class="field">
+                <label for="cName">Your name</label>
+                <input
+                  id="cName"
+                  name="name"
+                  type="text"
+                  autocomplete="name"
+                >
+              </div>
+
+              <div class="field">
+                <label for="cCompany">Company</label>
+                <input
+                  id="cCompany"
+                  name="company"
+                  type="text"
+                  autocomplete="organization"
+                >
+              </div>
+
+              <div class="field">
+                <label for="cRole">Your role</label>
+
                 <select id="cRole" name="role">
                   <option>Safety or maintenance lead</option>
                   <option>Plant or production manager</option>
@@ -591,270 +2275,542 @@
                   <option>Other</option>
                 </select>
               </div>
-              <div class="field"><label for="cMsg">Message</label><textarea id="cMsg" name="message" placeholder="Which machines, how many languages on your floor, what you do today for lockout/tagout instructions."></textarea></div>
-              <div id="cErr" class="err" role="alert" hidden></div>
-              <div><button type="submit" class="btn primary" id="cSubmit">Send message</button></div>
+
+              <div class="field">
+                <label for="cMsg">Message</label>
+
+                <textarea
+                  id="cMsg"
+                  name="message"
+                  placeholder="Which machines, how many languages on your floor, and what you currently use for lockout/tagout instructions."
+                ></textarea>
+              </div>
+
+              <div
+                id="cErr"
+                class="err"
+                role="alert"
+                hidden
+              ></div>
+
+              <div>
+                <button
+                  type="submit"
+                  class="btn primary"
+                  id="cSubmit"
+                >
+                  Send message
+                </button>
+              </div>
             </form>
-          </div>
-          <div class="about">
-            <h2>About LockTalk</h2>
-            <p>LockTalk is an early-stage venture in the Brainport region. The idea is simple: the right shutdown steps, at the right machine, in the language of the person standing there.</p>
-            <div class="facts" style="margin-top:24px" aria-label="Quick facts">
-              <div><span>Focus</span><span>Lock-out / Tag-out</span></div>
-              <div><span>Delivery</span><span>NFC tag + Software</span></div>
-              <div><span>Translation</span><span>AI, Approved by owner</span></div>
-              <div><span>Region</span><span>Brainport, NL</span></div>
-              <div><span>Stage</span><span>Early-stage</span></div>
+
+            <div class="about">
+              <h2>About LockTalk</h2>
+
+              <p>
+                LockTalk is an early-stage venture in the Brainport region.
+                The idea is simple: the right shutdown steps, at the right
+                machine, in the language of the person standing there.
+              </p>
+
+              <div class="facts" aria-label="Quick facts">
+                <div>
+                  <span>Focus</span>
+                  <span>Lock-out / Tag-out</span>
+                </div>
+
+                <div>
+                  <span>Delivery</span>
+                  <span>NFC tag + Software</span>
+                </div>
+
+                <div>
+                  <span>Translation</span>
+                  <span>AI, approved by owner</span>
+                </div>
+
+                <div>
+                  <span>Region</span>
+                  <span>Brainport, NL</span>
+                </div>
+
+                <div>
+                  <span>Stage</span>
+                  <span>Early-stage</span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
-  </main>
+        </section>
+      </div>
 
-  <footer>
-    <div class="fstripe" aria-hidden="true"></div>
-    <div class="frow">
-      <span>LockTalk · Eindhoven, The Netherlands</span>
-      <nav aria-label="Footer">
-        <a href="#home">Home</a>
-        <a href="#how">How it works</a>
-        <a href="#features">What it does</a>
-        <a href="#who">Who it is for</a>
-        <a href="#team">Team</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-    <div class="frow" style="margin-top:12px">
-      <span>Example procedures and phrases on this site are for illustration only. LockTalk 2026 ©</span>
-    </div>
-  </footer>
-</div>
+    </main>
 
-<script>
-(function () {
-  /* Router */
-  var pages = ["home", "how", "features", "who", "team", "contact"];
-  function route() {
-    var h = (location.hash || "").replace("#", "");
-    if (pages.indexOf(h) < 0) h = "home";
-    pages.forEach(function (p) { 
-      var el = document.getElementById("page-" + p);
-      if (el) el.hidden = (p !== h); 
-    });
-    Array.prototype.forEach.call(document.querySelectorAll("#mainNav a"), function (a) {
-      if (a.dataset.page === h) a.setAttribute("aria-current", "page"); 
-      else a.removeAttribute("aria-current");
-    });
-    window.scrollTo(0, 0);
-  }
-  window.addEventListener("hashchange", route);
+    <footer>
+      <div class="fstripe" aria-hidden="true"></div>
 
-  /* Home: tag interactive preview */
-  var data = {
-    en: { label: "EN", name: "English", title: "Shutdown procedure", steps: [
-      "Stop the machine at the control panel.",
-      "Turn the main isolator to OFF.",
-      "Apply your own lock and tag.",
-      "Release stored energy (air, hydraulics).",
-      "Try to start the machine to confirm it is dead."
-    ]},
-    nl: { label: "NL", name: "Nederlands", title: "Uitschakelprocedure", steps: [
-      "Stop de machine via het bedieningspaneel.",
-      "Zet de hoofdschakelaar op UIT.",
-      "Plaats je eigen slot en label.",
-      "Laat opgeslagen energie af (lucht, hydrauliek).",
-      "Probeer de machine te starten om te controleren dat hij spanningsloos is."
-    ]},
-    pl: { label: "PL", name: "Polski", title: "Procedura wyłączenia", steps: [
-      "Zatrzymaj maszynę na panelu sterowania.",
-      "Ustaw główny wyłącznik w pozycji OFF.",
-      "Załóż własną kłódkę i tabliczkę.",
-      "Spuść energię zgromadzoną w układzie (powietrze, hydraulika).",
-      "Spróbuj uruchomić maszynę, aby potwierdzić, że jest odłączona."
-    ]},
-    ro: { label: "RO", name: "Română", title: "Procedura de oprire", steps: [
-      "Oprește mașina de la panoul de comandă.",
-      "Pune întrerupătorul principal pe OFF.",
-      "Montează propriul lacăt și propria etichetă.",
-      "Elimină energia acumulată (aer, hidraulică).",
-      "Încearcă pornirea mașinii pentru a confirma că este oprită."
-    ]}
-  };
-  var order = ["en", "nl", "pl", "ro"];
-  var langsEl = document.getElementById("langs");
-  var stepsEl = document.getElementById("steps");
-  var titleEl = document.getElementById("tagTitle");
-  
-  function showLang(code) {
-    var d = data[code];
-    titleEl.textContent = d.title;
-    titleEl.setAttribute("lang", code);
-    stepsEl.setAttribute("lang", code);
-    stepsEl.innerHTML = "";
-    d.steps.forEach(function (s) {
-      var li = document.createElement("li");
-      li.textContent = s;
-      stepsEl.appendChild(li);
-    });
-    Array.prototype.forEach.call(langsEl.children, function (b) {
-      b.setAttribute("aria-pressed", b.dataset.code === code ? "true" : "false");
-    });
-  }
+      <div class="frow">
+        <span>LockTalk · Eindhoven, The Netherlands</span>
 
-  if (langsEl) {
-    order.forEach(function (code) {
-      var b = document.createElement("button");
-      b.type = "button"; b.className = "lang"; b.id = "lang-" + code; b.dataset.code = code;
-      b.textContent = data[code].label + " · " + data[code].name;
-      b.addEventListener("click", function () { showLang(code); });
-      langsEl.appendChild(b);
-    });
-    showLang("en");
-  }
+        <nav aria-label="Footer">
+          <a href="#home">Home</a>
+          <a href="#how">How it works</a>
+          <a href="#features">What it does</a>
+          <a href="#who">Who it is for</a>
+          <a href="#team">About us</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
 
-  /* How it works: stages stepper */
-  var stages = [
-    { name: "Draft", tab: "1", title: "The owner writes the procedure",
-      text: "The machine owner writes the lockout/tagout steps in their own language and links them to the machine's tag.",
-      chips: { NL: ["Original", "Original"], EN: ["Missing", "Missing"], PL: ["Missing", "Missing"], RO: ["Missing", "Missing"] },
-      vis: "Technicians who tap the tag see nothing yet." },
-    { name: "AI translation", tab: "2", title: "AI drafts the other languages",
-      text: "The other languages are produced automatically. These are drafts that keep the order and numbering of the original.",
-      chips: { NL: ["Original", "Original"], EN: ["Draft", "Draft"], PL: ["Draft", "Draft"], RO: ["Draft", "Draft"] },
-      vis: "Drafts are not visible to technicians." },
-    { name: "Owner approval", tab: "3", title: "The owner approves each language",
-      text: "The owner reviews the wording of every language and approves it. A language can be corrected before it is approved.",
-      chips: { NL: ["Original", "Approved"], EN: ["Approved", "Approved"], PL: ["Approved", "Approved"], RO: ["Approved", "Approved"] },
-      vis: "Approved text is ready to publish." },
-    { name: "Live on the tag", tab: "4", title: "Technicians see the approved text",
-      text: "From the next tap, technicians read the approved procedure in their own language. Changing the procedure starts the cycle again.",
-      chips: { NL: ["Original", "Live"], EN: ["Approved", "Live"], PL: ["Approved", "Live"], RO: ["Approved", "Live"] },
-      vis: "Technicians see the approved text for the language they choose." }
-  ];
-  var pipeTabs = document.getElementById("pipeTabs");
-  var pipeBody = document.getElementById("pipeBody");
-  var cur = 0;
+      <div class="frow" style="margin-top: 12px">
+        <span>
+          Example procedures and phrases are for illustration only.
+        </span>
+        <span> LockTalk 2026 © </span>
+      </div>
+    </footer>
+  </div>
 
-  function renderPipe() {
-    Array.prototype.forEach.call(pipeTabs.children, function (b, i) { b.setAttribute("aria-selected", i === cur ? "true" : "false"); });
-    var s = stages[cur];
-    pipeBody.innerHTML = "";
-    var h = document.createElement("h3"); h.textContent = s.title; pipeBody.appendChild(h);
-    var p = document.createElement("p"); p.textContent = s.text; pipeBody.appendChild(p);
-    var chips = document.createElement("div"); chips.className = "chips"; chips.setAttribute("aria-label", "Language status");
-    Object.keys(s.chips).forEach(function (k) {
-      var c = document.createElement("span"); c.className = "chip";
-      var st = s.chips[k][1];
-      c.dataset.state = st;
-      c.innerHTML = "<b></b><em></em>";
-      c.firstChild.textContent = k;
-      c.lastChild.textContent = st === "Original" ? "Original" : st;
-      chips.appendChild(c);
-    });
-    pipeBody.appendChild(chips);
-    var v = document.createElement("div"); v.className = "vis"; v.textContent = s.vis; pipeBody.appendChild(v);
-    var act = document.createElement("div"); act.className = "pipe-actions";
-    var next = document.createElement("button"); next.type = "button"; next.className = "btn small primary"; next.id = "pipeNext";
-    next.textContent = cur < stages.length - 1 ? "Next stage" : "Start over";
-    next.addEventListener("click", function () { cur = (cur + 1) % stages.length; renderPipe(); });
-    act.appendChild(next);
-    pipeBody.appendChild(act);
-  }
+  <script>
+    (function () {
+      "use strict";
 
-  if (pipeTabs) {
-    stages.forEach(function (s, i) {
-      var b = document.createElement("button");
-      b.type = "button"; b.setAttribute("role", "tab"); b.id = "stage-" + (i + 1);
-      b.innerHTML = "<span></span><b></b>";
-      b.firstChild.textContent = "STAGE " + s.tab; b.lastChild.textContent = s.name;
-      b.addEventListener("click", function () { cur = i; renderPipe(); });
-      pipeTabs.appendChild(b);
-    });
-    renderPipe();
-  }
+      /* Router */
 
-  /* Features: chat simulation demo */
-  var sup = [
-    ["Is de hoofdschakelaar al uit?", "Czy główny wyłącznik jest już wyłączony?"],
-    ["Wacht met beginnen tot ik terug ben.", "Poczekaj z rozpoczęciem pracy, aż wrócę."],
-    ["Heb je je eigen slot geplaatst?", "Czy założyłeś własną kłódkę?"],
-    ["Meld het meteen als een stap onduidelijk is.", "Zgłoś to od razu, jeśli któryś krok jest niejasny."]
-  ];
-  var tech = [
-    ["Tak, już zrobione.", "Ja, is al gedaan."],
-    ["Nie rozumiem kroku 4.", "Ik begrijp stap 4 niet."],
-    ["Potrzebuję więcej czasu.", "Ik heb meer tijd nodig."],
-    ["Moja kłódka jest założona.", "Mijn slot zit erop."]
-  ];
-  var log = document.getElementById("chatLog");
+      var pages = [
+        "home",
+        "how",
+        "features",
+        "who",
+        "team",
+        "contact"
+      ];
 
-  function addMsg(who, pair, animate) {
-    var d = document.createElement("div");
-    d.className = "msg " + (who === "sup" ? "a" : "b") + (animate ? " new" : "");
-    var sm = document.createElement("small");
-    sm.textContent = who === "sup" ? "Supervisor · NL → PL" : "Technician · PL → NL";
-    var main = document.createElement("span");
-    main.textContent = pair[1];
-    main.setAttribute("lang", who === "sup" ? "pl" : "nl");
-    var orig = document.createElement("span");
-    orig.className = "orig";
-    orig.textContent = pair[0];
-    orig.setAttribute("lang", who === "sup" ? "nl" : "pl");
-    d.appendChild(sm); d.appendChild(main); d.appendChild(orig);
-    log.appendChild(d);
-  }
+      function route() {
+        var hash = (window.location.hash || "").replace("#", "");
 
-  function seed() { log.innerHTML = ""; addMsg("sup", sup[0], false); addMsg("tech", tech[3], false); }
-  
-  function pickers(rowId, list, who) {
-    var row = document.getElementById(rowId);
-    if (!row) return;
-    list.forEach(function (pair, i) {
-      var b = document.createElement("button");
-      b.type = "button"; b.id = rowId + "-" + i;
-      b.textContent = pair[0];
-      b.addEventListener("click", function () { addMsg(who, pair, true); });
-      row.appendChild(b);
-    });
-  }
+        if (pages.indexOf(hash) < 0) {
+          hash = "home";
+        }
 
-  if (log) {
-    pickers("pickSup", sup, "sup");
-    pickers("pickTech", tech, "tech");
-    document.getElementById("chatClear").addEventListener("click", function () { log.innerHTML = ""; });
-    seed();
-  }
+        pages.forEach(function (page) {
+          var pageElement = document.getElementById("page-" + page);
 
-  /* Contact: Mailto handler */
-  var CONTACT_EMAIL = "522386@student.fontys.nl";
-  var form = document.getElementById("contactForm");
-  var cErr = document.getElementById("cErr");
+          if (pageElement) {
+            pageElement.hidden = page !== hash;
+          }
+        });
 
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var name = document.getElementById("cName").value.trim();
-      var company = document.getElementById("cCompany").value.trim();
-      var role = document.getElementById("cRole").value;
-      var msg = document.getElementById("cMsg").value.trim();
+        Array.prototype.forEach.call(
+          document.querySelectorAll("#mainNav a"),
+          function (link) {
+            if (link.dataset.page === hash) {
+              link.setAttribute("aria-current", "page");
+            } else {
+              link.removeAttribute("aria-current");
+            }
+          }
+        );
 
-      if (!name || !msg) {
-        cErr.hidden = false;
-        cErr.textContent = !name ? "Add your name." : "Add a short message.";
-        return;
+        window.scrollTo(0, 0);
       }
-      cErr.hidden = true;
-      var text = "Name: " + name + "\nCompany: " + (company || "-") + "\nRole: " + role + "\n\n" + msg;
 
-      window.location.href = "mailto:" + CONTACT_EMAIL +
-        "?subject=" + encodeURIComponent("Nieuw bericht van LockTalk website") +
-        "&body=" + encodeURIComponent(text);
-    });
-  }
+      window.addEventListener("hashchange", route);
 
-  route();
-})();
-</script>
+      /* Talen */
+
+      var languageData = {
+        en: {
+          label: "EN",
+          name: "English",
+          title: "Shutdown procedure",
+          steps: [
+            "Stop the machine at the control panel.",
+            "Turn the main isolator to OFF.",
+            "Apply your own lock and tag.",
+            "Release stored energy.",
+            "Try to start the machine to confirm it is isolated."
+          ]
+        },
+
+        nl: {
+          label: "NL",
+          name: "Nederlands",
+          title: "Uitschakelprocedure",
+          steps: [
+            "Stop de machine via het bedieningspaneel.",
+            "Zet de hoofdschakelaar op UIT.",
+            "Plaats je eigen slot en label.",
+            "Laat opgeslagen energie af.",
+            "Probeer de machine te starten als controle."
+          ]
+        },
+
+        pl: {
+          label: "PL",
+          name: "Polski",
+          title: "Procedura wyłączenia",
+          steps: [
+            "Zatrzymaj maszynę na panelu sterowania.",
+            "Ustaw główny wyłącznik w pozycji OFF.",
+            "Załóż własną kłódkę i tabliczkę.",
+            "Spuść zgromadzoną energię.",
+            "Spróbuj uruchomić maszynę w celu kontroli."
+          ]
+        },
+
+        ro: {
+          label: "RO",
+          name: "Română",
+          title: "Procedura de oprire",
+          steps: [
+            "Oprește mașina de la panoul de comandă.",
+            "Pune întrerupătorul principal pe OFF.",
+            "Montează propriul lacăt și propria etichetă.",
+            "Elimină energia acumulată.",
+            "Încearcă pornirea mașinii pentru verificare."
+          ]
+        }
+      };
+
+      var languageOrder = ["en", "nl", "pl", "ro"];
+      var languagesElement = document.getElementById("langs");
+      var stepsElement = document.getElementById("steps");
+      var titleElement = document.getElementById("tagTitle");
+
+      function showLanguage(code) {
+        var selectedLanguage = languageData[code];
+
+        if (!selectedLanguage || !stepsElement || !titleElement) {
+          return;
+        }
+
+        titleElement.textContent = selectedLanguage.title;
+        titleElement.setAttribute("lang", code);
+
+        stepsElement.innerHTML = "";
+        stepsElement.setAttribute("lang", code);
+
+        selectedLanguage.steps.forEach(function (stepText) {
+          var item = document.createElement("li");
+          item.textContent = stepText;
+          stepsElement.appendChild(item);
+        });
+
+        Array.prototype.forEach.call(
+          languagesElement.children,
+          function (button) {
+            button.setAttribute(
+              "aria-pressed",
+              button.dataset.code === code ? "true" : "false"
+            );
+          }
+        );
+      }
+
+      if (languagesElement) {
+        languageOrder.forEach(function (code) {
+          var button = document.createElement("button");
+
+          button.type = "button";
+          button.className = "lang";
+          button.dataset.code = code;
+          button.textContent =
+            languageData[code].label +
+            " · " +
+            languageData[code].name;
+
+          button.addEventListener("click", function () {
+            showLanguage(code);
+          });
+
+          languagesElement.appendChild(button);
+        });
+
+        showLanguage("en");
+      }
+
+      /* Procedurestappen */
+
+      var stages = [
+        {
+          name: "Draft",
+          title: "The owner writes the procedure",
+          text: "The machine owner writes the lockout/tagout steps.",
+          status: "Draft"
+        },
+        {
+          name: "AI translation",
+          title: "AI drafts the translations",
+          text: "The different languages are automatically prepared.",
+          status: "Draft"
+        },
+        {
+          name: "Owner approval",
+          title: "The owner reviews each language",
+          text: "The wording is checked and approved before publication.",
+          status: "Approved"
+        },
+        {
+          name: "Live on the tag",
+          title: "Technicians see the approved text",
+          text: "The next tap displays the current approved procedure.",
+          status: "Live"
+        }
+      ];
+
+      var pipeTabs = document.getElementById("pipeTabs");
+      var pipeBody = document.getElementById("pipeBody");
+      var currentStage = 0;
+
+      function renderStage() {
+        if (!pipeTabs || !pipeBody) {
+          return;
+        }
+
+        Array.prototype.forEach.call(
+          pipeTabs.children,
+          function (button, index) {
+            button.setAttribute(
+              "aria-selected",
+              index === currentStage ? "true" : "false"
+            );
+          }
+        );
+
+        var stage = stages[currentStage];
+
+        pipeBody.innerHTML = "";
+
+        var heading = document.createElement("h3");
+        heading.textContent = stage.title;
+
+        var paragraph = document.createElement("p");
+        paragraph.textContent = stage.text;
+
+        var chips = document.createElement("div");
+        chips.className = "chips";
+
+        ["NL", "EN", "PL", "RO"].forEach(function (language) {
+          var chip = document.createElement("span");
+
+          chip.className = "chip";
+          chip.dataset.state = stage.status;
+
+          var languageName = document.createElement("b");
+          languageName.textContent = language;
+
+          var languageStatus = document.createElement("em");
+          languageStatus.textContent = stage.status;
+
+          chip.appendChild(languageName);
+          chip.appendChild(languageStatus);
+          chips.appendChild(chip);
+        });
+
+        var nextButton = document.createElement("button");
+
+        nextButton.type = "button";
+        nextButton.className = "btn small primary";
+        nextButton.textContent =
+          currentStage < stages.length - 1
+            ? "Next stage"
+            : "Start over";
+
+        nextButton.addEventListener("click", function () {
+          currentStage = (currentStage + 1) % stages.length;
+          renderStage();
+        });
+
+        pipeBody.appendChild(heading);
+        pipeBody.appendChild(paragraph);
+        pipeBody.appendChild(chips);
+        pipeBody.appendChild(nextButton);
+      }
+
+      if (pipeTabs && pipeBody) {
+        stages.forEach(function (stage, index) {
+          var button = document.createElement("button");
+
+          button.type = "button";
+          button.setAttribute("role", "tab");
+
+          var stageNumber = document.createElement("span");
+          stageNumber.textContent = "STAGE " + (index + 1);
+
+          var stageName = document.createElement("b");
+          stageName.textContent = stage.name;
+
+          button.appendChild(stageNumber);
+          button.appendChild(stageName);
+
+          button.addEventListener("click", function () {
+            currentStage = index;
+            renderStage();
+          });
+
+          pipeTabs.appendChild(button);
+        });
+
+        renderStage();
+      }
+
+      /* Chatdemo */
+
+      var supervisorPhrases = [
+        [
+          "Is de hoofdschakelaar al uit?",
+          "Czy główny wyłącznik jest już wyłączony?"
+        ],
+        [
+          "Wacht met beginnen tot ik terug ben.",
+          "Poczekaj z rozpoczęciem pracy, aż wrócę."
+        ],
+        [
+          "Heb je je eigen slot geplaatst?",
+          "Czy założyłeś własną kłódkę?"
+        ]
+      ];
+
+      var technicianPhrases = [
+        ["Tak, już zrobione.", "Ja, is al gedaan."],
+        ["Nie rozumiem kroku 4.", "Ik begrijp stap 4 niet."],
+        ["Potrzebuję więcej czasu.", "Ik heb meer tijd nodig."]
+      ];
+
+      var chatLog = document.getElementById("chatLog");
+
+      function addMessage(sender, phrase) {
+        if (!chatLog) {
+          return;
+        }
+
+        var message = document.createElement("div");
+
+        message.className =
+          "msg " +
+          (sender === "supervisor" ? "a" : "b");
+
+        var label = document.createElement("small");
+
+        label.textContent =
+          sender === "supervisor"
+            ? "Supervisor · NL → PL"
+            : "Technician · PL → NL";
+
+        var translation = document.createElement("span");
+        translation.textContent = phrase[1];
+
+        var original = document.createElement("span");
+        original.className = "orig";
+        original.textContent = phrase[0];
+
+        message.appendChild(label);
+        message.appendChild(translation);
+        message.appendChild(original);
+
+        chatLog.appendChild(message);
+      }
+
+      function createPhraseButtons(containerId, phrases, sender) {
+        var container = document.getElementById(containerId);
+
+        if (!container) {
+          return;
+        }
+
+        phrases.forEach(function (phrase) {
+          var button = document.createElement("button");
+
+          button.type = "button";
+          button.textContent = phrase[0];
+
+          button.addEventListener("click", function () {
+            addMessage(sender, phrase);
+          });
+
+          container.appendChild(button);
+        });
+      }
+
+      if (chatLog) {
+        createPhraseButtons(
+          "pickSup",
+          supervisorPhrases,
+          "supervisor"
+        );
+
+        createPhraseButtons(
+          "pickTech",
+          technicianPhrases,
+          "technician"
+        );
+
+        var clearButton = document.getElementById("chatClear");
+
+        if (clearButton) {
+          clearButton.addEventListener("click", function () {
+            chatLog.innerHTML = "";
+          });
+        }
+
+        addMessage("supervisor", supervisorPhrases[0]);
+        addMessage("technician", technicianPhrases[0]);
+      }
+
+      /* Contactformulier */
+
+      var contactEmail = "522386@student.fontys.nl";
+      var contactForm = document.getElementById("contactForm");
+      var contactError = document.getElementById("cErr");
+
+      if (contactForm) {
+        contactForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          var name =
+            document.getElementById("cName").value.trim();
+
+          var company =
+            document.getElementById("cCompany").value.trim();
+
+          var role =
+            document.getElementById("cRole").value;
+
+          var message =
+            document.getElementById("cMsg").value.trim();
+
+          if (!name || !message) {
+            contactError.hidden = false;
+            contactError.textContent =
+              !name
+                ? "Add your name."
+                : "Add a short message.";
+
+            return;
+          }
+
+          contactError.hidden = true;
+
+          var emailBody =
+            "Name: " + name +
+            "\nCompany: " + (company || "-") +
+            "\nRole: " + role +
+            "\n\n" + message;
+
+          window.location.href =
+            "mailto:" + contactEmail +
+            "?subject=" +
+            encodeURIComponent(
+              "Nieuw bericht van LockTalk website"
+            ) +
+            "&body=" +
+            encodeURIComponent(emailBody);
+        });
+      }
+
+      route();
+    })();
+  </script>
 </body>
 </html>
