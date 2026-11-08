@@ -3922,7 +3922,4642 @@ body::before {
       <div class="fstripe" aria-hidden="true"></div>
 
       <div class="frow">
-        <span>LockTalk · Eindhoven, The Netherlands</span>
+        <span>LockTalk · One machine. One tap. Your language.</span>
+
+        <nav aria-label="Footer">
+          <a href="#home">Home</a>
+          <a href="#how">How it works</a>
+          <a href="#features">What it does</a>
+          <a href="#who">Who it is for</a>
+          <a href="#team">About us</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+
+      <div class="frow" style="margin-top: 12px">
+        <span>
+          Example procedures and phrases are for illustration only.
+        </span>
+        <span> LockTalk 2026 © </span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+    /* Interactieve doelgroepselectie */
+
+var audienceCards =
+  document.querySelectorAll(".audience-card[data-role]");
+
+var audienceTitle =
+  document.getElementById("audienceSelectionTitle");
+
+var audienceText =
+  document.getElementById("audienceSelectionText");
+
+var audienceLink =
+  document.getElementById("audienceSelectionLink");
+
+var audienceDetails = {
+  safety: {
+    title: "Create, review and approve.",
+    text:
+      "Safety and maintenance leads manage the original procedure, " +
+      "review each translated version and approve updates before publication.",
+    link: "#how",
+    button: "View the approval process"
+  },
+
+  manager: {
+    title: "Keep procedures accessible.",
+    text:
+      "Plant and production managers help teams and external technicians " +
+      "reach the current procedure at the correct machine.",
+    link: "#contact",
+    button: "Discuss your workplace"
+  },
+
+  technician: {
+    title: "Tap, read and ask.",
+    text:
+      "International technicians open the machine-specific procedure, " +
+      "read the approved steps in a familiar language and ask for help " +
+      "when something is unclear.",
+    link: "#features",
+    button: "Try the communication demo"
+  }
+};
+
+function selectAudienceCard(card) {
+  var detail = audienceDetails[card.dataset.role];
+
+  if (!detail || !audienceTitle || !audienceText || !audienceLink) {
+    return;
+  }
+
+  Array.prototype.forEach.call(
+    audienceCards,
+    function (item) {
+      var selected = item === card;
+
+      item.classList.toggle("is-selected", selected);
+      item.setAttribute(
+        "aria-pressed",
+        selected ? "true" : "false"
+      );
+    }
+  );
+
+  audienceTitle.textContent = detail.title;
+  audienceText.textContent = detail.text;
+  audienceLink.href = detail.link;
+  audienceLink.textContent = detail.button;
+}
+
+Array.prototype.forEach.call(
+  audienceCards,
+  function (card) {
+    card.addEventListener("click", function () {
+      selectAudienceCard(card);
+    });
+
+    card.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        selectAudienceCard(card);
+      }
+    });
+  }
+);
+      "use strict";
+
+      /* Router */
+
+      var pages = [
+        "home",
+        "how",
+        "features",
+        "who",
+        "team",
+        "contact"
+      ];
+
+function route() {
+  var hash = (window.location.hash || "").replace("#", "");
+
+  if (pages.indexOf(hash) < 0) {
+    hash = "home";
+  }
+
+  pages.forEach(function (page) {
+    var pageElement = document.getElementById("page-" + page);
+
+    if (pageElement) {
+      pageElement.hidden = page !== hash;
+    }
+  });
+
+  Array.prototype.forEach.call(
+    document.querySelectorAll("#mainNav a, #sideNav a"),
+    function (link) {
+      if (link.dataset.page === hash) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    }
+  );
+
+
+
+  window.scrollTo(0, 0);
+}
+      
+
+      window.addEventListener("hashchange", route);
+      route();
+      /* Talen */
+
+      var languageData = {
+        en: {
+          label: "EN",
+          name: "English",
+          title: "Shutdown procedure",
+          steps: [
+            "Stop the machine at the control panel.",
+            "Turn the main isolator to OFF.",
+            "Apply your own lock and tag.",
+            "Release stored energy.",
+            "Try to start the machine to confirm it is isolated."
+          ]
+        },
+
+        nl: {
+          label: "NL",
+          name: "Nederlands",
+          title: "Uitschakelprocedure",
+          steps: [
+            "Stop de machine via het bedieningspaneel.",
+            "Zet de hoofdschakelaar op UIT.",
+            "Plaats je eigen slot en label.",
+            "Laat opgeslagen energie af.",
+            "Probeer de machine te starten als controle."
+          ]
+        },
+
+        pl: {
+          label: "PL",
+          name: "Polski",
+          title: "Procedura wyłączenia",
+          steps: [
+            "Zatrzymaj maszynę na panelu sterowania.",
+            "Ustaw główny wyłącznik w pozycji OFF.",
+            "Załóż własną kłódkę i tabliczkę.",
+            "Spuść zgromadzoną energię.",
+            "Spróbuj uruchomić maszynę w celu kontroli."
+          ]
+        },
+
+        ro: {
+          label: "RO",
+          name: "Română",
+          title: "Procedura de oprire",
+          steps: [
+            "Oprește mașina de la panoul de comandă.",
+            "Pune întrerupătorul principal pe OFF.",
+            "Montează propriul lacăt și propria etichetă.",
+            "Elimină energia acumulată.",
+            "Încearcă pornirea mașinii pentru verificare."
+          ]
+        }
+      };
+
+      var languageOrder = ["en", "nl", "pl", "ro"];
+      var languagesElement = document.getElementById("langs");
+      var stepsElement = document.getElementById("steps");
+      var titleElement = document.getElementById("tagTitle");
+
+      function showLanguage(code) {
+        var selectedLanguage = languageData[code];
+
+        if (!selectedLanguage || !stepsElement || !titleElement) {
+          return;
+        }
+
+        titleElement.textContent = selectedLanguage.title;
+        titleElement.setAttribute("lang", code);
+
+        stepsElement.innerHTML = "";
+        stepsElement.setAttribute("lang", code);
+
+        selectedLanguage.steps.forEach(function (stepText) {
+          var item = document.createElement("li");
+          item.textContent = stepText;
+          stepsElement.appendChild(item);
+        });
+
+        Array.prototype.forEach.call(
+          languagesElement.children,
+          function (button) {
+            button.setAttribute(
+              "aria-pressed",
+              button.dataset.code === code ? "true" : "false"
+            );
+          }
+        );
+      }
+
+      if (languagesElement) {
+        languageOrder.forEach(function (code) {
+          var button = document.createElement("button");
+
+          button.type = "button";
+          button.className = "lang";
+          button.dataset.code = code;
+          button.textContent =
+            languageData[code].label +
+            " · " +
+            languageData[code].name;
+
+          button.addEventListener("click", function () {
+            showLanguage(code);
+          });
+
+          languagesElement.appendChild(button);
+        });
+
+        showLanguage("en");
+      }
+
+      /* Procedurestappen */
+
+      var stages = [
+        {
+          name: "Create",
+          title: "The owner creates the procedure",
+          text: "The machine owner adds the original lock-out/tag-out steps for this specific machine.",
+          languages: {
+            NL: "Source text",
+            EN: "Not started",
+            PL: "Not started",
+            RO: "Not started"
+          }
+        },
+        {
+          name: "Translate",
+          title: "AI prepares the translations",
+          text: "AI translates the original procedure while keeping the same steps, order and numbering.",
+          languages: {
+            NL: "Source text",
+            EN: "AI draft",
+            PL: "AI draft",
+            RO: "AI draft"
+          }
+        },
+        {
+          name: "Review",
+          title: "The owner reviews each language",
+          text: "The machine owner checks every translation and approves it before technicians can access it.",
+          languages: {
+            NL: "Approved",
+            EN: "Under review",
+            PL: "Under review",
+            RO: "Under review"
+          }
+        },
+        {
+          name: "Publish",
+          title: "The approved procedure goes live",
+          text: "The next tap on the NFC tag opens the latest approved procedure in the technician's selected language.",
+          languages: {
+            NL: "Live",
+            EN: "Live",
+            PL: "Live",
+            RO: "Live"
+          }
+        }
+      ];
+
+      var pipeTabs = document.getElementById("pipeTabs");
+      var pipeBody = document.getElementById("pipeBody");
+      var currentStage = 0;
+
+      function renderStage() {
+        if (!pipeTabs || !pipeBody) {
+          return;
+        }
+
+        Array.prototype.forEach.call(
+          pipeTabs.children,
+          function (button, index) {
+            button.setAttribute(
+              "aria-selected",
+              index === currentStage ? "true" : "false"
+            );
+          }
+        );
+
+        var stage = stages[currentStage];
+
+        pipeBody.innerHTML = "";
+
+        var heading = document.createElement("h3");
+        heading.textContent = stage.title;
+
+        var paragraph = document.createElement("p");
+        paragraph.textContent = stage.text;
+
+        var chips = document.createElement("div");
+        chips.className = "chips";
+
+["NL", "EN", "PL", "RO"].forEach(function (language) {
+  var chip = document.createElement("span");
+  var status = stage.languages[language];
+
+  chip.className = "chip";
+  chip.dataset.state = status;
+
+  var languageName = document.createElement("b");
+  languageName.textContent = language;
+
+  var languageStatus = document.createElement("em");
+  languageStatus.textContent = status;
+
+  chip.appendChild(languageName);
+  chip.appendChild(languageStatus);
+  chips.appendChild(chip);
+});
+
+        var nextButton = document.createElement("button");
+
+        nextButton.type = "button";
+        nextButton.className = "btn small primary";
+        nextButton.textContent =
+          currentStage < stages.length - 1
+            ? "Next stage"
+            : "Start over";
+
+        nextButton.addEventListener("click", function () {
+          currentStage = (currentStage + 1) % stages.length;
+          renderStage();
+        });
+
+        pipeBody.appendChild(heading);
+        pipeBody.appendChild(paragraph);
+        pipeBody.appendChild(chips);
+        pipeBody.appendChild(nextButton);
+      }
+
+      if (pipeTabs && pipeBody) {
+        stages.forEach(function (stage, index) {
+          var button = document.createElement("button");
+
+          button.type = "button";
+          button.setAttribute("role", "tab");
+
+          var stageNumber = document.createElement("span");
+          stageNumber.textContent = "STAGE " + (index + 1);
+
+          var stageName = document.createElement("b");
+          stageName.textContent = stage.name;
+
+          button.appendChild(stageNumber);
+          button.appendChild(stageName);
+
+          button.addEventListener("click", function () {
+            currentStage = index;
+            renderStage();
+          });
+
+          pipeTabs.appendChild(button);
+        });
+
+        renderStage();
+      }
+
+      /* Chatdemo */
+
+      var supervisorPhrases = [
+        [
+          "Is de hoofdschakelaar al uit?",
+          "Czy główny wyłącznik jest już wyłączony?"
+        ],
+        [
+          "Wacht met beginnen tot ik terug ben.",
+          "Poczekaj z rozpoczęciem pracy, aż wrócę."
+        ],
+        [
+          "Heb je je eigen slot geplaatst?",
+          "Czy założyłeś własną kłódkę?"
+        ]
+      ];
+
+      var technicianPhrases = [
+        ["Tak, już zrobione.", "Ja, is al gedaan."],
+        ["Nie rozumiem kroku 4.", "Ik begrijp stap 4 niet."],
+        ["Potrzebuję więcej czasu.", "Ik heb meer tijd nodig."]
+      ];
+
+      var chatLog = document.getElementById("chatLog");
+
+      function addMessage(sender, phrase) {
+        if (!chatLog) {
+          return;
+        }
+
+        var message = document.createElement("div");
+
+        message.className =
+          "msg " +
+          (sender === "supervisor" ? "a" : "b");
+
+        var label = document.createElement("small");
+
+        label.textContent =
+          sender === "supervisor"
+            ? "Supervisor · NL → PL"
+            : "Technician · PL → NL";
+
+        var translation = document.createElement("span");
+        translation.textContent = phrase[1];
+
+        var original = document.createElement("span");
+        original.className = "orig";
+        original.textContent = phrase[0];
+
+        message.appendChild(label);
+        message.appendChild(translation);
+        message.appendChild(original);
+
+        chatLog.appendChild(message);
+      }
+
+      function createPhraseButtons(containerId, phrases, sender) {
+        var container = document.getElementById(containerId);
+
+        if (!container) {
+          return;
+        }
+
+        phrases.forEach(function (phrase) {
+          var button = document.createElement("button");
+
+          button.type = "button";
+          button.textContent = phrase[0];
+
+          button.addEventListener("click", function () {
+            addMessage(sender, phrase);
+          });
+
+          container.appendChild(button);
+        });
+      }
+
+      if (chatLog) {
+        createPhraseButtons(
+          "pickSup",
+          supervisorPhrases,
+          "supervisor"
+        );
+
+        createPhraseButtons(
+          "pickTech",
+          technicianPhrases,
+          "technician"
+        );
+
+        var clearButton = document.getElementById("chatClear");
+
+        if (clearButton) {
+          clearButton.addEventListener("click", function () {
+            chatLog.innerHTML = "";
+          });
+        }
+
+        addMessage("supervisor", supervisorPhrases[0]);
+        addMessage("technician", technicianPhrases[0]);
+      }
+
+      /* Contactformulier */
+
+      var contactEmail = "522386@student.fontys.nl";
+      var contactForm = document.getElementById("contactForm");
+      var contactError = document.getElementById("cErr");
+
+      if (contactForm) {
+        contactForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          var name =
+            document.getElementById("cName").value.trim();
+
+          var company =
+            document.getElementById("cCompany").value.trim();
+
+          var role =
+            document.getElementById("cRole").value;
+
+          var message =
+            document.getElementById("cMsg").value.trim();
+
+          if (!name || !message) {
+            contactError.hidden = false;
+            contactError.textContent =
+              !name
+                ? "Please add your name."
+                : "Please add a short message.";
+
+            return;
+          }
+
+          contactError.hidden = true;
+
+          var emailBody =
+            "Name: " + name +
+            "\nCompany: " + (company || "-") +
+            "\nRole: " + role +
+            "\n\n" + message;
+
+          window.location.href =
+            "mailto:" + contactEmail +
+            "?subject=" +
+            encodeURIComponent(
+              "Nieuw bericht van LockTalk website"
+            ) +
+            "&body=" +
+            encodeURIComponent(emailBody);
+        });
+      }
+/* Interactief product */
+
+var hotspots = document.querySelectorAll(".product-svg .hot");
+var capTitle = document.getElementById("productCapTitle");
+var capText = document.getElementById("productCapText");
+
+function activateHotspot(el) {
+  Array.prototype.forEach.call(hotspots, function (h) {
+    h.classList.remove("is-active");
+  });
+  el.classList.add("is-active");
+  capTitle.textContent = el.dataset.title;
+  capText.textContent = el.dataset.info;
+}
+
+Array.prototype.forEach.call(hotspots, function (el) {
+  el.addEventListener("mouseenter", function () { activateHotspot(el); });
+  el.addEventListener("focus", function () { activateHotspot(el); });
+  el.addEventListener("click", function () { activateHotspot(el); });
+  el.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      activateHotspot(el);
+    }
+  });
+});
+
+/* Onthul-animatie bij scrollen */
+
+var revealItems = document.querySelectorAll(".reveal");
+
+if ("IntersectionObserver" in window) {
+  var revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-in");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.35 });
+
+  Array.prototype.forEach.call(revealItems, function (item) {
+    revealObserver.observe(item);
+  });
+} else {
+  Array.prototype.forEach.call(revealItems, function (item) {
+    item.classList.add("is-in");
+  });
+}
+/* Rechter navigatie tonen tijdens scrollen */
+
+var sideNav = document.getElementById("sideNav");
+var topBar = document.querySelector(".bar");
+var scrollLimit = 140;
+
+function updateSideNavigation() {
+  if (!sideNav) {
+    return;
+  }
+
+  var shouldShow = window.scrollY > scrollLimit;
+
+  sideNav.classList.toggle("is-visible", shouldShow);
+
+  sideNav.setAttribute(
+    "aria-hidden",
+    shouldShow ? "false" : "true"
+  );
+}
+
+window.addEventListener("scroll", updateSideNavigation, {
+  passive: true
+});
+
+updateSideNavigation();
+window.scrollTo(0, 0);
+/* Gele markering starten wanneer deze zichtbaar wordt */
+
+var loadingHighlights =
+  document.querySelectorAll(".loading-highlight");
+
+/* Gele markering starten wanneer deze zichtbaar wordt */
+
+var loadingHighlights =
+  document.querySelectorAll(".loading-highlight");
+
+var highlightObserver = null;
+
+if ("IntersectionObserver" in window) {
+  highlightObserver = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+
+          /* Na het starten niet meer observeren */
+          highlightObserver.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0,
+      rootMargin: "0px 0px -35% 0px"
+    }
+  );
+}
+
+/* Markering resetten en opnieuw observeren */
+function resetHighlightAnimation() {
+  Array.prototype.forEach.call(
+    loadingHighlights,
+    function (highlight) {
+      highlight.classList.remove("is-visible");
+
+      /* Beginstand opnieuw laten verwerken */
+      void highlight.offsetWidth;
+
+      if (highlightObserver) {
+        highlightObserver.unobserve(highlight);
+        highlightObserver.observe(highlight);
+      } else {
+        highlight.classList.add("is-visible");
+      }
+    }
+  );
+}
+
+/* Eerste keer observeren */
+Array.prototype.forEach.call(
+  loadingHighlights,
+  function (highlight) {
+    if (highlightObserver) {
+      highlightObserver.observe(highlight);
+    } else {
+      highlight.classList.add("is-visible");
+    }
+  }
+);
+
+route();
+})();
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0f1215">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
+  <title>LockTalk</title>
+
+<link rel="icon" type="image/png" href="logo.png">
+
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+>
+
+
+  <style>
+/* Tekst onder See the product plaatsen */
+.product-head {
+  display: block;
+}
+
+.product-head h2 {
+  margin-bottom: 14px;
+}
+
+.product-head p {
+  max-width: 650px;
+}
+    /* Maak de drie vakjes onder See the product iets breder */
+.product-more {
+  width: calc(200% + 48px);
+  max-width: 1120px;
+  margin-top: 56px;
+}
+
+.more-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.more-item {
+  padding: 26px 24px 28px;
+}
+
+/* Op tablet en mobiel weer normale breedte */
+@media (max-width: 900px) {
+  .product-more {
+    width: 100%;
+    max-width: none;
+  }
+
+  .more-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+/* =========================================
+   HOME PRODUCT EN BREDERE INFORMATIEVAKKEN
+   ========================================= */
+
+/* Het interactieve product gebruikt de volledige paginabreedte */
+.home-product {
+  width: 100%;
+  padding-top: 36px;
+}
+
+/* De drie informatievakken breder en ruimer */
+.home-product .more-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+}
+
+.home-product .more-item {
+  min-width: 0;
+  padding: 28px 26px 30px;
+  border: 2px solid var(--ink);
+  background: var(--surface);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.home-product .more-item h3 {
+  margin-bottom: 12px;
+  font-size: 24px;
+}
+
+.home-product .more-item p {
+  font-size: 16.5px;
+  line-height: 1.6;
+}
+
+/* Het onderste introductieblok */
+.home-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  align-items: center;
+  gap: 48px;
+
+  padding-block: 64px;
+  border-top: 2px solid var(--ink);
+}
+
+.home-intro-copy {
+  max-width: 780px;
+}
+
+.home-intro h1 {
+  margin-top: 18px;
+  font-size: clamp(40px, 6.4vw, 78px);
+  font-weight: 900;
+  font-stretch: 112%;
+}
+
+.home-intro h1 mark {
+  padding-inline: 0.12em;
+  background: var(--accent);
+  color: var(--on-accent);
+
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.home-intro .lede {
+  max-width: 38em;
+}
+
+/* Geel accentvak naast de introductietekst */
+.home-intro-note {
+  padding: 28px 26px 30px;
+  border: 2px solid var(--ink);
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: 7px 7px 0 var(--ink);
+}
+
+.home-intro-note h2 {
+  margin-top: 10px;
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 900;
+}
+
+.home-intro-note p {
+  margin-top: 14px;
+  font-size: 16.5px;
+  line-height: 1.55;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .home-product .more-grid,
+  .home-intro {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-product .more-grid {
+    gap: 18px;
+  }
+
+  .home-intro {
+    gap: 30px;
+    padding-block: 48px;
+  }
+}
+
+/* Mobiel */
+@media (max-width: 600px) {
+  .home-product {
+    padding-top: 20px;
+  }
+
+  .home-product .more-item {
+    padding: 22px 20px 24px;
+  }
+
+  .home-intro {
+    padding-block: 40px;
+  }
+
+  .home-intro h1 {
+    font-size: clamp(38px, 12vw, 56px);
+  }
+
+  .home-intro-note {
+    padding: 22px 20px 24px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+}
+    /* Interactief product */
+.product-stage { border: 2px solid var(--ink); background: var(--surface); box-shadow: 5px 5px 0 var(--ink); }
+.product-svg { display: block; width: 100%; height: auto; }
+.product-svg .p-s { stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.product-svg .p-none { fill: none; }
+.product-svg .p-bg { fill: var(--bg); }
+.product-svg .p-sf { fill: var(--surface); }
+.product-svg .p-ac { fill: var(--accent); }
+.product-svg .p-ink { fill: var(--ink); }
+.product-svg text { font-family: var(--font-mono); font-size: 11px; fill: var(--ink); }
+.product-svg .p-txt-inv { fill: var(--bg); }
+
+.hot { cursor: pointer; outline: none; }
+.hot-hit { fill: transparent; }
+.hot-ring { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-dasharray: 6 5; opacity: 0; pointer-events: none; transition: opacity 160ms ease; }
+.hot-dot { fill: var(--accent); stroke: var(--ink); stroke-width: 2.5; transition: transform 160ms ease; transform-box: fill-box; transform-origin: center; }
+.hot-num { font-size: 13px !important; font-weight: 600; text-anchor: middle; pointer-events: none; }
+.hot:hover .hot-ring, .hot:focus-visible .hot-ring, .hot.is-active .hot-ring { opacity: 1; }
+.hot:hover .hot-dot, .hot:focus-visible .hot-dot, .hot.is-active .hot-dot { transform: scale(1.2); fill: var(--ink); }
+.hot:hover .hot-num, .hot:focus-visible .hot-num, .hot.is-active .hot-num { fill: var(--bg); }
+.hot:focus-visible .hot-ring { stroke-width: 4; }
+
+.product-caption { display: grid; gap: 6px; min-height: 112px; padding: 18px 22px 20px; border-top: 2px solid var(--ink); background: var(--bg); }
+.product-caption h3 { font-size: 22px; font-weight: 800; }
+.product-caption p { max-width: 46em; color: var(--muted); }
+
+.product-more { margin-top: 56px; }
+.more-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.more-item { padding: 20px 20px 22px; border: 2px solid var(--ink); background: var(--surface); }
+.more-item .eyebrow { display: block; margin-bottom: 8px; }
+.more-item h3 { margin-bottom: 8px; font-size: 21px; font-weight: 800; }
+.more-item p { color: var(--muted); font-size: 16px; }
+.more-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 500ms ease, transform 500ms ease; }
+.reveal.is-in { opacity: 1; transform: none; }
+.reveal:nth-child(2) { transition-delay: 90ms; }
+.reveal:nth-child(3) { transition-delay: 180ms; }
+
+/* Kleinere "Where to go next"-kaarten */
+.grid3.compact { gap: 16px; }
+.grid3.compact .teaser { gap: 6px; padding: 16px 18px 16px; box-shadow: 3px 3px 0 var(--ink); }
+.grid3.compact .teaser h3 { font-size: 19px; }
+.grid3.compact .teaser p { font-size: 14.5px; line-height: 1.45; }
+.grid3.compact .teaser .go { padding-top: 2px; font-size: 12px; }
+.grid3.compact .teaser:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--ink); }
+  :root {
+    --bg: #0f1215;
+    --surface: #171b1f;
+    --ink: #edf0f2;
+    --muted: #9aa5ae;
+    --line: #2b3238;
+    --accent: #FFCC00;
+    --on-accent: #12161a;
+    --ok: #5fd08f;
+
+    --font-display: "Archivo", "Arial Narrow", Arial, sans-serif;
+    --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+    color-scheme: dark;
+  }
+
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      scroll-behavior: smooth;
+      background-color: #0f1215;
+      color-scheme: dark;
+    }
+
+    body {
+      min-height: 100%;
+      margin: 0;
+      padding-block: 0;
+      padding-left: max(16px, env(safe-area-inset-left, 0px));
+      padding-right: max(16px, env(safe-area-inset-right, 0px));
+
+      background-color: #0f1215;
+      color: #edf0f2;
+
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.55;
+    }
+
+
+    img {
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--ink);
+      outline-offset: 3px;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+
+      font-family: var(--font-display);
+      line-height: 1.04;
+      letter-spacing: -0.01em;
+      text-wrap: balance;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* Navigatie */
+
+    .bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 12px 28px;
+      padding-block: 22px;
+    }
+
+    .mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 900;
+      font-stretch: 125%;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+
+    .mark i {
+      position: relative;
+
+      display: inline-block;
+      width: 14px;
+      height: 22px;
+
+      border: 2px solid var(--ink);
+      border-radius: 3px 3px 7px 7px;
+      background: var(--accent);
+    }
+
+    .mark i::after {
+      content: "";
+
+      position: absolute;
+      top: 4px;
+      left: 50%;
+
+      width: 4px;
+      height: 4px;
+
+      border-radius: 50%;
+      background: var(--ink);
+
+      transform: translateX(-50%);
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 4px;
+
+      font-size: 15px;
+    }
+
+    .nav a {
+      padding: 6px 12px;
+
+      border: 2px solid transparent;
+      border-radius: 2px;
+
+      color: var(--muted);
+      text-decoration: none;
+
+      transform: translate(0, 0);
+
+      transition:
+        transform 140ms ease,
+        box-shadow 140ms ease,
+        background-color 140ms ease,
+        color 140ms ease,
+        border-color 140ms ease;
+    }
+
+    .nav a:hover {
+      border-color: var(--ink);
+      background: var(--surface);
+      color: var(--ink);
+
+      transform: translateY(-2px);
+      box-shadow: 0 3px 0 var(--ink);
+    }
+
+    .nav a[aria-current="page"] {
+      border-color: var(--ink);
+      background: var(--accent);
+      color: var(--on-accent);
+
+      font-weight: 700;
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+
+    /* Algemene pagina-opmaak */
+
+    .pagehead {
+      max-width: 860px;
+      padding-block: 36px 52px;
+    }
+
+    .pagehead h1 {
+      margin-top: 16px;
+
+      font-size: clamp(36px, 5.6vw, 66px);
+      font-weight: 900;
+      font-stretch: 112%;
+    }
+
+    .pagehead p {
+      max-width: 34em;
+      margin-top: 22px;
+
+      font-size: clamp(18px, 2vw, 21px);
+    }
+
+    section {
+      padding-block: 64px;
+      border-top: 2px solid var(--ink);
+    }
+
+    .sec-head {
+      display: grid;
+      grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+
+      gap: 24px 48px;
+      margin-bottom: 40px;
+    }
+
+    .sec-head h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 850;
+      font-stretch: 108%;
+    }
+
+    .sec-head p {
+      align-self: end;
+      max-width: 38em;
+
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    /* Knoppen */
+
+    .btn {
+      position: relative;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 14px 22px;
+
+      border: 2px solid var(--ink);
+      border-radius: 2px;
+
+      background: transparent;
+      color: var(--ink);
+
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+
+      cursor: pointer;
+      box-shadow: 4px 4px 0 var(--ink);
+      transform: translate(0, 0);
+
+      transition:
+        transform 160ms ease,
+        box-shadow 160ms ease,
+        background-color 160ms ease,
+        color 160ms ease;
+    }
+
+    .btn:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 8px 8px 0 var(--ink);
+    }
+
+    .btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: var(--on-accent);
+    }
+
+    .btn.primary:hover {
+      background: var(--accent);
+      color: var(--on-accent);
+    }
+
+    .btn.ghost:hover {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    .btn.small {
+      padding: 9px 14px;
+      font-size: 14.5px;
+    }
+
+    /* Algemene kaarten */
+
+    .card {
+      display: flex;
+      flex-direction: column;
+
+      min-width: 0;
+      gap: 14px;
+      padding: 28px 26px 30px;
+
+      border: 2px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .card h3 {
+      font-size: 27px;
+      font-weight: 850;
+    }
+
+    .card > p {
+      color: var(--muted);
+    }
+
+    .rule {
+      align-self: flex-start;
+
+      padding: 4px 10px;
+
+      border: 1.5px solid var(--ink);
+      background: var(--accent);
+      color: var(--on-accent);
+
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    .grid3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    /* Homepage hero */
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      align-items: start;
+
+      gap: 48px;
+      padding-block: 36px 68px;
+    }
+
+    .hero h1 {
+      margin-top: 18px;
+
+      font-size: clamp(40px, 6.4vw, 78px);
+      font-weight: 900;
+      font-stretch: 112%;
+    }
+
+    .hero h1 mark {
+      padding-inline: 0.12em;
+
+      background: var(--accent);
+      color: var(--on-accent);
+
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .lede {
+      max-width: 34em;
+      margin-top: 26px;
+
+      font-size: clamp(18px, 2vw, 21px);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    /* NFC-tag */
+
+    .tag {
+      min-width: 0;
+
+      border: 2px solid var(--ink);
+      border-radius: 2px;
+      background: var(--surface);
+    }
+
+    .tag-stripe {
+      height: 22px;
+
+      border-bottom: 2px solid var(--ink);
+
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--accent) 0 14px,
+        var(--ink) 14px 28px
+      );
+    }
+
+    .tag-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+
+      gap: 10px 16px;
+      padding: 18px 20px 0;
+    }
+
+    .tag-id {
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+
+    .tag-title {
+      padding: 6px 20px 0;
+
+      font-family: var(--font-display);
+      font-size: 25px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+.team-head {
+  display: block;
+}
+
+.team-head h2 {
+  margin-bottom: 14px;
+}
+
+.team-head p {
+  max-width: 650px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.6;
+}
+    .langs {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 6px;
+      padding: 16px 20px 0;
+    }
+
+    .lang {
+      padding: 7px 12px;
+
+      border: 1.5px solid var(--ink);
+      border-radius: 2px;
+
+      background: transparent;
+      color: var(--ink);
+
+      font-family: var(--font-mono);
+      font-size: 13px;
+
+      cursor: pointer;
+
+      transition:
+        transform 140ms ease,
+        box-shadow 140ms ease,
+        background-color 140ms ease,
+        color 140ms ease;
+    }
+
+    .lang:hover {
+      background: var(--accent);
+      color: var(--on-accent);
+
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    .lang:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    .lang[aria-pressed="true"] {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    .steps {
+      margin: 0;
+      padding: 14px 20px 6px;
+
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .steps li {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+
+      gap: 12px;
+      padding: 12px 0;
+
+      border-top: 1px solid var(--line);
+
+      font-size: 16.5px;
+      line-height: 1.4;
+
+      counter-increment: step;
+    }
+
+    .steps li:first-child {
+      border-top: 0;
+    }
+
+    .steps li::before {
+      content: counter(step);
+
+      display: grid;
+      place-items: center;
+
+      width: 30px;
+      height: 30px;
+
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      background: var(--accent);
+      color: var(--on-accent);
+
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .tag-foot {
+      margin-top: 8px;
+      padding: 12px 20px 18px;
+
+      border-top: 2px solid var(--ink);
+
+      color: var(--muted);
+      font-size: 13.5px;
+    }
+
+    /* Problemen */
+
+    .problem {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+
+      border: 2px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .problem > div {
+      min-width: 0;
+      padding: 26px 24px 30px;
+
+      border-left: 2px solid var(--ink);
+    }
+
+    .problem > div:first-child {
+      border-left: 0;
+    }
+
+    .problem h3 {
+      margin-bottom: 10px;
+
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .problem p {
+      color: var(--muted);
+      font-size: 16.5px;
+    }
+
+    /* Klikbare homekaarten */
+
+    .teaser {
+      position: relative;
+
+      color: var(--ink);
+      text-decoration: none;
+
+      box-shadow: 4px 4px 0 var(--ink);
+      transform: translate(0, 0);
+
+      transition:
+        background-color 160ms ease,
+        transform 160ms ease,
+        box-shadow 160ms ease;
+    }
+
+    .teaser:hover {
+      background: var(--accent);
+
+      transform: translate(-4px, -4px);
+      box-shadow: 8px 8px 0 var(--ink);
+    }
+
+    .teaser:hover p,
+    .teaser:hover .eyebrow {
+      color: var(--on-accent);
+    }
+
+    .teaser .go {
+      margin-top: auto;
+      padding-top: 8px;
+
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* Stappen */
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+
+      gap: 28px;
+      margin: 0;
+      padding: 0;
+
+      list-style: none;
+      counter-reset: flow;
+    }
+
+    .flow li {
+      min-width: 0;
+      counter-increment: flow;
+    }
+
+    .flow .n {
+      display: flex;
+      align-items: center;
+
+      gap: 12px;
+      margin-bottom: 16px;
+
+      color: var(--muted);
+
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.1em;
+    }
+
+    .flow .n::before {
+      content: "STEP " counter(flow);
+    }
+
+    .flow .n::after {
+      content: "";
+
+      flex: 1;
+      height: 2px;
+
+      background: var(--ink);
+    }
+
+    .flow h3 {
+      margin-bottom: 10px;
+
+      font-size: 26px;
+      font-weight: 800;
+    }
+
+    .flow p {
+      color: var(--muted);
+    }
+
+    .glyph {
+      display: grid;
+      place-items: center;
+
+      height: 120px;
+      margin-bottom: 18px;
+
+      border: 2px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .glyph svg {
+      display: block;
+      width: 96px;
+      height: 96px;
+    }
+
+    .glyph .s {
+      fill: none;
+      stroke: var(--ink);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .glyph .f {
+      fill: var(--accent);
+      stroke: var(--ink);
+      stroke-width: 3;
+    }
+
+    /* Procedurestappen */
+
+    .pipe {
+      border: 2px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .pipe-top {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .pipe-top button {
+      min-width: 0;
+      padding: 14px;
+
+      border: 0;
+      border-left: 2px solid var(--ink);
+
+      background: transparent;
+      color: var(--muted);
+
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-align: left;
+
+      cursor: pointer;
+    }
+
+    .pipe-top button:first-child {
+      border-left: 0;
+    }
+
+    .pipe-top button b {
+      display: block;
+      margin-top: 2px;
+
+      color: var(--ink);
+
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .pipe-top button[aria-selected="true"] {
+      background: var(--accent);
+      color: var(--on-accent);
+    }
+
+    .pipe-top button[aria-selected="true"] b {
+      color: var(--on-accent);
+    }
+
+    .pipe-body {
+      display: grid;
+      gap: 18px;
+
+      padding: 24px 24px 26px;
+    }
+
+    .pipe-body h3 {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .pipe-body p {
+      max-width: 40em;
+      color: var(--muted);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 6px 12px;
+
+      border: 1.5px solid var(--ink);
+      background: var(--bg);
+
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+
+    .chip em {
+      color: var(--muted);
+      font-style: normal;
+    }
+
+    .chip[data-state="Source text"],
+    .chip[data-state="Approved"],
+    .chip[data-state="Live"] {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+.chip[data-state="Source text"] em,
+.chip[data-state="Approved"] em,
+.chip[data-state="Live"] em {
+  color: var(--bg);
+  opacity: 0.8;
+}
+
+    .chip[data-state="Approved"] em,
+    .chip[data-state="Live"] em {
+      color: var(--bg);
+      opacity: 0.8;
+    }
+
+    .vis {
+      padding: 10px 14px;
+
+      border: 1.5px dashed var(--ink);
+
+      font-size: 14.5px;
+    }
+
+    /* Chat */
+
+    .chatbox {
+      border: 2px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .chat-log {
+      display: grid;
+      align-content: start;
+      gap: 12px;
+
+      min-height: 220px;
+      padding: 18px;
+    }
+
+    .msg {
+      min-width: 0;
+      max-width: min(520px, 92%);
+      padding: 10px 14px;
+
+      border: 1.5px solid var(--ink);
+
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .msg small {
+      display: block;
+      margin-bottom: 3px;
+
+      color: var(--muted);
+
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .msg.a {
+      justify-self: start;
+      background: var(--bg);
+    }
+
+    .msg.b {
+      justify-self: end;
+      background: var(--accent);
+      color: var(--on-accent);
+    }
+
+    .msg.b small {
+      color: var(--on-accent);
+      opacity: 0.75;
+    }
+
+    .msg .orig {
+      display: block;
+      margin-top: 6px;
+      padding-top: 6px;
+
+      border-top: 1px dashed currentColor;
+
+      font-size: 14px;
+      opacity: 0.75;
+    }
+
+    .chat-pick {
+      display: grid;
+      gap: 16px;
+
+      padding: 16px 18px 18px;
+      border-top: 2px solid var(--ink);
+    }
+
+    .pick-group {
+      display: grid;
+      gap: 8px;
+    }
+
+    .pick-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+.video-banner {
+  position: relative;
+  width: 68%;             /* video kleiner maken */
+  height: 320px;          /* video minder hoog maken */
+  margin-left: 0;      /* volledige video naar rechts */
+  margin-right: auto;
+  margin-bottom: 64px;
+
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  background: #000;
+  isolation: isolate;
+}
+
+.video-banner video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.55);
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+
+  padding: 28px;
+  color: #fff;
+  text-align: left;
+}
+
+.video-overlay h2 {
+  max-width: 520px;
+  color: #fff;
+  font-size: clamp(28px, 3.5vw, 46px);
+  margin-bottom: 12px;
+}
+
+.video-overlay p {
+  max-width: 500px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 16px;
+  line-height: 1.5;
+}
+    .pick-row button {
+      padding: 8px 12px;
+
+      border: 1.5px solid var(--ink);
+      border-radius: 2px;
+
+      background: transparent;
+      color: var(--ink);
+
+      font-size: 14.5px;
+      text-align: left;
+
+      cursor: pointer;
+
+      transition:
+        transform 140ms ease,
+        box-shadow 140ms ease,
+        background-color 140ms ease,
+        color 140ms ease;
+    }
+
+    .pick-row button:hover {
+      background: var(--accent);
+      color: var(--on-accent);
+
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    /* Doelgroepen */
+
+    .who {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    .who .card h3 {
+      font-size: 23px;
+    }
+
+    .who ul {
+      display: grid;
+      gap: 6px;
+
+      margin: 4px 0 0;
+      padding-left: 18px;
+
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .sit {
+      display: grid;
+
+      border: 2px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .sit > div {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+
+      gap: 8px 28px;
+      padding: 22px 24px;
+
+      border-top: 2px solid var(--ink);
+    }
+
+    .sit > div:first-child {
+      border-top: 0;
+    }
+
+    .sit h3 {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .sit p {
+      color: var(--muted);
+    }
+
+    /* Team */
+
+    /* Team cards */
+
+.team-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.team-row {
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+
+  width: 100%;
+}
+
+.team-card {
+  position: relative;
+
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 320px;
+
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+
+  background: var(--surface);
+  color: var(--ink);
+
+  box-shadow: 5px 5px 0 var(--ink);
+  overflow: hidden;
+  transform: translateY(0);
+
+  transition:
+    flex 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 300ms ease,
+    background-color 300ms ease,
+    opacity 300ms ease;
+}
+
+/* Geselecteerde kaart komt naar voren */
+
+.team-card:hover,
+.team-card:focus-within {
+  flex: 1.7 1 0;
+
+  background: var(--accent);
+  color: var(--on-accent);
+
+  transform: translateY(-14px);
+  box-shadow: 12px 18px 0 var(--ink);
+  z-index: 3;
+}
+
+/* Andere kaarten schuiven opzij */
+
+.team-row:has(.team-card:hover) .team-card:not(:hover) {
+  flex: 0.7 1 0;
+  opacity: 0.7;
+}
+
+.team-row:has(.team-card:focus-within) .team-card:not(:focus-within) {
+  flex: 0.7 1 0;
+  opacity: 0.7;
+}
+
+/* Groot nummer op de achtergrond */
+
+.team-number {
+  position: absolute;
+  right: -10px;
+  bottom: -35px;
+
+  color: transparent;
+  opacity: 0.14;
+
+  -webkit-text-stroke: 2px var(--ink);
+
+  font-family: var(--font-display);
+  font-size: 150px;
+  font-weight: 900;
+  line-height: 1;
+
+  pointer-events: none;
+
+  transition:
+    opacity 300ms ease,
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.team-card:hover .team-number,
+.team-card:focus-within .team-number {
+  opacity: 0.3;
+  transform: translate(-12px, -12px) scale(1.08);
+}
+
+/* Inhoud van teamkaart */
+
+.team-info {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 14px;
+  padding: 28px 24px;
+}
+
+.team-info .eyebrow {
+  display: inline-block;
+  padding: 5px 9px;
+
+  border: 1.5px solid var(--ink);
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.team-info h3 {
+  max-width: 100%;
+
+  font-size: clamp(25px, 2.8vw, 36px);
+  font-weight: 900;
+  line-height: 1;
+  overflow-wrap: anywhere;
+
+  transition: font-size 300ms ease;
+}
+
+.team-card:hover .team-info h3,
+.team-card:focus-within .team-info h3 {
+  font-size: clamp(29px, 3.2vw, 43px);
+}
+
+.team-info p {
+  max-width: 400px;
+  margin-bottom: 12px;
+
+  color: var(--muted);
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+
+.team-card:hover .team-info p,
+.team-card:focus-within .team-info p {
+  color: var(--on-accent);
+}
+
+/* LinkedIn-knop */
+
+.linkedin-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+
+  margin-top: auto;
+  padding: 9px 12px;
+
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+
+  background: var(--accent);
+  color: var(--on-accent);
+
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  box-shadow: 3px 3px 0 var(--ink);
+
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.team-card:hover .linkedin-btn,
+.team-card:focus-within .linkedin-btn {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.linkedin-btn:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.linkedin-btn span {
+  font-size: 16px;
+  line-height: 1;
+}
+    /* Alleen de coding-GIF van Shady */
+
+    .team-photo.transparent {
+      background: transparent;
+    }
+
+    .team-photo.transparent img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+      object-position: center;
+
+      filter: none;
+    }
+
+
+    .linkedin-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 14px;
+      margin-top: auto;
+      padding: 8px 11px;
+
+      border: 1.5px solid var(--ink);
+      border-radius: 2px;
+
+      background: var(--accent);
+      color: var(--on-accent);
+
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+
+      box-shadow: 2px 2px 0 var(--ink);
+      transform: translate(0, 0);
+
+      transition:
+        transform 150ms ease,
+        box-shadow 150ms ease,
+        background-color 150ms ease,
+        color 150ms ease;
+    }
+
+    .linkedin-btn:hover {
+      background: var(--ink);
+      color: var(--bg);
+
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+
+    .linkedin-btn:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    .linkedin-btn span {
+      font-size: 15px;
+      line-height: 1;
+    }
+
+    /* Contact */
+
+    .contact {
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+
+      align-items: start;
+      gap: 32px 48px;
+    }
+
+    form {
+      display: grid;
+      gap: 16px;
+
+      padding: 26px 24px 28px;
+
+      border: 2px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    label {
+      color: var(--muted);
+
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+.machine-head {
+  display: block;
+}
+
+.machine-head h2 {
+  margin-bottom: 14px;
+}
+
+.machine-head p {
+  max-width: 600px;
+}
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-width: 0;
+      padding: 11px 12px;
+
+      border: 2px solid var(--ink);
+      border-radius: 2px;
+
+      background: var(--bg);
+      color: var(--ink);
+
+      font-size: 16px;
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .err {
+      padding: 8px 12px;
+
+      border: 1.5px solid var(--ink);
+      background: var(--accent);
+      color: var(--ink);
+
+      font-size: 14.5px;
+      font-weight: 600;
+    }
+
+    .facts {
+      margin-top: 24px;
+
+      border: 2px solid var(--ink);
+      background: var(--surface);
+
+      font-family: var(--font-mono);
+      font-size: 14px;
+    }
+
+    .facts div {
+      display: flex;
+      justify-content: space-between;
+
+      gap: 16px;
+      padding: 12px 16px;
+
+      border-top: 1px solid var(--line);
+    }
+
+    .facts div:first-child {
+      border-top: 0;
+    }
+
+    .facts span:first-child {
+      color: var(--muted);
+    }
+
+    .facts span:last-child {
+      text-align: right;
+    }
+
+    .about h2 {
+      font-size: 30px;
+      font-weight: 850;
+    }
+
+    .about p {
+      max-width: 34em;
+      margin-top: 14px;
+
+      color: var(--muted);
+      font-size: 17.5px;
+    }
+
+    /* Footer */
+
+    footer {
+      margin-top: 24px;
+      padding-block: 28px 44px;
+
+      border-top: 2px solid var(--ink);
+    }
+
+    .fstripe {
+      height: 14px;
+      margin-bottom: 24px;
+
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--accent) 0 12px,
+        var(--ink) 12px 24px
+      );
+    }
+
+    .frow {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      gap: 10px 32px;
+
+      color: var(--muted);
+      font-size: 14.5px;
+    }
+
+    .frow nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 18px;
+    }
+
+    .frow a {
+      text-decoration: none;
+    }
+
+    .frow a:hover {
+      color: var(--ink);
+      text-decoration: underline;
+    }
+
+    /* Tablet */
+
+    @media (max-width: 900px) {
+      .hero,
+      .sec-head,
+      .contact {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .problem, .who, .flow, .grid2, .grid3, .more-grid { grid-template-columns: minmax(0, 1fr); }
+      .hero {
+        gap: 40px;
+        padding-block: 24px 52px;
+      }
+
+      .sec-head {
+        gap: 14px;
+        margin-bottom: 30px;
+      }
+
+      .problem,
+      .who,
+      .flow,
+      .grid2,
+      .grid3 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .team-grid {
+        grid-template-columns: repeat(2, minmax(220px, 280px));
+      }
+
+      .team-photo {
+        height: 180px;
+      }
+
+      .problem > div {
+        border-top: 2px solid var(--ink);
+        border-left: 0;
+      }
+
+      .problem > div:first-child {
+        border-top: 0;
+      }
+
+      .sit > div {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .pipe-top {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .pipe-top button:nth-child(3) {
+        border-left: 0;
+      }
+
+      .pipe-top button:nth-child(n + 3) {
+        border-top: 2px solid var(--ink);
+      }
+
+      section {
+        padding-block: 48px;
+      }
+    }
+
+    /* Mobiel */
+
+    @media (max-width: 600px) {
+      .team-grid {
+        grid-template-columns: minmax(0, 300px);
+        gap: 22px;
+      }
+
+      .team-photo {
+        height: 190px;
+      }
+
+      .team-info {
+        padding: 17px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  /* See the product: tekst altijd onder de titel */
+#product > .sec-head {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  grid-template-columns: none !important;
+
+  gap: 14px !important;
+  margin-bottom: 40px;
+}
+
+#product > .sec-head h2 {
+  width: 100%;
+  margin: 0;
+}
+
+#product > .sec-head p {
+  width: 100%;
+  max-width: 650px;
+  margin: 0;
+  align-self: flex-start !important;
+}
+/* =========================================
+   NAVIGATIE AAN DE RECHTERKANT BIJ SCROLLEN
+   ========================================= */
+
+.side-nav {
+  position: fixed;
+  top: 50%;
+  right: 18px;
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  width: 175px;
+  padding: 10px;
+
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  background: var(--surface);
+  box-shadow: 6px 6px 0 var(--ink);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transform: translate(30px, -50%);
+
+  transition:
+    opacity 220ms ease,
+    visibility 220ms ease,
+    transform 220ms ease;
+}
+
+/* Wordt toegevoegd zodra de gebruiker omlaag scrolt */
+.side-nav.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+
+  transform: translate(0, -50%);
+}
+
+/* Knoppen in de rechter navigatie */
+.side-nav a {
+  display: block;
+  padding: 9px 11px;
+
+  border: 2px solid transparent;
+  border-radius: 2px;
+
+  color: var(--muted);
+
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-decoration: none;
+
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.side-nav a:hover {
+  border-color: var(--ink);
+  background: var(--accent);
+  color: var(--on-accent);
+
+  transform: translate(-3px, -3px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+/* Laat zien welke pagina actief is */
+.side-nav a[aria-current="page"] {
+  border-color: var(--ink);
+  background: var(--accent);
+  color: var(--on-accent);
+
+  font-weight: 800;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+/* Op kleinere schermen een kleinere rechterbalk */
+@media (max-width: 900px) {
+  .side-nav {
+    right: 10px;
+    width: 150px;
+    padding: 8px;
+  }
+
+  .side-nav a {
+    padding: 8px 9px;
+    font-size: 12.5px;
+  }
+}
+
+/* Op telefoons geen zijbalk, zodat inhoud niet wordt bedekt */
+@media (max-width: 600px) {
+  .side-nav {
+    display: none;
+  }
+}
+/* Tekst onder Moments it is made for plaatsen */
+.moments-head {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 14px !important;
+}
+
+.moments-head h2,
+.moments-head p {
+  width: 100%;
+  margin: 0;
+}
+
+.moments-head p {
+  max-width: 650px;
+  align-self: flex-start !important;
+}
+/* Logo en LockTalk-naam iets groter */
+.mark {
+  gap: 12px;
+  font-size: 27px;
+  line-height: 1;
+}
+
+/* Gele tag links van de naam */
+.mark i {
+  width: 18px;
+  height: 28px;
+  border-width: 2px;
+}
+
+/* Rondje in het gele tag-icoon */
+.mark i::after {
+  top: 5px;
+  width: 5px;
+  height: 5px;
+}
+
+/* Op mobiele schermen iets kleiner */
+@media (max-width: 600px) {
+  .mark {
+    gap: 9px;
+    font-size: 23px;
+  }
+
+  .mark i {
+    width: 16px;
+    height: 25px;
+  }
+}
+/* Gele achtergrond laadt van links naar rechts */
+.loading-highlight {
+  padding-left: 0.12em;
+  padding-right: 0.12em;
+  background-color: transparent;
+  background-image: linear-gradient(
+    to right,
+    var(--accent),
+    var(--accent)
+  );
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 0% 100%;
+  color: var(--ink);
+  animation: loadHighlight 1.2s ease 0.35s forwards;
+}
+
+@keyframes loadHighlight {
+  from {
+    background-size: 0% 100%;
+  }
+
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-highlight {
+    animation: none;
+    background-size: 100% 100%;
+  }
+}
+/* Bewegende gele markering */
+.hero h1 mark.loading-highlight,
+.home-final h1 mark.loading-highlight,
+mark.loading-highlight {
+  position: relative;
+  z-index: 0;
+
+  display: inline-block;
+  padding-left: 0.12em;
+  padding-right: 0.12em;
+
+  background: transparent !important;
+  color: var(--ink);
+  isolation: isolate;
+}
+
+mark.loading-highlight::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background: var(--accent);
+
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* Animatie start pas wanneer JavaScript deze class toevoegt */
+mark.loading-highlight.is-visible::before {
+  animation: highlightLoad 1.4s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    forwards;
+}
+
+@keyframes highlightLoad {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  mark.loading-highlight::before {
+    transform: scaleX(1);
+  }
+
+  mark.loading-highlight.is-visible::before {
+    animation: none;
+  }
+}
+
+@keyframes highlightLoad {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  mark.loading-highlight::before {
+    animation: none;
+    transform: scaleX(1);
+  }
+}
+/* =========================================
+   WHAT IT DOES: VIER FUNCTIES
+   ========================================= */
+
+/* Tekst onder de titel plaatsen */
+.features-head {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 14px !important;
+}
+
+.features-head h2,
+.features-head p {
+  width: 100%;
+  margin: 0;
+}
+
+.features-head p {
+  max-width: 680px;
+  align-self: flex-start !important;
+}
+
+/* Twee kaarten per rij */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  align-items: stretch;
+}
+
+/* Opmaak van de functiekaarten */
+.feature-card {
+  min-height: 260px;
+  box-shadow: 5px 5px 0 var(--ink);
+
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.feature-card:hover {
+  background: var(--accent);
+  color: var(--on-accent);
+
+  transform: translate(-5px, -5px);
+  box-shadow: 10px 10px 0 var(--ink);
+}
+
+.feature-card:hover p {
+  color: var(--on-accent);
+}
+
+.feature-card .rule {
+  align-self: flex-start;
+  margin-bottom: 8px;
+}
+
+/* Op telefoon en tablet één kaart per rij */
+@media (max-width: 900px) {
+  .feature-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .feature-card {
+    min-height: auto;
+  }
+
+
+  .feature-card {
+    min-height: auto
+  }
+}
+.chat-note {
+  margin-top: 18px;
+}
+/* =========================================
+   WHO IT IS FOR
+   ========================================= */
+
+/* Tekst onder de sectietitels */
+.audience-head,
+.moments-head {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 14px !important;
+}
+
+.audience-head h2,
+.audience-head p,
+.moments-head h2,
+.moments-head p {
+  width: 100%;
+  margin: 0;
+}
+
+.audience-head p,
+.moments-head p {
+  max-width: 680px;
+  align-self: flex-start !important;
+}
+
+/* Doelgroepkaarten */
+.audience-grid {
+  align-items: stretch;
+}
+
+.audience-card {
+  position: relative;
+  min-height: 480px;
+  overflow: hidden;
+  box-shadow: 5px 5px 0 var(--ink);
+
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.audience-card:hover {
+  background: var(--accent);
+  transform: translate(-5px, -5px);
+  box-shadow: 10px 10px 0 var(--ink);
+}
+
+.audience-card h3,
+.audience-card p,
+.audience-card ul,
+.audience-card .eyebrow,
+.audience-card .audience-result {
+  position: relative;
+  z-index: 2;
+}
+
+.audience-card p {
+  color: var(--muted);
+}
+
+.audience-card ul {
+  display: grid;
+  gap: 8px;
+
+  margin: 4px 0 20px;
+  padding-left: 20px;
+
+  color: var(--muted);
+  font-size: 15.5px;
+}
+
+.audience-card:hover p,
+.audience-card:hover ul,
+.audience-card:hover .eyebrow {
+  color: var(--on-accent);
+}
+
+.audience-number {
+  position: absolute;
+  right: -8px;
+  bottom: -30px;
+
+  color: transparent;
+  opacity: 0.12;
+
+  -webkit-text-stroke: 2px var(--ink);
+
+  font-family: var(--font-display);
+  font-size: 135px;
+  font-weight: 900;
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+.audience-result {
+  display: block;
+  margin-top: auto;
+  padding-top: 16px;
+
+  border-top: 1.5px solid var(--ink);
+
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* Praktijksituaties */
+.situation-list {
+  display: grid;
+}
+
+.situation-list .situation-item {
+  display: grid;
+  grid-template-columns: 56px minmax(220px, 0.8fr) minmax(0, 1.2fr);
+  align-items: start;
+
+  gap: 20px 28px;
+  padding: 26px 24px;
+
+  border-top: 2px solid var(--ink);
+}
+
+.situation-list .situation-item:first-child {
+  border-top: 0;
+}
+
+.situation-number {
+  display: grid;
+  place-items: center;
+
+  width: 42px;
+  height: 42px;
+
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.situation-item .eyebrow {
+  display: block;
+  margin-bottom: 7px;
+}
+
+.situation-item h3 {
+  font-size: 21px;
+  line-height: 1.15;
+}
+
+.situation-item > p {
+  color: var(--muted);
+}
+
+/* Afsluitend blok */
+/* Afsluitend blok Who it is for */
+.audience-cta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 32px;
+
+  padding: 34px 32px;
+
+  border: 2px solid var(--ink);
+  border-top: 12px solid var(--accent);
+  background: var(--surface);
+  color: var(--ink);
+
+  box-shadow: 7px 7px 0 var(--ink);
+}
+
+.audience-cta h2 {
+  margin-top: 10px;
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 900;
+}
+
+.audience-cta p {
+  max-width: 650px;
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 17px;
+}
+
+.audience-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Belangrijkste knop blijft geel */
+.audience-cta .btn.primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+/* Tweede knop blijft rustig */
+.audience-cta .btn.ghost {
+  background: transparent;
+  color: var(--ink);
+}
+
+.audience-cta .btn.ghost:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+@media (max-width: 900px) {
+  .audience-cta {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 28px 24px;
+  }
+}
+
+/* Tablet en mobiel */
+@media (max-width: 900px) {
+  .audience-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .audience-card {
+    min-height: auto;
+  }
+
+  .situation-list .situation-item {
+    grid-template-columns: 56px minmax(0, 1fr);
+  }
+
+  .situation-item > p {
+    grid-column: 2;
+  }
+
+  .audience-cta {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 28px 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .situation-list .situation-item {
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 16px;
+    padding: 22px 18px;
+  }
+
+  .situation-number {
+    width: 38px;
+    height: 38px;
+  }
+
+  .audience-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+/* ABOUT US: GEZAMENLIJKE MISSIE */
+
+.team-mission {
+  margin-top: 64px;
+  padding: 34px 32px;
+
+  border: 2px solid var(--ink);
+  border-top: 12px solid var(--accent);
+
+  background: var(--surface);
+  color: var(--ink);
+
+  box-shadow: 7px 7px 0 var(--ink);
+}
+
+.team-mission h2 {
+  max-width: 800px;
+  margin-top: 12px;
+
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 900;
+}
+
+.team-mission p {
+  max-width: 750px;
+  margin-top: 18px;
+
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.team-mission-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+@media (max-width: 600px) {
+  .team-mission {
+    margin-top: 44px;
+    padding: 26px 22px;
+  }
+
+  .team-mission-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+/* CONTACTPAGINA */
+
+.optional {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.contact-submit {
+  display: grid;
+  justify-items: start;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+.form-note {
+  max-width: 420px;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.contact-about {
+  padding: 28px 26px 30px;
+  border: 2px solid var(--ink);
+  border-top: 12px solid var(--accent);
+  background: var(--surface);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.contact-about h2 {
+  margin-top: 10px;
+}
+
+.contact-expectations {
+  display: grid;
+  gap: 0;
+  margin-top: 26px;
+  border: 2px solid var(--ink);
+}
+
+.contact-expectations div {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  padding: 13px 14px;
+  border-top: 1px solid var(--line);
+}
+
+.contact-expectations div:first-child {
+  border-top: 0;
+}
+
+.contact-expectations strong {
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.contact-expectations span {
+  font-size: 14.5px;
+}
+
+.contact-about .facts {
+  margin-top: 26px;
+}
+.contact-person {
+  margin-top: 24px;
+  padding: 20px 18px;
+
+  border: 2px solid var(--ink);
+  border-left: 10px solid var(--accent);
+
+  background: var(--bg);
+}
+
+.contact-person h3 {
+  margin-top: 8px;
+  font-size: 23px;
+  font-weight: 850;
+}
+
+.contact-person p {
+  max-width: 520px;
+  margin-top: 10px;
+
+  color: var(--muted);
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+/* Rechter procedurebox iets langer, zonder leeg vlak na stap 5 */
+.hero > .tag {
+  display: flex;
+  flex-direction: column;
+  min-height: 710px;
+}
+
+.hero > .tag .steps {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.hero > .tag .steps li {
+  flex: 1;
+  align-items: center;
+}
+
+.hero > .tag .tag-foot {
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .hero > .tag {
+    min-height: auto;
+  }
+
+  .hero > .tag .steps {
+    display: block;
+  }
+
+  .hero > .tag .steps li {
+    flex: none;
+  }
+}
+/* Meer balans op alle pagina's */
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1200;
+
+  width: 6px;
+  background: var(--accent);
+
+  pointer-events: none;
+}
+
+.wrap {
+  width: min(1240px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.pagehead {
+  max-width: 980px;
+  padding-block: 36px 52px;
+}
+
+.pagehead p {
+  max-width: 42em;
+}
+
+/* Op mobiel minder ruimte langs de zijkanten */
+
+@media (max-width: 600px) {
+  body::before {
+    width: 4px;
+  }
+
+  .wrap {
+    width: min(1240px, calc(100% - 28px));
+  }
+
+  .pagehead {
+    padding-block: 28px 40px;
+  }
+}
+/* Interactieve doelgroepselectie */
+
+.audience-card {
+  cursor: pointer;
+}
+
+.audience-card.is-selected {
+  background: var(--accent);
+  color: var(--on-accent);
+  transform: translate(-5px, -5px);
+  box-shadow: 10px 10px 0 var(--ink);
+}
+
+.audience-card.is-selected p,
+.audience-card.is-selected ul,
+.audience-card.is-selected .eyebrow {
+  color: var(--on-accent);
+}
+
+.audience-selection {
+  display: grid;
+  gap: 10px;
+
+  margin-top: 34px;
+  padding: 24px 22px;
+
+  border: 2px solid var(--ink);
+  border-left: 10px solid var(--accent);
+
+  background: var(--surface);
+}
+
+.audience-selection h3 {
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 900;
+}
+
+.audience-selection p {
+  max-width: 720px;
+  color: var(--muted);
+}
+
+.audience-selection .btn {
+  justify-self: start;
+  margin-top: 8px;
+}
+.title-line {
+  display: block;
+  margin-top: 8px;
+}
+
+.title-line mark {
+  padding-inline: 0.12em;
+  background: var(--accent);
+  color: var(--on-accent);
+}
+/* ABOUT US: VISIE */
+
+.team-vision {
+  margin-top: 28px;
+  padding: 34px 32px;
+
+  border: 2px solid var(--ink);
+  border-left: 12px solid var(--accent);
+
+  background: var(--bg);
+  color: var(--ink);
+
+  box-shadow: 7px 7px 0 var(--ink);
+}
+
+.team-vision h2 {
+  max-width: 850px;
+  margin-top: 12px;
+
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 900;
+}
+
+.team-vision p {
+  max-width: 760px;
+  margin-top: 18px;
+
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .team-vision {
+    margin-top: 24px;
+    padding: 26px 22px;
+
+    border-left-width: 8px;
+  }
+}
+.team-direction {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+
+  gap: 28px;
+  margin-top: 64px;
+}
+
+.team-direction .team-mission,
+.team-direction .team-vision {
+  height: 100%;
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .team-direction {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 44px;
+  }
+}
+.brand-slogan {
+  margin-bottom: 12px;
+
+  color: var(--accent);
+
+  font-family: var(--font-mono);
+  font-size: clamp(13px, 1.4vw, 16px);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <header class="bar">
+      <a class="mark" href="#home">
+        <i aria-hidden="true"></i>
+        LockTalk
+      </a>
+
+      <nav class="nav" aria-label="Pages" id="mainNav">
+        <a href="#home" data-page="home">Home</a>
+        <a href="#how" data-page="how">How it works</a>
+        <a href="#features" data-page="features">What it does</a>
+        <a href="#who" data-page="who">Who it is for</a>
+        <a href="#team" data-page="team">About us</a>
+        <a href="#contact" data-page="contact">Contact</a>
+      </nav>
+    </header>
+
+
+<nav
+  class="side-nav"
+  id="sideNav"
+  aria-label="Snelle paginanavigatie"
+  aria-hidden="true"
+>
+  <a href="#home" data-page="home">Home</a>
+  <a href="#how" data-page="how">How it works</a>
+  <a href="#features" data-page="features">What it does</a>
+  <a href="#who" data-page="who">Who it is for</a>
+  <a href="#team" data-page="team">About us</a>
+  <a href="#contact" data-page="contact">Contact</a>
+</nav>
+
+    <main>
+
+      <!-- HOME -->
+
+      <div class="page" id="page-home">
+            <p class="brand-slogan">
+              One machine. One tap. Your language.
+            </p>
+
+        <div class="hero">
+          <div>
+            <section class="product" id="product">
+  <div class="sec-head product-head">
+  <h2>This is LockTalk!</h2>
+
+  <p>
+    Hover over the numbered points to see how each part works.
+    On a phone, tap them.
+  </p>
+</div>
+
+  <div class="product-stage">
+    <svg class="product-svg" viewBox="0 0 760 420" role="img" aria-label="A machine with an NFC tag, a phone tapping the tag, the translated procedure on the phone screen and a two-way translation chat">
+
+      <!-- machine -->
+      <rect class="p-s p-bg" x="30" y="110" width="300" height="270"></rect>
+      <rect class="p-s p-ac" x="30" y="110" width="300" height="22"></rect>
+      <rect class="p-s p-sf" x="200" y="160" width="100" height="80"></rect>
+      <circle class="p-s p-bg" cx="225" cy="200" r="10"></circle>
+      <circle class="p-s p-bg" cx="270" cy="200" r="10"></circle>
+      <path class="p-s p-none" d="M70 300h220M70 330h140"></path>
+      <text x="50" y="364">MACHINE M-114</text>
+
+      <!-- phone -->
+      <rect class="p-s p-sf" x="400" y="50" width="170" height="330" rx="22"></rect>
+      <path class="p-s p-none" d="M462 64h46"></path>
+      <rect class="p-s p-bg" x="414" y="78" width="142" height="274" rx="8"></rect>
+
+      <!-- 1: NFC tag -->
+      <g class="hot" tabindex="0" role="button" data-title="1 · The NFC tag" data-info="A small NFC tag is fixed to the machine. It is linked to the Lock-out/Tag-out procedure for exactly that machine.">
+        <rect class="hot-hit" x="58" y="144" width="130" height="90"></rect>
+        <rect class="hot-ring" x="58" y="144" width="130" height="90" rx="4"></rect>
+        <rect class="p-s p-ac" x="70" y="160" width="90" height="56"></rect>
+        <text x="115" y="193" text-anchor="middle">NFC</text>
+        <circle class="hot-dot" cx="172" cy="152" r="13"></circle>
+        <text class="hot-num" x="172" y="157">1</text>
+      </g>
+
+      <!-- 2: tap -->
+      <g class="hot" tabindex="0" role="button" data-title="2 · Tap your phone" data-info="No app search and no folders. Hold your device to the tag and the procedure for this machine opens straight away.">
+        <rect class="hot-hit" x="196" y="140" width="190" height="100"></rect>
+        <rect class="hot-ring" x="196" y="140" width="190" height="100" rx="4"></rect>
+        <path class="p-s p-none" d="M215 172q16 16 0 32"></path>
+        <path class="p-s p-none" d="M245 160q24 28 0 56"></path>
+        <path class="p-s p-none" d="M275 148q32 40 0 80"></path>
+        <circle class="hot-dot" cx="342" cy="152" r="13"></circle>
+        <text class="hot-num" x="342" y="157">2</text>
+      </g>
+
+      <!-- 3: screen -->
+      <g class="hot" tabindex="0" role="button" data-title="3 · Read it in your language" data-info="The approved steps appear in your own language, in the same order and numbering as the original.">
+        <rect class="hot-hit" x="408" y="80" width="154" height="270"></rect>
+        <rect class="hot-ring" x="408" y="80" width="154" height="270" rx="8"></rect>
+        <rect class="p-s p-ink" x="422" y="90" width="29" height="18"></rect>
+        <rect class="p-s p-bg" x="454" y="90" width="29" height="18"></rect>
+        <rect class="p-s p-bg" x="487" y="90" width="29" height="18"></rect>
+        <rect class="p-s p-bg" x="520" y="90" width="29" height="18"></rect>
+        <text class="p-txt-inv" x="436" y="103" text-anchor="middle" style="font-size:9px">EN</text>
+        <text x="468" y="103" text-anchor="middle" style="font-size:9px">NL</text>
+        <text x="501" y="103" text-anchor="middle" style="font-size:9px">PL</text>
+        <text x="534" y="103" text-anchor="middle" style="font-size:9px">RO</text>
+        <circle class="p-s p-ac" cx="432" cy="150" r="9"></circle><path class="p-s p-none" d="M450 150h90"></path>
+        <circle class="p-s p-ac" cx="432" cy="195" r="9"></circle><path class="p-s p-none" d="M450 195h90"></path>
+        <circle class="p-s p-ac" cx="432" cy="240" r="9"></circle><path class="p-s p-none" d="M450 240h90"></path>
+        <circle class="p-s p-ac" cx="432" cy="285" r="9"></circle><path class="p-s p-none" d="M450 285h70"></path>
+        <circle class="hot-dot" cx="556" cy="84" r="13"></circle>
+        <text class="hot-num" x="556" y="89">3</text>
+      </g>
+
+      <!-- 4: live translation -->
+      <g class="hot" tabindex="0" role="button" data-title="4 · Ask when something is unclear" data-info="If a step is unclear, the technician and the person on site talk to each other, each in their own language. The original wording stays visible.">
+        <rect class="hot-hit" x="582" y="130" width="168" height="180"></rect>
+        <rect class="hot-ring" x="582" y="130" width="168" height="180" rx="4"></rect>
+        <rect class="p-s p-bg" x="592" y="156" width="140" height="62"></rect>
+        <text x="602" y="174" style="font-size:9px">NL → PL</text>
+        <path class="p-s p-none" d="M602 188h90M602 202h60"></path>
+        <rect class="p-s p-ac" x="602" y="234" width="140" height="62"></rect>
+        <text x="612" y="252" style="font-size:9px">PL → NL</text>
+        <path class="p-s p-none" d="M612 266h90M612 280h60"></path>
+        <circle class="hot-dot" cx="736" cy="140" r="13"></circle>
+        <text class="hot-num" x="736" y="145">4</text>
+      </g>
+    </svg>
+
+    <div class="product-caption" aria-live="polite">
+      <span class="eyebrow">Hover over a numbered point</span>
+      <h3 id="productCapTitle">How LockTalk works</h3>
+      <p id="productCapText">Four steps: a tag on the machine, a tap with your phone, the procedure in your language, and live help when something is unclear.</p>
+    </div>
+  </div>
+
+  <div class="product-more">
+    <div class="more-grid">
+      <div class="more-item reveal">
+        <span class="eyebrow">One tag per machine</span>
+        <h3>The tag never changes</h3>
+        <p>When a procedure changes, the owner updates it online. The tag stays on the machine and the next tap shows the new version. Nothing is reprinted.</p>
+      </div>
+      <div class="more-item reveal">
+        <span class="eyebrow">Approved first</span>
+        <h3>Reviewed before it goes live</h3>
+        <p>AI drafts the translations. The machine owner approves every language. Technicians only ever see approved text.</p>
+      </div>
+      <div class="more-item reveal">
+        <span class="eyebrow">Live help</span>
+        <h3>Ask on the spot</h3>
+        <p>A supervisor and a technician can talk in their own languages, with the original wording visible next to the translation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+            <div class="eyebrow">
+              Lock-out / Tag-out instructions, by NFC
+            </div>
+
+<h1>
+  The shutdown steps,
+  <mark class="loading-highlight">in the language you read.</mark>
+</h1>
+
+            <p class="lede">
+              LockTalk puts machine-specific Lock-out/Tag-out instructions
+              on an NFC tag fixed to the machine. A technician taps the mobile device
+              on the tag and reads the approved procedure in their own
+              language.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn primary" href="#how">
+                See how it works
+              </a>
+
+              <a class="btn ghost" href="#contact">
+                Talk to us
+              </a>
+            </div>
+          </div>
+
+          <aside
+            class="tag"
+            aria-label="Example of a LockTalk instruction tag"
+          >
+            <div class="tag-stripe" aria-hidden="true"></div>
+
+            <div class="tag-head">
+              <span class="eyebrow">Tap result</span>
+              <span class="tag-id">MACHINE M-114 · EXAMPLE</span>
+            </div>
+
+            <div class="tag-title" id="tagTitle">
+              Shutdown procedure
+            </div>
+
+            <div
+              class="langs"
+              role="group"
+              aria-label="Choose language"
+              id="langs"
+            ></div>
+
+            <ol
+              class="steps"
+              id="steps"
+              aria-live="polite"
+            ></ol>
+
+            <div class="tag-foot">
+              Example text. On a real machine, the procedure comes from
+              the machine owner and is approved before it is translated.
+            </div>
+          </aside>
+        </div>
+
+
+
+        <section>
+          <div class="sec-head">
+            <h2>Where to go next.</h2>
+          </div>
+
+          <div class="grid3 compact">
+            <a class="card teaser" href="#how">
+              <span class="eyebrow">Page 2</span>
+              <h3>How it works</h3>
+              <p>See what happens at the machine and behind the tag.</p>
+              <span class="go">Open →</span>
+            </a>
+
+            <a class="card teaser" href="#features">
+              <span class="eyebrow">Page 3</span>
+              <h3>What it does</h3>
+              <p>Approved translation and two-way communication.</p>
+              <span class="go">Open →</span>
+            </a>
+
+            <a class="card teaser" href="#who">
+              <span class="eyebrow">Page 4</span>
+              <h3>Who it is for</h3>
+              <p>Safety leads, managers and international technicians.</p>
+              <span class="go">Open →</span>
+            </a>
+          </div>
+        </section>
+      </div>
+
+      <!-- HOW IT WORKS -->
+
+      <div class="page" id="page-how" hidden>
+        <div class="pagehead">
+  <div class="eyebrow">How it works</div>
+  <h1>
+  Tap, read, act.
+  <span class="title-line">Approve once, update anytime.</span>
+</h1>
+  <p>Two sides of one tag: what the technician does at the machine, and what the machine owner does before the tag goes live.</p>
+</div>
+
+        <section>
+  <div class="sec-head machine-head">
+    <h2>At the machine.</h2>
+
+    <p>
+      The tag is placed where the work starts.
+    </p>
+  </div>
+<div class="video-banner how-video">
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+    poster="banner-placeholder.jpg">
+    <source src="locktalk-banner.mp4" type="video/mp4">
+  </video>
+  
+
+  <div class="video-overlay">
+    <h2>Tap the tag. Read the procedure. Work safely.</h2>
+
+    <p class="video-text">
+      Each machine has its own NFC tag.
+      A technician taps the tag with a mobile device and immediately receives the correct, 
+      machine-specific Lock-out/Tag-out instructions.
+    </p>
+  </div>
+</div>
+          <ol class="flow">
+            <li>
+              <div class="n"></div>
+              <div class="glyph" aria-hidden="true">
+                <svg viewBox="0 0 96 96">
+                  <rect class="f" x="16" y="30" width="55" height="280" rx="4"></rect>
+                  <path class="s" d="M30 46h14M30 54h26"></path>
+                  <circle class="s" cx="68" cy="46" r="4"></circle>
+                </svg>
+              </div>
+
+              <h3>Tag on the machine</h3>
+              <p>The NFC tag links to the correct procedure.</p>
+            </li>
+
+            <li>
+              <div class="n"></div>
+              <div class="glyph" aria-hidden="true">
+                <svg viewBox="0 0 96 96">
+                  <rect class="s" x="30" y="14" width="36" height="68" rx="7"></rect>
+                  <path class="s" d="M44 74h8"></path>
+                  <path class="s" d="M16 38c-5 6-5 14 0 20M80 38c5 6 5 14 0 20"></path>
+                </svg>
+              </div>
+
+              <h3>Tap your device</h3>
+              <p>The correct instructions open immediately.</p>
+            </li>
+
+            <li>
+              <div class="n"></div>
+              <div class="glyph" aria-hidden="true">
+                <svg viewBox="0 0 96 96">
+                  <path
+                    class="f"
+                    d="M18 22h44a6 6 0 0 1 6 6v22a6 6 0 0 1-6 6H40L28 66V56H18a6 6 0 0 1-6-6V28a6 6 0 0 1 6-6z"
+                  ></path>
+                  <path class="s" d="M34 38h24M34 46h14"></path>
+                </svg>
+              </div>
+
+              <h3>Read your language</h3>
+              <p>The approved procedure appears in the selected language.</p>
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <div class="sec-head">
+            <h2>Behind the tag.</h2>
+            <p>See how one machine-specific procedure is translated,
+              reviewed and approved before technicians can access it.</p>
+          </div>
+
+          <div class="pipe">
+            <p class="vis">
+              Only owner-approved translations are published. Draft translations
+              are never shown to technicians at the machine.
+            </p>
+            <div
+              class="pipe-top"
+              role="tablist"
+              aria-label="Procedure stages"
+              id="pipeTabs"
+            ></div>
+
+            <div
+              class="pipe-body"
+              id="pipeBody"
+              role="tabpanel"
+              aria-live="polite"
+            ></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- FEATURES -->
+
+      <div class="page" id="page-features" hidden>
+        <div class="pagehead">
+          <div class="eyebrow">What it does</div>
+          <h1>One machine procedure,
+              available in multiple languages.</h1>
+          <p> LockTalk connects every machine to its own digital
+              lock-out/tag-out procedure. Technicians can read approved
+              instructions and ask questions in their preferred language.</p>
+        </div>
+
+        <section>
+          <div class="sec-head features-head">
+            <h2>Everything needed at the machine.</h2>
+
+            <p>
+              The procedure stays connected to the machine while the
+              content, languages and approved versions can be managed online.
+            </p>
+          </div>
+
+          <div class="grid2 feature-grid">
+
+            <div class="card feature-card">
+              <span class="rule">MACHINE-SPECIFIC</span>
+
+              <h3>The correct procedure</h3>
+
+              <p>
+                Every NFC tag opens the lock-out/tag-out procedure for
+                that specific machine. Technicians do not need to search
+                through folders or select a machine manually.
+              </p>
+            </div>
+
+            <div class="card feature-card">
+              <span class="rule">APPROVED TRANSLATION</span>
+
+              <h3>Instructions in your language</h3>
+
+              <p>
+                AI prepares the translations, but the machine owner
+                reviews and approves every language before it is published.
+              </p>
+            </div>
+
+            <div class="card feature-card">
+              <span class="rule">TWO-WAY COMMUNICATION</span>
+
+              <h3>Ask when something is unclear</h3>
+
+              <p>
+                Technicians and supervisors can communicate in their own
+                languages while the original message remains visible.
+              </p>
+            </div>
+
+            <div class="card feature-card">
+              <span class="rule">ALWAYS CURRENT</span>
+
+              <h3>Update without replacing the tag</h3>
+
+              <p>
+                When a procedure changes, the owner updates it online.
+                The NFC tag remains on the machine and the next tap opens
+                the latest approved version.
+              </p>
+            </div>
+
+          </div>
+        </section>
+
+        <section>
+          <div class="sec-head">
+            <h2>Try the conversation.</h2>
+            <p>Select what the supervisor or technician wants to say and see how LockTalk translates it.</p>
+          </div>
+
+          <div class="chatbox">
+            <div
+              class="chat-log"
+              id="chatLog"
+              aria-live="polite"
+            ></div>
+
+            <div class="chat-pick">
+              <div class="pick-group">
+                <span class="eyebrow">
+                  Supervisor says, Nederlands
+                </span>
+
+                <div class="pick-row" id="pickSup"></div>
+              </div>
+
+              <div class="pick-group">
+                <span class="eyebrow">
+                  Technician says, Polski
+                </span>
+
+                <div class="pick-row" id="pickTech"></div>
+              </div>
+
+              <div>
+                <button
+                  type="button"
+                  class="btn small ghost"
+                  id="chatClear"
+                >
+                  Clear conversation
+                </button>
+              </div>
+            </div>
+          </div>
+          <p class="vis chat-note">
+            This demonstration uses example phrases. In LockTalk, the original
+            message remains visible next to the translation, helping both people
+            check what was communicated.
+          </p>
+        </section>
+      </div>
+
+      <!-- WHO -->
+
+<!-- WHO -->
+
+<div class="page" id="page-who" hidden>
+
+  <div class="pagehead">
+    <div class="eyebrow">Who it is for</div>
+
+    <h1>
+      Built for manufacturing teams that do not all speak
+      the same language.
+    </h1>
+
+    <p>
+      LockTalk supports the people who create, manage and follow
+      lock-out/tag-out procedures, from safety leads and production
+      managers to international technicians working at the machine.
+    </p>
+  </div>
+
+  <!-- DOELGROEPEN -->
+
+  <section>
+    <div class="sec-head audience-head">
+      <h2>Different roles, one clear procedure.</h2>
+
+      <p>
+        Each role uses LockTalk differently, but everyone works from
+        the same approved, machine-specific procedure.
+      </p>
+    </div>
+
+    <div class="who audience-grid">
+
+      <article class="card audience-card"
+        class="card audience-card"
+        tabindex="0"
+        role="button"
+        aria-pressed="false"
+        data-role="safety">
+        <span class="audience-number" aria-hidden="true">01</span>
+
+        <span class="eyebrow">Creates and approves</span>
+
+        <h3>Safety and maintenance leads</h3>
+
+        <p>
+          Create the original machine procedure, review translated
+          versions and decide which languages can be published.
+        </p>
+
+        <ul>
+          <li>Manage one procedure per machine</li>
+          <li>Review translated safety instructions</li>
+          <li>Approve updates before publication</li>
+        </ul>
+
+        <span class="audience-result">
+          Result: control over every published procedure
+        </span>
+      </article>
+
+      <article class="card audience-card"
+        tabindex="0"
+        role="button"
+        aria-pressed="false"
+        data-role="manager">
+        <span class="audience-number" aria-hidden="true">02</span>
+
+        <span class="eyebrow">Manages the workplace</span>
+
+        <h3>Plant and production managers</h3>
+
+        <p>
+          Help internal teams, contractors and external technicians
+          access consistent instructions at the correct machine.
+        </p>
+
+        <ul>
+          <li>Support multilingual teams</li>
+          <li>Reduce searching for documents</li>
+          <li>Keep current procedures accessible</li>
+        </ul>
+
+        <span class="audience-result">
+          Result: consistent information across the factory floor
+        </span>
+      </article>
+
+      <article class="card audience-card"
+        class="card audience-card"
+          tabindex="0"
+          role="button"
+          aria-pressed="false"
+          data-role="technician">
+        <span class="audience-number" aria-hidden="true">03</span>
+
+        <span class="eyebrow">Uses the procedure</span>
+
+        <h3>International technicians</h3>
+
+        <p>
+          Tap the machine’s NFC tag and read the approved shutdown
+          procedure in a familiar language before starting work.
+        </p>
+
+        <ul>
+          <li>Open the correct machine procedure</li>
+          <li>Read approved steps in a preferred language</li>
+          <li>Ask a supervisor when something is unclear</li>
+        </ul>
+
+        <span class="audience-result">
+          Result: clearer instructions at the point of work
+        </span>
+      </article>
+
+    </div>
+    <div class="audience-selection" id="audienceSelection" aria-live="polite">
+  <span class="eyebrow">Select a role above</span>
+
+  <h3 id="audienceSelectionTitle">
+    See how LockTalk fits each role.
+  </h3>
+
+  <p id="audienceSelectionText">
+    Choose one of the three cards to see that role’s main task,
+    benefit and next step.
+  </p>
+
+  <a
+    class="btn small primary"
+    id="audienceSelectionLink"
+    href="#how"
+  >
+    See how it works
+  </a>
+</div>
+  </section>
+
+  <!-- PRAKTIJKSITUATIES -->
+
+  <section>
+    <div class="sec-head moments-head">
+      <h2>When LockTalk is useful.</h2>
+
+      <p>
+        Practical situations where the correct procedure must be
+        understood without relying on one shared language.
+      </p>
+    </div>
+
+    <div class="sit situation-list">
+
+      <div class="situation-item">
+        <span class="situation-number">01</span>
+
+        <div>
+          <span class="eyebrow">New to the workplace</span>
+          <h3>A new contractor arrives</h3>
+        </div>
+
+        <p>
+          The contractor taps the tag and opens the current procedure
+          for that machine in a familiar language.
+        </p>
+      </div>
+
+      <div class="situation-item">
+        <span class="situation-number">02</span>
+
+        <div>
+          <span class="eyebrow">Temporary maintenance</span>
+          <h3>An external technician performs a service call</h3>
+        </div>
+
+        <p>
+          The technician does not need to search through company
+          folders or request a translated document before starting.
+        </p>
+      </div>
+
+      <div class="situation-item">
+        <span class="situation-number">03</span>
+
+        <div>
+          <span class="eyebrow">Procedure update</span>
+          <h3>A machine has been modified</h3>
+        </div>
+
+        <p>
+          The owner updates and approves the procedure online. The next
+          tap opens the latest approved version through the existing tag.
+        </p>
+      </div>
+
+      <div class="situation-item">
+        <span class="situation-number">04</span>
+
+        <div>
+          <span class="eyebrow">Question at the machine</span>
+          <h3>A shutdown step is unclear</h3>
+        </div>
+
+        <p>
+          The technician and supervisor communicate in their own
+          languages while the original messages remain visible.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- AFSLUITEND CONTACTBLOK -->
+
+  <section>
+    <div class="audience-cta">
+
+      <div>
+        <span class="eyebrow">Built for your workplace</span>
+
+        <h2>Working with multilingual teams?</h2>
+
+        <p>
+          Tell us about your machines, your current lock-out/tag-out
+          procedures and the languages used on your factory floor.
+        </p>
+      </div>
+
+      <div class="audience-actions">
+        <a class="btn primary" href="#contact">
+          Talk to us
+        </a>
+
+        <a class="btn ghost" href="#how">
+          See how it works
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<!-- ABOUT US -->
+
+<div class="page" id="page-team" hidden>
+
+  <div class="pagehead">
+    <div class="eyebrow">About us</div>
+
+    <h1>Six people working on one shared idea.</h1>
+
+    <p>
+      We are developing LockTalk to make machine-specific safety
+      instructions easier to access and understand across language
+      barriers on the factory floor.
+    </p>
+  </div>
+
+  <section>
+
+    <div class="sec-head team-head">
+      <h2>Meet the team.</h2>
+
+      <p>
+        Our team combines research, business development,
+        communication and web development to turn LockTalk
+        from an idea into a practical solution.
+      </p>
+    </div>
+
+    <div class="team-grid">
+
+      <!-- EERSTE RIJ -->
+
+      <div class="team-row">
+
+        <article class="team-card">
+          <div class="team-number" aria-hidden="true">01</div>
+
+          <div class="team-info">
+            <span class="eyebrow">Research &amp; Communication</span>
+
+            <h3>Ayca Akça</h3>
+
+            <p>
+              Contributing to user research and communication, helping
+              the team understand how LockTalk can support people on
+              the factory floor.
+            </p>
+
+            <a
+              class="linkedin-btn"
+              href="https://www.linkedin.com/in/ayca-akca-517450436/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="team-card">
+          <div class="team-number" aria-hidden="true">02</div>
+
+          <div class="team-info">
+            <span class="eyebrow">Research &amp; Communication</span>
+
+            <h3>Champoo Ketsoongnern</h3>
+
+            <p>
+              Supporting research and communication to help develop
+              and present the LockTalk concept clearly to its intended
+              users.
+            </p>
+
+            <a
+              class="linkedin-btn"
+              href="https://www.linkedin.com/in/naphatsorn-ketsoongnern-6a6312436/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="team-card">
+          <div class="team-number" aria-hidden="true">03</div>
+
+          <div class="team-info">
+            <span class="eyebrow">Business Development</span>
+
+            <h3>Daan Reijneveld</h3>
+
+            <p>
+              Helping shape the business concept and turn the team’s
+              ideas into a focused and practical value proposition.
+            </p>
+
+            <a
+              class="linkedin-btn"
+              href="https://www.linkedin.com/in/daan-reyneveld-93054b374/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- TWEEDE RIJ -->
+
+      <div class="team-row">
+
+        <article class="team-card">
+          <div class="team-number" aria-hidden="true">04</div>
+
+          <div class="team-info">
+            <span class="eyebrow">Business Development</span>
+
+            <h3>Luc Broedermans</h3>
+
+            <p>
+              Contributing to business development and exploring how
+              LockTalk can create value for companies with multilingual
+              teams.
+            </p>
+
+            <a
+              class="linkedin-btn"
+              href="https://www.linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="team-card">
+          <div class="team-number" aria-hidden="true">05</div>
+
+          <div class="team-info">
+            <span class="eyebrow">Research &amp; Communication</span>
+
+            <h3>Raina Al-Mussawi</h3>
+
+            <p>
+              Helping make the LockTalk concept clear, relevant and
+              accessible through research and user-focused communication.
+            </p>
+
+            <a
+              class="linkedin-btn"
+              href="https://www.linkedin.com/in/raina-al-mussawi-97919444a?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_ios"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="team-card">
+          <div class="team-number" aria-hidden="true">06</div>
+
+          <div class="team-info">
+            <span class="eyebrow">
+              Web Development &amp; Team Contact
+            </span>
+
+            <h3>Shady Ghanam</h3>
+
+            <p>
+              Developing the LockTalk website and supporting clear
+              communication between the team, users and external partners.
+            </p>
+
+            <a
+              class="linkedin-btn"
+              href="https://www.linkedin.com/in/shady-g-324933210/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+
+    <!-- MISSIEBLOK -->
+
+<div class="team-direction">
+
+  <div class="team-mission">
+    <span class="eyebrow">Our mission</span>
+
+    <h2>
+      Clear instructions should not depend on one shared language.
+    </h2>
+
+    <p>
+      LockTalk began with a practical challenge: important machine
+      procedures must be understood by the person carrying out the work.
+      Our team is exploring how NFC access, approved translations and
+      two-way communication can help make that process clearer.
+    </p>
+
+    <div class="team-mission-actions">
+      <a class="btn primary" href="#how">
+        See how it works
+      </a>
+
+      <a class="btn ghost" href="#contact">
+        Contact the team
+      </a>
+    </div>
+  </div>
+
+  <div class="team-vision">
+    <span class="eyebrow">Our vision</span>
+
+    <h2>
+      A workplace where language never stands between people
+      and safe work.
+    </h2>
+
+    <p>
+      We see a workplace where everyone can understand important machine instructions in a familiar language. 
+      LockTalk aims to make clear, multilingual safety information a normal part of everyday work.
+    </p>
+  </div>
+
+</div>
+
+  </section>
+
+</div>
+
+<!-- CONTACT -->
+
+      <!-- CONTACT -->
+
+      <div class="page" id="page-contact" hidden>
+        <div class="pagehead">
+          <div class="eyebrow">Contact</div>
+          <h1>Let’s talk about your workplace.</h1>
+          <p>Tell us about your machines, the languages used by your teams
+              and how lock-out/tag-out procedures are currently shared.</p>
+        </div>
+
+        <section>
+          <div class="contact">
+            <form id="contactForm" novalidate>
+              <div class="field">
+                <label for="cName">Your name</label>
+                <input
+                  id="cName"
+                  name="name"
+                  type="text"
+                  autocomplete="name"
+                >
+              </div>
+
+              <div class="field">
+                <label for="cCompany">Company</label>
+                <input
+                  id="cCompany"
+                  name="company"
+                  type="text"
+                  autocomplete="organization"
+                >
+              </div>
+
+              <div class="field">
+                <label for="cRole">Your role</label>
+
+                <select id="cRole" name="role">
+                  <option>Safety or Maintenance lead</option>
+                  <option>Plant or Production manager</option>
+                  <option>Technician</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="cMsg">Message</label>
+
+                <textarea
+                  id="cMsg"
+                  name="message"
+                  placeholder="Which machines, how many languages on your floor, and what you currently use for lock-out/tag-out instructions."
+                ></textarea>
+              </div>
+
+              <div
+                id="cErr"
+                class="err"
+                role="alert"
+                hidden
+              ></div>
+
+              <div>
+                <button
+                  type="submit"
+                  class="btn primary"
+                  id="cSubmit"
+                >
+                  Open Mail
+                </button>
+                <p class="form-note">
+                  This opens your email app with the message filled in.
+                  You can review it before sending.
+                </p>
+              </div>
+            </form>
+
+            <div class="about contact-about">
+              <span class="eyebrow">What happens next</span>
+
+              <h2>Start a conversation with our team.</h2>
+
+              <p>
+                We are currently developing and testing the LockTalk concept.
+                Your message helps us understand how machine procedures,
+                language barriers and external technicians are handled in
+                real workplaces.
+              </p>
+              <div class="contact-expectations">
+                <div>
+                  <strong>01</strong>
+                  <span>You tell us about your workplace</span>
+                </div>
+
+                <div>
+                  <strong>02</strong>
+                  <span>We review your situation as a team</span>
+                </div>
+
+                <div>
+                  <strong>03</strong>
+                  <span>We contact you using the details provided</span>
+                </div>
+              </div>
+                              <div class="contact-person">
+                  <span class="eyebrow">Your first point of contact</span>
+
+                  <h3>Shady will get back to you.</h3>
+
+                  <p>
+                    Your message will be received by Shady Ghanam, our team contact.
+                    He will discuss your enquiry with the team and contact you with
+                    the appropriate next step.
+                  </p>
+                </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </main>
+
+    <footer>
+      <div class="fstripe" aria-hidden="true"></div>
+
+      <div class="frow">
+        <span>LockTalk · One machine. One tap. Your language.</span>
 
         <nav aria-label="Footer">
           <a href="#home">Home</a>
