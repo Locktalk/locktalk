@@ -4257,7 +4257,7 @@ if ("IntersectionObserver" in window) {
         revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.2 });
+  }, { threshold: 0.35 });
 
   Array.prototype.forEach.call(revealItems, function (item) {
     revealObserver.observe(item);
