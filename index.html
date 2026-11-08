@@ -2688,6 +2688,52 @@ body::before {
     padding-block: 28px 40px;
   }
 }
+/* Interactieve doelgroepselectie */
+
+.audience-card {
+  cursor: pointer;
+}
+
+.audience-card.is-selected {
+  background: var(--accent);
+  color: var(--on-accent);
+  transform: translate(-5px, -5px);
+  box-shadow: 10px 10px 0 var(--ink);
+}
+
+.audience-card.is-selected p,
+.audience-card.is-selected ul,
+.audience-card.is-selected .eyebrow {
+  color: var(--on-accent);
+}
+
+.audience-selection {
+  display: grid;
+  gap: 10px;
+
+  margin-top: 34px;
+  padding: 24px 22px;
+
+  border: 2px solid var(--ink);
+  border-left: 10px solid var(--accent);
+
+  background: var(--surface);
+}
+
+.audience-selection h3 {
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 900;
+}
+
+.audience-selection p {
+  max-width: 720px;
+  color: var(--muted);
+}
+
+.audience-selection .btn {
+  justify-self: start;
+  margin-top: 8px;
+}
   </style>
 </head>
 
@@ -3209,7 +3255,12 @@ body::before {
 
     <div class="who audience-grid">
 
-      <article class="card audience-card">
+      <article class="card audience-card"
+        class="card audience-card"
+        tabindex="0"
+        role="button"
+        aria-pressed="false"
+        data-role="safety">
         <span class="audience-number" aria-hidden="true">01</span>
 
         <span class="eyebrow">Creates and approves</span>
@@ -3232,7 +3283,11 @@ body::before {
         </span>
       </article>
 
-      <article class="card audience-card">
+      <article class="card audience-card"
+        tabindex="0"
+        role="button"
+        aria-pressed="false"
+        data-role="manager">
         <span class="audience-number" aria-hidden="true">02</span>
 
         <span class="eyebrow">Manages the workplace</span>
@@ -3255,7 +3310,12 @@ body::before {
         </span>
       </article>
 
-      <article class="card audience-card">
+      <article class="card audience-card"
+        class="card audience-card"
+          tabindex="0"
+          role="button"
+          aria-pressed="false"
+          data-role="technician">
         <span class="audience-number" aria-hidden="true">03</span>
 
         <span class="eyebrow">Uses the procedure</span>
@@ -3279,6 +3339,26 @@ body::before {
       </article>
 
     </div>
+    <div class="audience-selection" id="audienceSelection" aria-live="polite">
+  <span class="eyebrow">Select a role above</span>
+
+  <h3 id="audienceSelectionTitle">
+    See how LockTalk fits each role.
+  </h3>
+
+  <p id="audienceSelectionText">
+    Choose one of the three cards to see that role’s main task,
+    benefit and next step.
+  </p>
+
+  <a
+    class="btn small primary"
+    id="audienceSelectionLink"
+    href="#how"
+  >
+    See how it works
+  </a>
+</div>
   </section>
 
   <!-- PRAKTIJKSITUATIES -->
@@ -3661,7 +3741,7 @@ body::before {
                 <textarea
                   id="cMsg"
                   name="message"
-                  placeholder="Which machines, how many languages on your floor, and what you currently use for lockout/tagout instructions."
+                  placeholder="Which machines, how many languages on your floor, and what you currently use for lock-out/tag-out instructions."
                 ></textarea>
               </div>
 
@@ -3759,6 +3839,91 @@ body::before {
 
   <script>
     (function () {
+    /* Interactieve doelgroepselectie */
+
+var audienceCards =
+  document.querySelectorAll(".audience-card[data-role]");
+
+var audienceTitle =
+  document.getElementById("audienceSelectionTitle");
+
+var audienceText =
+  document.getElementById("audienceSelectionText");
+
+var audienceLink =
+  document.getElementById("audienceSelectionLink");
+
+var audienceDetails = {
+  safety: {
+    title: "Create, review and approve.",
+    text:
+      "Safety and maintenance leads manage the original procedure, " +
+      "review each translated version and approve updates before publication.",
+    link: "#how",
+    button: "View the approval process"
+  },
+
+  manager: {
+    title: "Keep procedures accessible.",
+    text:
+      "Plant and production managers help teams and external technicians " +
+      "reach the current procedure at the correct machine.",
+    link: "#contact",
+    button: "Discuss your workplace"
+  },
+
+  technician: {
+    title: "Tap, read and ask.",
+    text:
+      "International technicians open the machine-specific procedure, " +
+      "read the approved steps in a familiar language and ask for help " +
+      "when something is unclear.",
+    link: "#features",
+    button: "Try the communication demo"
+  }
+};
+
+function selectAudienceCard(card) {
+  var detail = audienceDetails[card.dataset.role];
+
+  if (!detail || !audienceTitle || !audienceText || !audienceLink) {
+    return;
+  }
+
+  Array.prototype.forEach.call(
+    audienceCards,
+    function (item) {
+      var selected = item === card;
+
+      item.classList.toggle("is-selected", selected);
+      item.setAttribute(
+        "aria-pressed",
+        selected ? "true" : "false"
+      );
+    }
+  );
+
+  audienceTitle.textContent = detail.title;
+  audienceText.textContent = detail.text;
+  audienceLink.href = detail.link;
+  audienceLink.textContent = detail.button;
+}
+
+Array.prototype.forEach.call(
+  audienceCards,
+  function (card) {
+    card.addEventListener("click", function () {
+      selectAudienceCard(card);
+    });
+
+    card.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        selectAudienceCard(card);
+      }
+    });
+  }
+);
       "use strict";
 
       /* Router */
@@ -3925,7 +4090,7 @@ function route() {
         {
           name: "Create",
           title: "The owner creates the procedure",
-          text: "The machine owner adds the original lockout/tagout steps for this specific machine.",
+          text: "The machine owner adds the original lock-out/tag-out steps for this specific machine.",
           languages: {
             NL: "Source text",
             EN: "Not started",
