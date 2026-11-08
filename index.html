@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0f1215">
 
   <meta
     name="viewport"
@@ -10,11 +12,13 @@
 
   <title>LockTalk</title>
 
-  <link
-    rel="icon" type="image/jpeg" href="logo.png"
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
-  >
+<link rel="icon" type="image/png" href="logo.png">
+
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+>
+
 
   <style>
 /* Tekst onder See the product plaatsen */
@@ -234,70 +238,50 @@
 .grid3.compact .teaser p { font-size: 14.5px; line-height: 1.45; }
 .grid3.compact .teaser .go { padding-top: 2px; font-size: 12px; }
 .grid3.compact .teaser:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--ink); }
-    :root {
-      --bg: #e8ebed;
-      --surface: #f6f7f8;
-      --ink: #12161a;
-      --muted: #55606a;
-      --line: #c5ccd2;
-      --accent: #ffcc00;
-      --on-accent: #12161a;
-      --ok: #1e7a46;
+  :root {
+    --bg: #0f1215;
+    --surface: #171b1f;
+    --ink: #edf0f2;
+    --muted: #9aa5ae;
+    --line: #2b3238;
+    --accent: #FFCC00;
+    --on-accent: #12161a;
+    --ok: #5fd08f;
 
-      --font-display: "Archivo", "Arial Narrow", Arial, sans-serif;
-      --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-      --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
-    }
+    --font-display: "Archivo", "Arial Narrow", Arial, sans-serif;
+    --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) {
-        --bg: #0f1215;
-        --surface: #171b1f;
-        --ink: #edf0f2;
-        --muted: #9aa5ae;
-        --line: #2b3238;
-        --accent: #ffc93a;
-        --on-accent: #12161a;
-        --ok: #5fd08f;
+    color-scheme: dark;
+  }
 
-        color-scheme: dark;
-      }
-    }
-
-    :root[data-theme="dark"] {
-      --bg: #0f1215;
-      --surface: #171b1f;
-      --ink: #edf0f2;
-      --muted: #9aa5ae;
-      --line: #2b3238;
-      --accent: #ffc93a;
-      --on-accent: #12161a;
-      --ok: #5fd08f;
-
-      color-scheme: dark;
-    }
 
     * {
       box-sizing: border-box;
     }
 
     html {
+      min-height: 100%;
       scroll-behavior: smooth;
+      background-color: #0f1215;
+      color-scheme: dark;
     }
 
     body {
+      min-height: 100%;
       margin: 0;
       padding-block: 0;
       padding-left: max(16px, env(safe-area-inset-left, 0px));
       padding-right: max(16px, env(safe-area-inset-right, 0px));
 
-      background: var(--bg);
-      color: var(--ink);
+      background-color: #0f1215;
+      color: #edf0f2;
 
       font-family: var(--font-body);
       font-size: 17px;
       line-height: 1.55;
     }
+
 
     img {
       max-width: 100%;
@@ -2600,6 +2584,110 @@ mark.loading-highlight.is-visible::before {
 .contact-about .facts {
   margin-top: 26px;
 }
+.contact-person {
+  margin-top: 24px;
+  padding: 20px 18px;
+
+  border: 2px solid var(--ink);
+  border-left: 10px solid var(--accent);
+
+  background: var(--bg);
+}
+
+.contact-person h3 {
+  margin-top: 8px;
+  font-size: 23px;
+  font-weight: 850;
+}
+
+.contact-person p {
+  max-width: 520px;
+  margin-top: 10px;
+
+  color: var(--muted);
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+/* Rechter procedurebox iets langer, zonder leeg vlak na stap 5 */
+.hero > .tag {
+  display: flex;
+  flex-direction: column;
+  min-height: 710px;
+}
+
+.hero > .tag .steps {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.hero > .tag .steps li {
+  flex: 1;
+  align-items: center;
+}
+
+.hero > .tag .tag-foot {
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .hero > .tag {
+    min-height: auto;
+  }
+
+  .hero > .tag .steps {
+    display: block;
+  }
+
+  .hero > .tag .steps li {
+    flex: none;
+  }
+}
+/* Meer balans op alle pagina's */
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1200;
+
+  width: 6px;
+  background: var(--accent);
+
+  pointer-events: none;
+}
+
+.wrap {
+  width: min(1240px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.pagehead {
+  max-width: 980px;
+  padding-block: 36px 52px;
+}
+
+.pagehead p {
+  max-width: 42em;
+}
+
+/* Op mobiel minder ruimte langs de zijkanten */
+
+@media (max-width: 600px) {
+  body::before {
+    width: 4px;
+  }
+
+  .wrap {
+    width: min(1240px, calc(100% - 28px));
+  }
+
+  .pagehead {
+    padding-block: 28px 40px;
+  }
+}
   </style>
 </head>
 
@@ -2621,9 +2709,7 @@ mark.loading-highlight.is-visible::before {
         <a href="#contact" data-page="contact">Contact</a>
       </nav>
     </header>
-    <header class="bar">
-  <!-- Bestaande logo en navigatie -->
-</header>
+
 
 <nav
   class="side-nav"
@@ -3612,7 +3698,6 @@ mark.loading-highlight.is-visible::before {
                 language barriers and external technicians are handled in
                 real workplaces.
               </p>
-
               <div class="contact-expectations">
                 <div>
                   <strong>01</strong>
@@ -3629,6 +3714,17 @@ mark.loading-highlight.is-visible::before {
                   <span>We contact you using the details provided</span>
                 </div>
               </div>
+                              <div class="contact-person">
+                  <span class="eyebrow">Your first point of contact</span>
+
+                  <h3>Shady will get back to you.</h3>
+
+                  <p>
+                    Your message will be received by Shady Ghanam, our team contact.
+                    He will discuss your enquiry with the team and contact you with
+                    the appropriate next step.
+                  </p>
+                </div>
             </div>
           </div>
         </section>
@@ -4197,7 +4293,6 @@ window.addEventListener("scroll", updateSideNavigation, {
 });
 
 updateSideNavigation();
-``*
 window.scrollTo(0, 0);
 /* Gele markering starten wanneer deze zichtbaar wordt */
 
