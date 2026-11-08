@@ -2734,6 +2734,77 @@ body::before {
   justify-self: start;
   margin-top: 8px;
 }
+.title-line {
+  display: block;
+  margin-top: 8px;
+}
+
+.title-line mark {
+  padding-inline: 0.12em;
+  background: var(--accent);
+  color: var(--on-accent);
+}
+/* ABOUT US: VISIE */
+
+.team-vision {
+  margin-top: 28px;
+  padding: 34px 32px;
+
+  border: 2px solid var(--ink);
+  border-left: 12px solid var(--accent);
+
+  background: var(--bg);
+  color: var(--ink);
+
+  box-shadow: 7px 7px 0 var(--ink);
+}
+
+.team-vision h2 {
+  max-width: 850px;
+  margin-top: 12px;
+
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 900;
+}
+
+.team-vision p {
+  max-width: 760px;
+  margin-top: 18px;
+
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .team-vision {
+    margin-top: 24px;
+    padding: 26px 22px;
+
+    border-left-width: 8px;
+  }
+}
+.team-direction {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+
+  gap: 28px;
+  margin-top: 64px;
+}
+
+.team-direction .team-mission,
+.team-direction .team-vision {
+  height: 100%;
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .team-direction {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 44px;
+  }
+}
   </style>
 </head>
 
@@ -2988,7 +3059,10 @@ body::before {
       <div class="page" id="page-how" hidden>
         <div class="pagehead">
   <div class="eyebrow">How it works</div>
-  <h1>Tap, read, act. Approve once, update anytime.</h1>
+  <h1>
+  Tap, read, act.
+  <span class="title-line">Approve once, update anytime.</span>
+</h1>
   <p>Two sides of one tag: what the technician does at the machine, and what the machine owner does before the tag goes live.</p>
 </div>
 
@@ -3660,30 +3734,48 @@ body::before {
 
     <!-- MISSIEBLOK -->
 
-    <div class="team-mission">
-      <span class="eyebrow">What brings us together</span>
+<div class="team-direction">
 
-      <h2>
-        Clear instructions should not depend on one shared language.
-      </h2>
+  <div class="team-mission">
+    <span class="eyebrow">Our mission</span>
 
-      <p>
-        LockTalk began with a practical challenge: important machine
-        procedures must be understood by the person carrying out the work.
-        Our team is exploring how NFC access, approved translations and
-        two-way communication can help make that process clearer.
-      </p>
+    <h2>
+      Clear instructions should not depend on one shared language.
+    </h2>
 
-      <div class="team-mission-actions">
-        <a class="btn primary" href="#how">
-          See how it works
-        </a>
+    <p>
+      LockTalk began with a practical challenge: important machine
+      procedures must be understood by the person carrying out the work.
+      Our team is exploring how NFC access, approved translations and
+      two-way communication can help make that process clearer.
+    </p>
 
-        <a class="btn ghost" href="#contact">
-          Contact the team
-        </a>
-      </div>
+    <div class="team-mission-actions">
+      <a class="btn primary" href="#how">
+        See how it works
+      </a>
+
+      <a class="btn ghost" href="#contact">
+        Contact the team
+      </a>
     </div>
+  </div>
+
+  <div class="team-vision">
+    <span class="eyebrow">Our vision</span>
+
+    <h2>
+      A workplace where language never stands between people
+      and safe work.
+    </h2>
+
+    <p>
+      We see a workplace where everyone can understand important machine instructions in a familiar language. 
+      LockTalk aims to make clear, multilingual safety information a normal part of everyday work.
+    </p>
+  </div>
+
+</div>
 
   </section>
 
