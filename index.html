@@ -3565,6 +3565,32 @@ body::before {
     width: 100%;
   }
 }
+/* Tekst bij Try an example procedure links uitlijnen */
+.procedure-head {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 14px !important;
+}
+
+.procedure-head h2,
+.procedure-head p {
+  width: 100%;
+  margin: 0;
+  text-align: left;
+}
+
+.procedure-head p {
+  max-width: 680px;
+  align-self: flex-start !important;
+}
+.primary-button {
+  color: #111418;
+  background: #FFCC00;
+}
+#approval-process {
+  scroll-margin-top: 32px;
+}
   </style>
 </head>
 
@@ -4408,9 +4434,15 @@ body::before {
           the machine’s NFC tag.
         </p>
 
-        <a class="btn ghost" href="#how">
-          View the approval process
-        </a>
+<a
+  class="btn ghost"
+  href="#approval-process"
+  data-page="how"
+  data-target="approval-process"
+>
+  View the approval process
+</a>
+
       </div>
 
       <aside
@@ -4463,7 +4495,7 @@ body::before {
     </div>
 
   </section>
-        <section>
+        <section id="approval-process">
           <div class="sec-head">
             <h2>Behind the tag.</h2>
             <p>Before a procedure becomes available, the machine owner creates,
@@ -5569,6 +5601,24 @@ body::before {
 
   <script>
     (function () {
+      var approvalButton = document.querySelector(
+  'a[href="#approval-process"]'
+);
+
+var approvalSection = document.getElementById(
+  "approval-process"
+);
+
+if (approvalButton && approvalSection) {
+  approvalButton.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    approvalSection.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+}
     /* Interactieve doelgroepselectie */
 
 var audienceCards =
@@ -6260,6 +6310,44 @@ Array.prototype.forEach.call(
 
 route();
 })();
+document
+  .querySelectorAll('a[data-page]')
+  .forEach(function (link) {
+    link.addEventListener("click", function (event) {
+      event.preventDefault();
+
+      var pageName = link.dataset.page;
+      var targetPage = document.getElementById("page-" + pageName);
+
+      if (!targetPage) {
+        return;
+      }
+
+      document.querySelectorAll(".page").forEach(function (page) {
+        page.hidden = page !== targetPage;
+      });
+
+      history.replaceState(null, "", "#" + pageName);
+
+      var targetSection = link.dataset.target
+        ? document.getElementById(link.dataset.target)
+        : null;
+
+      if (targetSection) {
+        requestAnimationFrame(function () {
+          targetSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        });
+      } else {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }
+    });
+  });
   </script>
 </body>
 </html>
