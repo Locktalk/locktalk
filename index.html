@@ -15,6 +15,17 @@
 <link rel="icon" type="image/png" href="logo.png">
 
 <link
+  rel="preconnect"
+  href="https://fonts.googleapis.com"
+>
+
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+>
+
+<link
   rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
 >
@@ -35,11 +46,10 @@
 }
     /* Maak de drie vakjes onder See the product iets breder */
 .product-more {
-  width: calc(200% + 48px);
-  max-width: 1120px;
+  width: 100%;
+  max-width: none;
   margin-top: 56px;
 }
-
 .more-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
@@ -1468,6 +1478,8 @@
 
 /* LinkedIn-knop */
 
+/* LinkedIn-knoppen */
+
 .linkedin-btn {
   display: inline-flex;
   align-items: center;
@@ -1491,6 +1503,7 @@
   text-decoration: none;
 
   box-shadow: 3px 3px 0 var(--ink);
+  transform: translate(0, 0);
 
   transition:
     transform 160ms ease,
@@ -1508,6 +1521,11 @@
 .linkedin-btn:hover {
   transform: translate(-3px, -3px);
   box-shadow: 6px 6px 0 var(--ink);
+}
+
+.linkedin-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--ink);
 }
 
 .linkedin-btn span {
@@ -1530,56 +1548,6 @@
       filter: none;
     }
 
-
-    .linkedin-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: space-between;
-
-      gap: 14px;
-      margin-top: auto;
-      padding: 8px 11px;
-
-      border: 1.5px solid var(--ink);
-      border-radius: 2px;
-
-      background: var(--accent);
-      color: var(--on-accent);
-
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      text-decoration: none;
-
-      box-shadow: 2px 2px 0 var(--ink);
-      transform: translate(0, 0);
-
-      transition:
-        transform 150ms ease,
-        box-shadow 150ms ease,
-        background-color 150ms ease,
-        color 150ms ease;
-    }
-
-    .linkedin-btn:hover {
-      background: var(--ink);
-      color: var(--bg);
-
-      transform: translate(-2px, -2px);
-      box-shadow: 5px 5px 0 var(--ink);
-    }
-
-    .linkedin-btn:active {
-      transform: translate(1px, 1px);
-      box-shadow: 1px 1px 0 var(--ink);
-    }
-
-    .linkedin-btn span {
-      font-size: 15px;
-      line-height: 1;
-    }
 
     /* Contact */
 
@@ -2816,6 +2784,787 @@ body::before {
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+/* =========================================
+   VERBETERDE HOMEPAGEVOLGORDE
+   ========================================= */
+
+.home-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+  align-items: center;
+  gap: 48px;
+
+  padding-block: 48px 72px;
+}
+
+.home-hero-copy {
+  min-width: 0;
+}
+
+.home-hero h1 {
+  max-width: 900px;
+  margin-top: 18px;
+
+  font-size: clamp(42px, 6.5vw, 82px);
+  font-weight: 900;
+  font-stretch: 112%;
+}
+
+.home-hero .lede {
+  max-width: 41em;
+}
+
+.home-summary {
+  padding: 28px 26px 30px;
+
+  border: 2px solid var(--ink);
+  border-top: 12px solid var(--accent);
+
+  background: var(--surface);
+  box-shadow: 7px 7px 0 var(--ink);
+}
+
+.home-summary-list {
+  display: grid;
+  gap: 0;
+
+  margin: 22px 0 0;
+  padding: 0;
+
+  list-style: none;
+  counter-reset: home-summary;
+}
+
+.home-summary-list li {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 2px 14px;
+
+  padding: 17px 0;
+  border-top: 1px solid var(--line);
+
+  counter-increment: home-summary;
+}
+
+.home-summary-list li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.home-summary-list li::before {
+  content: counter(home-summary);
+
+  grid-row: 1 / span 2;
+
+  display: grid;
+  place-items: center;
+
+  width: 38px;
+  height: 38px;
+
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+
+  background: var(--accent);
+  color: var(--on-accent);
+
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.home-summary-list strong {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 850;
+}
+
+.home-summary-list span {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.home-product {
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .home-hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+    padding-block: 36px 56px;
+  }
+
+  .home-summary {
+    max-width: 680px;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-hero {
+    gap: 28px;
+    padding-block: 28px 44px;
+  }
+
+  .home-hero h1 {
+    font-size: clamp(39px, 12vw, 58px);
+  }
+
+  .home-summary {
+    padding: 22px 20px 24px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+}
+/* =========================================
+   ONTWIKKELINGSSTATUS
+   ========================================= */
+
+.development-section {
+  padding-block: 64px;
+}
+
+.development-status {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  gap: 32px 48px;
+
+  padding: 34px 32px;
+
+  border: 2px solid var(--ink);
+  border-left: 12px solid var(--accent);
+
+  background: var(--surface);
+  box-shadow: 7px 7px 0 var(--ink);
+}
+
+.development-copy h2 {
+  max-width: 760px;
+  margin-top: 12px;
+
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 900;
+}
+
+.development-copy p {
+  max-width: 720px;
+  margin-top: 18px;
+
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.development-details {
+  border: 2px solid var(--ink);
+  background: var(--bg);
+}
+
+.development-details > div {
+  display: grid;
+  gap: 4px;
+
+  padding: 14px 16px;
+  border-top: 1px solid var(--line);
+}
+
+.development-details > div:first-child {
+  border-top: 0;
+}
+
+.development-details strong {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.development-details span {
+  color: var(--muted);
+  font-size: 14.5px;
+  line-height: 1.45;
+}
+
+.development-actions {
+  grid-column: 1 / -1;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .development-status {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .development-actions {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .development-section {
+    padding-block: 46px;
+  }
+
+  .development-status {
+    padding: 26px 22px;
+    border-left-width: 8px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+
+  .development-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+/* Uitleg bij interactieve onderdelen */
+
+.interaction-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  margin: -12px 0 24px;
+  padding: 7px 10px;
+
+  border: 1.5px solid var(--ink);
+
+  background: var(--accent);
+  color: var(--on-accent);
+
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.interaction-hint span {
+  font-size: 17px;
+  line-height: 1;
+}
+/* =========================================
+   GECORRIGEERDE HOMEPAGE
+   ========================================= */
+
+.home-product {
+  width: 100%;
+  padding-block: 64px;
+}
+
+/* Overschrijft de foutieve dubbele breedte */
+.home-product .product-more {
+  width: 100%;
+  max-width: none;
+  margin-top: 56px;
+}
+
+.home-product .more-grid {
+  width: 100%;
+}
+
+.procedure-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.procedure-head h2,
+.procedure-head p {
+  width: 100%;
+  margin: 0;
+}
+
+.procedure-head p {
+  max-width: 680px;
+}
+
+.procedure-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(360px, 1.15fr);
+  align-items: start;
+  gap: 48px;
+}
+
+.procedure-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.procedure-intro h2 {
+  max-width: 650px;
+  margin-top: 12px;
+
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 900;
+}
+
+.procedure-intro p {
+  max-width: 620px;
+  margin-top: 18px;
+
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.procedure-intro .btn {
+  margin-top: 26px;
+}
+
+.how-procedure .tag {
+  display: flex;
+  flex-direction: column;
+  min-height: 620px;
+
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.how-procedure .tag .steps {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.how-procedure .tag .steps li {
+  flex: 1;
+  align-items: center;
+}
+
+.how-procedure .tag .tag-foot {
+  margin-top: 0;
+}
+
+
+.safety-disclaimer {
+  display: grid;
+  gap: 6px;
+
+  margin-top: 28px;
+  padding: 18px 20px;
+
+  border: 2px solid var(--ink);
+  border-left: 10px solid var(--accent);
+
+  background: var(--surface);
+}
+
+.safety-disclaimer strong {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.safety-disclaimer p {
+  max-width: 820px;
+
+  color: var(--muted);
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+
+@media (max-width: 900px) {
+  .procedure-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .how-procedure .tag {
+    min-height: auto;
+  }
+
+  .how-procedure .tag .steps {
+    display: block;
+  }
+
+  .how-procedure .tag .steps li {
+    flex: none;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .home-product {
+    padding-block: 48px;
+  }
+
+  .home-product .product-more {
+    margin-top: 38px;
+  }
+
+  .procedure-layout {
+    gap: 32px;
+  }
+
+  .safety-disclaimer {
+    border-left-width: 8px;
+  }
+}
+/* =========================================
+   RESPONSIVE TEAMKAARTEN
+   ========================================= */
+
+@media (max-width: 900px) {
+  .team-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+
+    width: 100%;
+    max-width: none;
+  }
+
+  .team-row {
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .team-card,
+  .team-card:hover,
+  .team-card:focus-within {
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 280px;
+  }
+
+  .team-row:has(.team-card:hover) .team-card:not(:hover),
+  .team-row:has(.team-card:focus-within) .team-card:not(:focus-within) {
+    flex: 1 1 auto;
+    opacity: 1;
+  }
+
+  .team-card:hover,
+  .team-card:focus-within {
+    transform: translateY(-6px);
+    box-shadow: 8px 10px 0 var(--ink);
+  }
+}
+
+@media (max-width: 600px) {
+  .team-grid,
+  .team-row {
+    gap: 18px;
+  }
+
+  .team-card,
+  .team-card:hover,
+  .team-card:focus-within {
+    min-height: auto;
+  }
+
+  .team-info {
+    min-height: 310px;
+    padding: 22px 20px;
+  }
+
+  .team-info h3,
+  .team-card:hover .team-info h3,
+  .team-card:focus-within .team-info h3 {
+    font-size: clamp(27px, 9vw, 37px);
+  }
+
+  .team-number {
+    font-size: 120px;
+  }
+}
+/* =========================================
+   COMPACTERE LOCKTALK-DEMONSTRATIE
+   ========================================= */
+
+.product-stage,
+.home-product .product-more {
+  width: min(100%, 960px);
+  margin-inline: auto;
+}
+
+.product-caption {
+  min-height: auto;
+}
+
+.product-caption p {
+  max-width: 700px;
+}
+
+.home-product .product-more {
+  width: min(100%, 1080px);
+  margin-inline: auto;
+  margin-top: 48px;
+}
+
+@media (max-width: 900px) {
+  .product-stage {
+    width: 100%;
+  }
+
+  .home-product .product-more {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .product-caption {
+    padding: 16px 18px 18px;
+  }
+
+  .product-caption h3 {
+    font-size: 20px;
+  }
+
+  .product-caption p {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+}
+/* =========================================
+   COMPACTE AFSLUITING HOMEPAGE
+   ========================================= */
+
+.home-final {
+  padding-block: 64px;
+}
+
+.home-final-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 32px 48px;
+
+  padding: 36px 34px;
+
+  border: 2px solid var(--ink);
+  border-top: 12px solid var(--accent);
+
+  background: var(--surface);
+  box-shadow: 7px 7px 0 var(--ink);
+}
+
+.home-final-copy h2 {
+  max-width: 700px;
+  margin-top: 12px;
+
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 900;
+}
+
+.home-final-copy p {
+  max-width: 680px;
+  margin-top: 16px;
+
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.home-final-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .home-final-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-final-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-final {
+    padding-block: 48px;
+  }
+
+  .home-final-inner {
+    padding: 26px 22px;
+
+    border-top-width: 8px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+
+  .home-final-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .home-final-actions .btn {
+    width: 100%;
+  }
+}
+/* Kleinere See LockTalk in action-box */
+
+.home-product .product-stage {
+  width: min(100%, 820px);
+  margin-inline: auto;
+}
+
+/* De drie informatievakken iets breder laten */
+.home-product .product-more {
+  width: min(100%, 1080px);
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .home-product .product-stage {
+    width: min(100%, 760px);
+  }
+}
+
+/* Mobiel */
+@media (max-width: 600px) {
+  .home-product .product-stage {
+    width: 100%;
+  }
+}
+/* =========================================
+   PRIVACY STATEMENT
+   ========================================= */
+
+.privacy-section {
+  padding-top: 0;
+}
+
+.privacy-content {
+  width: min(100%, 900px);
+}
+
+.privacy-updated {
+  display: inline-block;
+  margin-bottom: 24px;
+  padding: 7px 10px;
+
+  border: 1.5px solid var(--ink);
+  background: var(--accent);
+  color: var(--on-accent);
+
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.privacy-notice {
+  margin-bottom: 48px;
+  padding: 24px 22px;
+
+  border: 2px solid var(--ink);
+  border-left: 10px solid var(--accent);
+
+  background: var(--surface);
+}
+
+.privacy-notice strong {
+  display: block;
+  margin-bottom: 8px;
+
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 850;
+}
+
+.privacy-notice p {
+  max-width: 720px;
+  color: var(--muted);
+}
+
+.privacy-part {
+  padding-block: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.privacy-part:first-of-type {
+  border-top: 2px solid var(--ink);
+}
+
+.privacy-part h2 {
+  margin-bottom: 16px;
+
+  font-size: clamp(23px, 3vw, 31px);
+  font-weight: 850;
+  line-height: 1.15;
+}
+
+.privacy-part p {
+  max-width: 760px;
+  margin-top: 12px;
+
+  color: var(--muted);
+  font-size: 16.5px;
+  line-height: 1.65;
+}
+
+.privacy-part ul {
+  display: grid;
+  gap: 8px;
+
+  max-width: 760px;
+  margin: 18px 0 0;
+  padding-left: 22px;
+
+  color: var(--muted);
+  font-size: 16.5px;
+}
+
+.privacy-part address {
+  margin-top: 18px;
+  padding: 18px 20px;
+
+  border: 2px solid var(--ink);
+  background: var(--surface);
+  color: var(--muted);
+
+  font-style: normal;
+  line-height: 1.65;
+}
+
+.privacy-part a,
+.form-note a {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.privacy-part a:hover,
+.form-note a:hover {
+  color: var(--accent);
+}
+
+.privacy-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 2px solid var(--ink);
+}
+
+@media (max-width: 600px) {
+  .privacy-notice {
+    margin-bottom: 34px;
+    padding: 20px 18px;
+    border-left-width: 8px;
+  }
+
+  .privacy-part {
+    padding-block: 26px;
+  }
+
+  .privacy-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .privacy-actions .btn {
+    width: 100%;
+  }
+}
   </style>
 </head>
 
@@ -2856,218 +3605,692 @@ body::before {
     <main>
 
       <!-- HOME -->
+<!-- HOME -->
 
-      <div class="page" id="page-home">
-            <p class="brand-slogan">
-              One machine. One tap. Your language.
-            </p>
+<div class="page" id="page-home">
 
-        <div class="hero">
-          <div>
-            <section class="product" id="product">
-  <div class="sec-head product-head">
-  <h2>This is LockTalk!</h2>
+  <!-- BOVENSTE INTRODUCTIE -->
+
+  <div class="home-hero">
+
+    <div class="home-hero-copy">
+      <p class="brand-slogan">
+        One machine. One tap. Your language.
+      </p>
+
+      <div class="eyebrow">
+        Machine-specific lockout/tagout instructions, accessed by NFC
+      </div>
+
+      <h1>
+        The shutdown steps,
+        <mark class="loading-highlight">
+          in a language you understand.
+        </mark>
+      </h1>
+
+      <p class="lede">
+        LockTalk connects each machine to its approved lockout/tagout
+        procedure through an NFC tag. Technicians tap the tag and open
+        the correct instructions in a familiar language.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn primary" href="#how">
+          See how it works
+        </a>
+
+        <a class="btn ghost" href="#contact">
+          Discuss your use case
+        </a>
+      </div>
+    </div>
+
+    <aside class="home-summary" aria-label="LockTalk summary">
+      <span class="eyebrow">LockTalk in three steps</span>
+
+      <ol class="home-summary-list">
+        <li>
+          <strong>Tap</strong>
+          <span>Open the procedure for the correct machine.</span>
+        </li>
+
+        <li>
+          <strong>Read</strong>
+          <span>Choose an available, approved language.</span>
+        </li>
+
+        <li>
+          <strong>Act</strong>
+          <span>Follow the current instructions at the point of work.</span>
+        </li>
+      </ol>
+    </aside>
+
+  </div>
+
+  <!-- INTERACTIEF PRODUCT -->
+
+  <section class="product home-product" id="product">
+
+<div class="sec-head product-head">
+  <h2>See LockTalk in action.</h2>
 
   <p>
-    Hover over the numbered points to see how each part works.
-    On a phone, tap them.
+    Explore the four numbered points to see how NFC access,
+    approved instructions and multilingual communication work
+    together at the machine. On a phone or tablet, tap each point.
   </p>
 </div>
 
-  <div class="product-stage">
-    <svg class="product-svg" viewBox="0 0 760 420" role="img" aria-label="A machine with an NFC tag, a phone tapping the tag, the translated procedure on the phone screen and a two-way translation chat">
+    <div class="product-stage">
 
-      <!-- machine -->
-      <rect class="p-s p-bg" x="30" y="110" width="300" height="270"></rect>
-      <rect class="p-s p-ac" x="30" y="110" width="300" height="22"></rect>
-      <rect class="p-s p-sf" x="200" y="160" width="100" height="80"></rect>
-      <circle class="p-s p-bg" cx="225" cy="200" r="10"></circle>
-      <circle class="p-s p-bg" cx="270" cy="200" r="10"></circle>
-      <path class="p-s p-none" d="M70 300h220M70 330h140"></path>
-      <text x="50" y="364">MACHINE M-114</text>
+      <svg
+        class="product-svg"
+        viewBox="0 0 760 420"
+        role="img"
+        aria-label="A machine with an NFC tag, a phone showing a translated procedure and a two-way translation conversation"
+      >
 
-      <!-- phone -->
-      <rect class="p-s p-sf" x="400" y="50" width="170" height="330" rx="22"></rect>
-      <path class="p-s p-none" d="M462 64h46"></path>
-      <rect class="p-s p-bg" x="414" y="78" width="142" height="274" rx="8"></rect>
+        <!-- Machine -->
 
-      <!-- 1: NFC tag -->
-      <g class="hot" tabindex="0" role="button" data-title="1 · The NFC tag" data-info="A small NFC tag is fixed to the machine. It is linked to the Lock-out/Tag-out procedure for exactly that machine.">
-        <rect class="hot-hit" x="58" y="144" width="130" height="90"></rect>
-        <rect class="hot-ring" x="58" y="144" width="130" height="90" rx="4"></rect>
-        <rect class="p-s p-ac" x="70" y="160" width="90" height="56"></rect>
-        <text x="115" y="193" text-anchor="middle">NFC</text>
-        <circle class="hot-dot" cx="172" cy="152" r="13"></circle>
-        <text class="hot-num" x="172" y="157">1</text>
-      </g>
+        <rect
+          class="p-s p-bg"
+          x="30"
+          y="110"
+          width="300"
+          height="270"
+        ></rect>
 
-      <!-- 2: tap -->
-      <g class="hot" tabindex="0" role="button" data-title="2 · Tap your phone" data-info="No app search and no folders. Hold your device to the tag and the procedure for this machine opens straight away.">
-        <rect class="hot-hit" x="196" y="140" width="190" height="100"></rect>
-        <rect class="hot-ring" x="196" y="140" width="190" height="100" rx="4"></rect>
-        <path class="p-s p-none" d="M215 172q16 16 0 32"></path>
-        <path class="p-s p-none" d="M245 160q24 28 0 56"></path>
-        <path class="p-s p-none" d="M275 148q32 40 0 80"></path>
-        <circle class="hot-dot" cx="342" cy="152" r="13"></circle>
-        <text class="hot-num" x="342" y="157">2</text>
-      </g>
+        <rect
+          class="p-s p-ac"
+          x="30"
+          y="110"
+          width="300"
+          height="22"
+        ></rect>
 
-      <!-- 3: screen -->
-      <g class="hot" tabindex="0" role="button" data-title="3 · Read it in your language" data-info="The approved steps appear in your own language, in the same order and numbering as the original.">
-        <rect class="hot-hit" x="408" y="80" width="154" height="270"></rect>
-        <rect class="hot-ring" x="408" y="80" width="154" height="270" rx="8"></rect>
-        <rect class="p-s p-ink" x="422" y="90" width="29" height="18"></rect>
-        <rect class="p-s p-bg" x="454" y="90" width="29" height="18"></rect>
-        <rect class="p-s p-bg" x="487" y="90" width="29" height="18"></rect>
-        <rect class="p-s p-bg" x="520" y="90" width="29" height="18"></rect>
-        <text class="p-txt-inv" x="436" y="103" text-anchor="middle" style="font-size:9px">EN</text>
-        <text x="468" y="103" text-anchor="middle" style="font-size:9px">NL</text>
-        <text x="501" y="103" text-anchor="middle" style="font-size:9px">PL</text>
-        <text x="534" y="103" text-anchor="middle" style="font-size:9px">RO</text>
-        <circle class="p-s p-ac" cx="432" cy="150" r="9"></circle><path class="p-s p-none" d="M450 150h90"></path>
-        <circle class="p-s p-ac" cx="432" cy="195" r="9"></circle><path class="p-s p-none" d="M450 195h90"></path>
-        <circle class="p-s p-ac" cx="432" cy="240" r="9"></circle><path class="p-s p-none" d="M450 240h90"></path>
-        <circle class="p-s p-ac" cx="432" cy="285" r="9"></circle><path class="p-s p-none" d="M450 285h70"></path>
-        <circle class="hot-dot" cx="556" cy="84" r="13"></circle>
-        <text class="hot-num" x="556" y="89">3</text>
-      </g>
+        <rect
+          class="p-s p-sf"
+          x="200"
+          y="160"
+          width="100"
+          height="80"
+        ></rect>
 
-      <!-- 4: live translation -->
-      <g class="hot" tabindex="0" role="button" data-title="4 · Ask when something is unclear" data-info="If a step is unclear, the technician and the person on site talk to each other, each in their own language. The original wording stays visible.">
-        <rect class="hot-hit" x="582" y="130" width="168" height="180"></rect>
-        <rect class="hot-ring" x="582" y="130" width="168" height="180" rx="4"></rect>
-        <rect class="p-s p-bg" x="592" y="156" width="140" height="62"></rect>
-        <text x="602" y="174" style="font-size:9px">NL → PL</text>
-        <path class="p-s p-none" d="M602 188h90M602 202h60"></path>
-        <rect class="p-s p-ac" x="602" y="234" width="140" height="62"></rect>
-        <text x="612" y="252" style="font-size:9px">PL → NL</text>
-        <path class="p-s p-none" d="M612 266h90M612 280h60"></path>
-        <circle class="hot-dot" cx="736" cy="140" r="13"></circle>
-        <text class="hot-num" x="736" y="145">4</text>
-      </g>
-    </svg>
+        <circle
+          class="p-s p-bg"
+          cx="225"
+          cy="200"
+          r="10"
+        ></circle>
 
-    <div class="product-caption" aria-live="polite">
-      <span class="eyebrow">Hover over a numbered point</span>
-      <h3 id="productCapTitle">How LockTalk works</h3>
-      <p id="productCapText">Four steps: a tag on the machine, a tap with your phone, the procedure in your language, and live help when something is unclear.</p>
-    </div>
-  </div>
+        <circle
+          class="p-s p-bg"
+          cx="270"
+          cy="200"
+          r="10"
+        ></circle>
 
-  <div class="product-more">
-    <div class="more-grid">
-      <div class="more-item reveal">
-        <span class="eyebrow">One tag per machine</span>
-        <h3>The tag never changes</h3>
-        <p>When a procedure changes, the owner updates it online. The tag stays on the machine and the next tap shows the new version. Nothing is reprinted.</p>
-      </div>
-      <div class="more-item reveal">
-        <span class="eyebrow">Approved first</span>
-        <h3>Reviewed before it goes live</h3>
-        <p>AI drafts the translations. The machine owner approves every language. Technicians only ever see approved text.</p>
-      </div>
-      <div class="more-item reveal">
-        <span class="eyebrow">Live help</span>
-        <h3>Ask on the spot</h3>
-        <p>A supervisor and a technician can talk in their own languages, with the original wording visible next to the translation.</p>
-      </div>
-    </div>
-  </div>
-</section>
-            <div class="eyebrow">
-              Lock-out / Tag-out instructions, by NFC
-            </div>
+        <path
+          class="p-s p-none"
+          d="M70 300h220M70 330h140"
+        ></path>
 
-<h1>
-  The shutdown steps,
-  <mark class="loading-highlight">in the language you need.</mark>
-</h1>
+        <text x="50" y="364">
+          MACHINE M-114
+        </text>
 
-            <p class="lede">
-              LockTalk puts machine-specific Lock-out/Tag-out instructions
-              on an NFC tag fixed to the machine. A technician taps the mobile device
-              on the tag and reads the approved procedure in their own
-              language.
-            </p>
+        <!-- Telefoon -->
 
-            <div class="hero-actions">
-              <a class="btn primary" href="#how">
-                See how it works
-              </a>
+        <rect
+          class="p-s p-sf"
+          x="400"
+          y="50"
+          width="170"
+          height="330"
+          rx="22"
+        ></rect>
 
-              <a class="btn ghost" href="#contact">
-                Talk to us
-              </a>
-            </div>
-          </div>
+        <path
+          class="p-s p-none"
+          d="M462 64h46"
+        ></path>
 
-          <aside
-            class="tag"
-            aria-label="Example of a LockTalk instruction tag"
+        <rect
+          class="p-s p-bg"
+          x="414"
+          y="78"
+          width="142"
+          height="274"
+          rx="8"
+        ></rect>
+
+        <!-- Punt 1 -->
+
+        <g
+          class="hot"
+          tabindex="0"
+          role="button"
+          aria-label="The NFC tag"
+          data-title="1 · The NFC tag"
+          data-info="A small NFC tag is fixed to the machine. It links directly to the approved procedure for that specific machine."
+        >
+          <rect
+            class="hot-hit"
+            x="58"
+            y="144"
+            width="130"
+            height="90"
+          ></rect>
+
+          <rect
+            class="hot-ring"
+            x="58"
+            y="144"
+            width="130"
+            height="90"
+            rx="4"
+          ></rect>
+
+          <rect
+            class="p-s p-ac"
+            x="70"
+            y="160"
+            width="90"
+            height="56"
+          ></rect>
+
+          <text
+            x="115"
+            y="193"
+            text-anchor="middle"
           >
-            <div class="tag-stripe" aria-hidden="true"></div>
+            NFC
+          </text>
 
-            <div class="tag-head">
-              <span class="eyebrow">Tap result</span>
-              <span class="tag-id">MACHINE M-114 · EXAMPLE</span>
-            </div>
+          <circle
+            class="hot-dot"
+            cx="172"
+            cy="152"
+            r="13"
+          ></circle>
 
-            <div class="tag-title" id="tagTitle">
-              Shutdown procedure
-            </div>
+          <text
+            class="hot-num"
+            x="172"
+            y="157"
+          >
+            1
+          </text>
+        </g>
 
-            <div
-              class="langs"
-              role="group"
-              aria-label="Choose language"
-              id="langs"
-            ></div>
+        <!-- Punt 2 -->
 
-            <ol
-              class="steps"
-              id="steps"
-              aria-live="polite"
-            ></ol>
+        <g
+          class="hot"
+          tabindex="0"
+          role="button"
+          aria-label="Tap your device"
+          data-title="2 · Tap your device"
+          data-info="Hold an NFC-enabled device near the tag. The procedure for that machine opens immediately."
+        >
+          <rect
+            class="hot-hit"
+            x="196"
+            y="140"
+            width="190"
+            height="100"
+          ></rect>
 
-            <div class="tag-foot">
-              Example text. On a real machine, the procedure comes from
-              the machine owner and is approved before it is translated.
-            </div>
-          </aside>
+          <rect
+            class="hot-ring"
+            x="196"
+            y="140"
+            width="190"
+            height="100"
+            rx="4"
+          ></rect>
+
+          <path
+            class="p-s p-none"
+            d="M215 172q16 16 0 32"
+          ></path>
+
+          <path
+            class="p-s p-none"
+            d="M245 160q24 28 0 56"
+          ></path>
+
+          <path
+            class="p-s p-none"
+            d="M275 148q32 40 0 80"
+          ></path>
+
+          <circle
+            class="hot-dot"
+            cx="342"
+            cy="152"
+            r="13"
+          ></circle>
+
+          <text
+            class="hot-num"
+            x="342"
+            y="157"
+          >
+            2
+          </text>
+        </g>
+
+        <!-- Punt 3 -->
+
+        <g
+          class="hot"
+          tabindex="0"
+          role="button"
+          aria-label="Choose an available language"
+          data-title="3 · Choose an available language"
+          data-info="The approved steps appear in the selected language, using the same order and numbering as the original procedure."
+        >
+          <rect
+            class="hot-hit"
+            x="408"
+            y="80"
+            width="154"
+            height="270"
+          ></rect>
+
+          <rect
+            class="hot-ring"
+            x="408"
+            y="80"
+            width="154"
+            height="270"
+            rx="8"
+          ></rect>
+
+          <rect
+            class="p-s p-ink"
+            x="422"
+            y="90"
+            width="29"
+            height="18"
+          ></rect>
+
+          <rect
+            class="p-s p-bg"
+            x="454"
+            y="90"
+            width="29"
+            height="18"
+          ></rect>
+
+          <rect
+            class="p-s p-bg"
+            x="487"
+            y="90"
+            width="29"
+            height="18"
+          ></rect>
+
+          <rect
+            class="p-s p-bg"
+            x="520"
+            y="90"
+            width="29"
+            height="18"
+          ></rect>
+
+          <text
+            class="p-txt-inv"
+            x="436"
+            y="103"
+            text-anchor="middle"
+            style="font-size: 9px"
+          >
+            EN
+          </text>
+
+          <text
+            x="468"
+            y="103"
+            text-anchor="middle"
+            style="font-size: 9px"
+          >
+            NL
+          </text>
+
+          <text
+            x="501"
+            y="103"
+            text-anchor="middle"
+            style="font-size: 9px"
+          >
+            PL
+          </text>
+
+          <text
+            x="534"
+            y="103"
+            text-anchor="middle"
+            style="font-size: 9px"
+          >
+            RO
+          </text>
+
+          <circle
+            class="p-s p-ac"
+            cx="432"
+            cy="150"
+            r="9"
+          ></circle>
+
+          <path
+            class="p-s p-none"
+            d="M450 150h90"
+          ></path>
+
+          <circle
+            class="p-s p-ac"
+            cx="432"
+            cy="195"
+            r="9"
+          ></circle>
+
+          <path
+            class="p-s p-none"
+            d="M450 195h90"
+          ></path>
+
+          <circle
+            class="p-s p-ac"
+            cx="432"
+            cy="240"
+            r="9"
+          ></circle>
+
+          <path
+            class="p-s p-none"
+            d="M450 240h90"
+          ></path>
+
+          <circle
+            class="p-s p-ac"
+            cx="432"
+            cy="285"
+            r="9"
+          ></circle>
+
+          <path
+            class="p-s p-none"
+            d="M450 285h70"
+          ></path>
+
+          <circle
+            class="hot-dot"
+            cx="556"
+            cy="84"
+            r="13"
+          ></circle>
+
+          <text
+            class="hot-num"
+            x="556"
+            y="89"
+          >
+            3
+          </text>
+        </g>
+
+        <!-- Punt 4 -->
+
+        <g
+          class="hot"
+          tabindex="0"
+          role="button"
+          aria-label="Ask when something is unclear"
+          data-title="4 · Ask when something is unclear"
+          data-info="The technician and supervisor can communicate in different languages while the original message remains visible."
+        >
+          <rect
+            class="hot-hit"
+            x="582"
+            y="130"
+            width="168"
+            height="180"
+          ></rect>
+
+          <rect
+            class="hot-ring"
+            x="582"
+            y="130"
+            width="168"
+            height="180"
+            rx="4"
+          ></rect>
+
+          <rect
+            class="p-s p-bg"
+            x="592"
+            y="156"
+            width="140"
+            height="62"
+          ></rect>
+
+          <text
+            x="602"
+            y="174"
+            style="font-size: 9px"
+          >
+            NL → PL
+          </text>
+
+          <path
+            class="p-s p-none"
+            d="M602 188h90M602 202h60"
+          ></path>
+
+          <rect
+            class="p-s p-ac"
+            x="602"
+            y="234"
+            width="140"
+            height="62"
+          ></rect>
+
+          <text
+            x="612"
+            y="252"
+            style="font-size: 9px"
+          >
+            PL → NL
+          </text>
+
+          <path
+            class="p-s p-none"
+            d="M612 266h90M612 280h60"
+          ></path>
+
+          <circle
+            class="hot-dot"
+            cx="736"
+            cy="140"
+            r="13"
+          ></circle>
+
+          <text
+            class="hot-num"
+            x="736"
+            y="145"
+          >
+            4
+          </text>
+        </g>
+
+      </svg>
+
+      <div class="product-caption" aria-live="polite">
+        <span class="eyebrow">
+          Select a numbered point
+        </span>
+
+        <h3 id="productCapTitle">
+          How LockTalk works
+        </h3>
+
+        <p id="productCapText">
+          Four parts work together: a tag on the machine, a tap with
+          an NFC-enabled device, the procedure in an approved language
+          and communication when something is unclear.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- DRIE VOORDELEN -->
+
+    <div class="product-more">
+
+      <div class="more-grid">
+
+        <article class="more-item reveal">
+          <span class="eyebrow">One tag per machine</span>
+
+          <h3>Always connected</h3>
+
+          <p>
+            The tag stays on the machine. When the owner updates the
+            procedure online, the next tap opens the latest approved version.
+          </p>
+        </article>
+
+        <article class="more-item reveal">
+          <span class="eyebrow">Approved before publication</span>
+
+          <h3>Reviewed translations</h3>
+
+          <p>
+            AI can prepare a translation, but technicians only see
+            languages that the machine owner has reviewed and approved.
+          </p>
+        </article>
+
+        <article class="more-item reveal">
+          <span class="eyebrow">Help at the machine</span>
+
+          <h3>Ask when unclear</h3>
+
+          <p>
+            Technicians and supervisors can communicate across languages
+            while the original wording remains visible.
+          </p>
+        </article>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- INTERACTIEVE VOORBEELDPROCEDURE -->
+
+
+  <!-- ONTWIKKELINGSSTATUS -->
+
+  <section class="development-section">
+
+    <div class="development-status">
+
+      <div class="development-copy">
+        <span class="eyebrow">
+          Currently in development
+        </span>
+
+        <h2>
+          A practical concept for multilingual manufacturing teams.
+        </h2>
+
+        <p>
+          LockTalk is being developed by a six-person student team at
+          Fontys. We are researching and prototyping how NFC access,
+          approved translations and two-way communication can support
+          clearer machine-specific safety instructions.
+        </p>
+      </div>
+
+      <div class="development-details">
+
+        <div>
+          <strong>Current phase</strong>
+          <span>Concept development and prototype testing</span>
         </div>
 
+        <div>
+          <strong>Focus</strong>
+          <span>Manufacturing, maintenance and multilingual teams</span>
+        </div>
 
+        <div>
+          <strong>What we are looking for</strong>
+          <span>Feedback from companies and workplace professionals</span>
+        </div>
 
-        <section>
-          <div class="sec-head">
-            <h2>Where to go next.</h2>
-          </div>
-
-          <div class="grid3 compact">
-            <a class="card teaser" href="#how">
-              <span class="eyebrow">Page 2</span>
-              <h3>How it works</h3>
-              <p>See what happens at the machine and behind the tag.</p>
-              <span class="go">Open →</span>
-            </a>
-
-            <a class="card teaser" href="#features">
-              <span class="eyebrow">Page 3</span>
-              <h3>What it does</h3>
-              <p>Approved translation and two-way communication.</p>
-              <span class="go">Open →</span>
-            </a>
-
-            <a class="card teaser" href="#who">
-              <span class="eyebrow">Page 4</span>
-              <h3>Who it is for</h3>
-              <p>Safety leads, managers and international technicians.</p>
-              <span class="go">Open →</span>
-            </a>
-          </div>
-        </section>
       </div>
 
+      <div class="development-actions">
+        <a class="btn primary" href="#contact">
+          Share your workplace challenge
+        </a>
+
+        <a class="btn ghost" href="#team">
+          Meet the team
+        </a>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- VERVOLGPAGINA'S -->
+
+<!-- AFSLUITENDE HOME CTA -->
+
+<section class="home-final">
+
+  <div class="home-final-inner">
+
+    <div class="home-final-copy">
+      <span class="eyebrow">
+        Explore LockTalk
+      </span>
+
+      <h2>
+        See how LockTalk could fit your workplace.
+      </h2>
+
+      <p>
+        Explore how procedures are created and approved, or tell us
+        about the machines, languages and safety instructions used
+        within your organisation.
+      </p>
+    </div>
+
+    <div class="home-final-actions">
+      <a class="btn primary" href="#how">
+        See how it works
+      </a>
+
+      <a class="btn ghost" href="#contact">
+        Contact the team
+      </a>
+    </div>
+
+  </div>
+
+</section>
+
+</div>
       <!-- HOW IT WORKS -->
 
       <div class="page" id="page-how" hidden>
@@ -3115,7 +4338,7 @@ body::before {
               <div class="n"></div>
               <div class="glyph" aria-hidden="true">
                 <svg viewBox="0 0 96 96">
-                  <rect class="f" x="16" y="30" width="55" height="280" rx="4"></rect>
+                  <rect class="f" x="16" y="30" width="55" height="38" rx="4"></rect>
                   <path class="s" d="M30 46h14M30 54h26"></path>
                   <circle class="s" cx="68" cy="46" r="4"></circle>
                 </svg>
@@ -3156,7 +4379,90 @@ body::before {
             </li>
           </ol>
         </section>
+  <section class="home-procedure">
 
+    <div class="sec-head procedure-head">
+      <h2>Try an example procedure.</h2>
+
+      <p>
+        Select a language to see how the same machine-specific procedure
+        remains consistent across the available approved languages.
+      </p>
+    </div>
+
+    <div class="procedure-layout">
+
+      <div class="procedure-intro">
+        <span class="eyebrow">
+          Interactive example
+        </span>
+
+        <h2>
+          One procedure,
+          multiple approved languages.
+        </h2>
+
+        <p>
+          The machine owner manages the original procedure and approves
+          every translated version before it becomes accessible through
+          the machine’s NFC tag.
+        </p>
+
+        <a class="btn ghost" href="#how">
+          View the approval process
+        </a>
+      </div>
+
+      <aside
+        class="tag"
+        aria-label="Example of a LockTalk instruction tag"
+      >
+        <div class="tag-stripe" aria-hidden="true"></div>
+
+        <div class="tag-head">
+          <span class="eyebrow">Tap result</span>
+
+          <span class="tag-id">
+            MACHINE M-114 · EXAMPLE
+          </span>
+        </div>
+
+        <div class="tag-title" id="tagTitle">
+          Shutdown procedure
+        </div>
+
+        <div
+          class="langs"
+          role="group"
+          aria-label="Choose language"
+          id="langs"
+        ></div>
+
+        <ol
+          class="steps"
+          id="steps"
+          aria-live="polite"
+        ></ol>
+
+        <div class="tag-foot">
+          Example content only. A real procedure must come from the
+          responsible machine owner and be reviewed and approved before use.
+        </div>
+      </aside>
+
+    </div>
+
+    <div class="safety-disclaimer" role="note">
+      <strong>Prototype notice</strong>
+
+      <p>
+        The procedures and translations shown on this website are examples
+        for concept demonstration only. They must not be used as operational
+        safety instructions.
+      </p>
+    </div>
+
+  </section>
         <section>
           <div class="sec-head">
             <h2>Behind the tag.</h2>
@@ -3194,7 +4500,7 @@ body::before {
           <h1>One machine procedure,
               available in multiple languages.</h1>
           <p> LockTalk connects every machine to its own digital
-              lock-out/tag-out procedure. Technicians can read approved
+              lockout/tagout procedure. Technicians can read approved
               instructions and ask questions in their preferred language.</p>
         </div>
 
@@ -3216,7 +4522,7 @@ body::before {
               <h3>The correct procedure</h3>
 
               <p>
-                Every NFC tag opens the lock-out/tag-out procedure for
+                Every NFC tag opens the lockout/tagout procedure for
                 that specific machine. Technicians do not need to search
                 through folders or select a machine manually.
               </p>
@@ -3324,7 +4630,7 @@ body::before {
 
     <p>
       LockTalk supports the people who create, manage and follow
-      lock-out/tag-out procedures, from safety leads and production
+      lockout/tagout procedures, from safety leads and production
       managers to international technicians working at the machine.
     </p>
   </div>
@@ -3336,19 +4642,24 @@ body::before {
       <h2>Different roles, one clear procedure.</h2>
 
       <p>
-        Each role uses LockTalk differently, but everyone works from
-        the same approved, machine-specific procedure.
+  Each role uses LockTalk differently, but everyone works from
+  the same approved, machine-specific procedure. Select a role
+  to see its main task, benefit and next step.
       </p>
     </div>
-
+<p class="interaction-hint">
+  Select one of the roles below
+  <span aria-hidden="true">↓</span>
+</p>
     <div class="who audience-grid">
 
-      <article class="card audience-card"
+      <article
         class="card audience-card"
         tabindex="0"
         role="button"
         aria-pressed="false"
-        data-role="safety">
+        data-role="safety"
+      >
         <span class="audience-number" aria-hidden="true">01</span>
 
         <span class="eyebrow">Creates and approves</span>
@@ -3398,12 +4709,13 @@ body::before {
         </span>
       </article>
 
-      <article class="card audience-card"
-        class="card audience-card"
-          tabindex="0"
-          role="button"
-          aria-pressed="false"
-          data-role="technician">
+<article
+  class="card audience-card"
+  tabindex="0"
+  role="button"
+  aria-pressed="false"
+  data-role="technician"
+>
         <span class="audience-number" aria-hidden="true">03</span>
 
         <span class="eyebrow">Uses the procedure</span>
@@ -3533,7 +4845,7 @@ body::before {
         <h2>Working with multilingual teams?</h2>
 
         <p>
-          Tell us about your machines, your current lock-out/tag-out
+          Tell us about your machines, your current lockout/tagout
           procedures and the languages used on your factory floor.
         </p>
       </div>
@@ -3581,170 +4893,192 @@ body::before {
       </p>
     </div>
 
-    <div class="team-grid">
+<div class="team-grid">
 
-      <!-- EERSTE RIJ -->
+  <!-- EERSTE RIJ -->
 
-      <div class="team-row">
+  <div class="team-row">
 
-        <article class="team-card">
-          <div class="team-number" aria-hidden="true">01</div>
+    <article class="team-card">
+      <div class="team-number" aria-hidden="true">01</div>
 
-          <div class="team-info">
-            <span class="eyebrow">Research &amp; Communication</span>
+      <div class="team-info">
+        <span class="eyebrow">
+          Research &amp; Communication
+        </span>
 
-            <h3>Ayça Akça</h3>
+        <h3>Ayça Akça</h3>
 
-            <p>
-              Contributing to user research and communication, helping
-              the team understand how LockTalk can support people on
-              the factory floor.
-            </p>
+        <p>
+          Contributing to user research and communication, helping
+          the team understand how LockTalk can support people on
+          the factory floor.
+        </p>
 
-            <a
-              class="linkedin-btn"
-              href="https://www.linkedin.com/in/ayca-akca-517450436/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-        </article>
-
-        <article class="team-card">
-          <div class="team-number" aria-hidden="true">02</div>
-
-          <div class="team-info">
-            <span class="eyebrow">Research &amp; Communication</span>
-
-            <h3>Champoo Ketsoongnern</h3>
-
-            <p>
-              Supporting research and communication to help develop
-              and present the LockTalk concept clearly to its intended
-              users.
-            </p>
-
-            <a
-              class="linkedin-btn"
-              href="https://www.linkedin.com/in/naphatsorn-ketsoongnern-6a6312436/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-        </article>
-
-        <article class="team-card">
-          <div class="team-number" aria-hidden="true">03</div>
-
-          <div class="team-info">
-            <span class="eyebrow">Business Development</span>
-
-            <h3>Daan Reijneveld</h3>
-
-            <p>
-              Helping shape the business concept and turn the team’s
-              ideas into a focused and practical value proposition.
-            </p>
-
-            <a
-              class="linkedin-btn"
-              href="https://www.linkedin.com/in/daan-reyneveld-93054b374/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-        </article>
-
+        <a
+          class="linkedin-btn"
+          href="https://www.linkedin.com/in/ayca-akca-517450436/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View Ayça Akça on LinkedIn"
+        >
+          LinkedIn
+          <span aria-hidden="true">↗</span>
+        </a>
       </div>
+    </article>
 
-      <!-- TWEEDE RIJ -->
+    <article class="team-card">
+      <div class="team-number" aria-hidden="true">02</div>
 
-      <div class="team-row">
+      <div class="team-info">
+        <span class="eyebrow">
+          Research &amp; Communication
+        </span>
 
-        <article class="team-card">
-          <div class="team-number" aria-hidden="true">04</div>
+        <h3>Champoo Ketsoongnern</h3>
 
-          <div class="team-info">
-            <span class="eyebrow">Business Development</span>
+        <p>
+          Supporting research and communication to help develop
+          and present the LockTalk concept clearly to its intended
+          users.
+        </p>
 
-            <h3>Luc Broedermans</h3>
-
-            <p>
-              Contributing to business development and exploring how
-              LockTalk can create value for companies with multilingual
-              teams.
-            </p>
-
-            <a
-              class="linkedin-btn"
-              href="https://www.linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-        </article>
-
-        <article class="team-card">
-          <div class="team-number" aria-hidden="true">05</div>
-
-          <div class="team-info">
-            <span class="eyebrow">Research &amp; Communication</span>
-
-            <h3>Raina Al-Mussawi</h3>
-
-            <p>
-              Helping make the LockTalk concept clear, relevant and
-              accessible through research and user-focused communication.
-            </p>
-
-            <a
-              class="linkedin-btn"
-              href="https://www.linkedin.com/in/raina-al-mussawi-97919444a/
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-        </article>
-
-        <article class="team-card">
-          <div class="team-number" aria-hidden="true">06</div>
-
-          <div class="team-info">
-            <span class="eyebrow">
-              Web Development &amp; Team Contact
-            </span>
-
-            <h3>Shady Ghanam</h3>
-
-            <p>
-              Developing the LockTalk website and supporting clear
-              communication between the team, users and external partners.
-            </p>
-
-            <a
-              class="linkedin-btn"
-              href="https://www.linkedin.com/in/shady-g-324933210/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-        </article>
-
+        <a
+          class="linkedin-btn"
+          href="https://www.linkedin.com/in/naphatsorn-ketsoongnern-6a6312436/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View Champoo Ketsoongnern on LinkedIn"
+        >
+          LinkedIn
+          <span aria-hidden="true">↗</span>
+        </a>
       </div>
+    </article>
 
-    </div>
+    <article class="team-card">
+      <div class="team-number" aria-hidden="true">03</div>
+
+      <div class="team-info">
+        <span class="eyebrow">
+          Business Development
+        </span>
+
+        <h3>Daan Reijneveld</h3>
+
+        <p>
+          Helping shape the business concept and turn the team’s
+          ideas into a focused and practical value proposition.
+        </p>
+
+        <a
+          class="linkedin-btn"
+          href="https://www.linkedin.com/in/daan-reyneveld-93054b374/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View Daan Reijneveld on LinkedIn"
+        >
+          LinkedIn
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- TWEEDE RIJ -->
+
+  <div class="team-row">
+
+    <article class="team-card">
+      <div class="team-number" aria-hidden="true">04</div>
+
+      <div class="team-info">
+        <span class="eyebrow">
+          Business Development
+        </span>
+
+        <h3>Luc Broedermans</h3>
+
+        <p>
+          Contributing to business development and exploring how
+          LockTalk can create value for companies with multilingual
+          teams.
+        </p>
+
+        <a
+          class="linkedin-btn"
+          href="https://www.linkedin.com/in/luc-broedermans-52035b278/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View Luc Broedermans on LinkedIn"
+        >
+          LinkedIn
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </article>
+
+    <article class="team-card">
+      <div class="team-number" aria-hidden="true">05</div>
+
+      <div class="team-info">
+        <span class="eyebrow">
+          Research &amp; Communication
+        </span>
+
+        <h3>Raina Al-Mussawi</h3>
+
+        <p>
+          Helping make the LockTalk concept clear, relevant and
+          accessible through research and user-focused communication.
+        </p>
+
+        <a
+          class="linkedin-btn"
+          href="https://www.linkedin.com/in/raina-al-mussawi-97919444a/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View Raina Al-Mussawi on LinkedIn"
+        >
+          LinkedIn
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </article>
+
+    <article class="team-card">
+      <div class="team-number" aria-hidden="true">06</div>
+
+      <div class="team-info">
+        <span class="eyebrow">
+          Web Development &amp; Team Contact
+        </span>
+
+        <h3>Shady Ghanam</h3>
+
+        <p>
+          Developing the LockTalk website and supporting clear
+          communication between the team, users and external partners.
+        </p>
+
+        <a
+          class="linkedin-btn"
+          href="https://www.linkedin.com/in/shady-g-324933210/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View Shady Ghanam on LinkedIn"
+        >
+          LinkedIn
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </article>
+
+  </div>
+
+</div>
 
     <!-- MISSIEBLOK -->
 
@@ -3804,7 +5138,7 @@ body::before {
           <div class="eyebrow">Contact</div>
           <h1>Let’s talk about your workplace.</h1>
           <p>Tell us about your machines, the languages used by your teams
-              and how lock-out/tag-out procedures are currently shared.</p>
+              and how lockout/tagout procedures are currently shared.</p>
         </div>
 
         <section>
@@ -3847,8 +5181,8 @@ body::before {
                 <label for="cRole">Your role</label>
 
                 <select id="cRole" name="role">
-                  <option>Safety or Maintenance lead</option>
-                  <option>Plant or Production manager</option>
+                  <option>Safety or maintenance lead</option>
+                  <option>Plant or production manager</option>
                   <option>Technician</option>
                   <option>Other</option>
                 </select>
@@ -3860,7 +5194,7 @@ body::before {
                 <textarea
                   id="cMsg"
                   name="message"
-                  placeholder="Which machines, how many languages on your floor, and what you currently use for lock-out/tag-out instructions."
+                  placeholder="Which machines, how many languages on your floor, and what you currently use for lockout/tagout instructions."
                 ></textarea>
               </div>
 
@@ -3871,19 +5205,22 @@ body::before {
                 hidden
               ></div>
 
-              <div>
-                <button
-                  type="submit"
-                  class="btn primary"
-                  id="cSubmit"
-                >
-                  Open Mail
-                </button>
-                <p class="form-note">
-                  This opens your email app with the message filled in.
-                  You can review it before sending.
-                </p>
-              </div>
+<div class="contact-submit">
+  <button
+    type="submit"
+    class="btn primary"
+    id="cSubmit"
+  >
+    Prepare email
+  </button>
+
+  <p class="form-note">
+    This opens your email app with the message filled in. You can review
+    it before sending. By sending the email, you acknowledge that your
+    information will be handled as described in our
+    <a href="#privacy">Privacy Statement</a>.
+  </p>
+</div>
             </form>
 
             <div class="about contact-about">
@@ -3928,7 +5265,280 @@ body::before {
           </div>
         </section>
       </div>
+<!-- PRIVACY -->
 
+<div class="page" id="page-privacy" hidden>
+  <div class="pagehead">
+    <div class="eyebrow">Privacy</div>
+
+    <h1>Your information, handled clearly.</h1>
+
+    <p>
+      This statement explains which personal information the LockTalk
+      student team receives, why we use it and what rights you have.
+    </p>
+  </div>
+
+  <section class="privacy-section">
+    <div class="privacy-content">
+
+      <div class="privacy-updated">
+        Last updated: 16 November 2026
+      </div>
+
+      <div class="privacy-notice">
+        <strong>Student project</strong>
+
+        <p>
+          LockTalk is a student project developed by a six-person team
+          at Fontys. We respect your privacy and aim to be clear about
+          how we handle personal information submitted through this website.
+        </p>
+      </div>
+
+      <article class="privacy-part">
+        <h2>1. Who is responsible for your information?</h2>
+
+        <p>
+          The LockTalk student team is responsible for the personal
+          information received through this website.
+        </p>
+
+        <p>
+          For privacy questions or requests, contact:
+        </p>
+
+        <address>
+          <strong>LockTalk student team</strong><br>
+          Contact person: Shady Ghanam<br>
+          Email:
+          <a href="mailto:522386@student.fontys.nl">
+            522386@student.fontys.nl
+          </a>
+        </address>
+      </article>
+
+      <article class="privacy-part">
+        <h2>2. What information do we collect?</h2>
+
+        <p>
+          When you use the contact form and send the prepared email,
+          we may receive:
+        </p>
+
+        <ul>
+          <li>Your name</li>
+          <li>Your email address</li>
+          <li>Your company name, if provided</li>
+          <li>Your role</li>
+          <li>The contents of your message</li>
+          <li>Any additional information you choose to include</li>
+        </ul>
+
+        <p>
+          Please do not include confidential company information,
+          operational safety instructions, special categories of personal
+          data or other sensitive information in your message.
+        </p>
+      </article>
+
+      <article class="privacy-part">
+        <h2>3. How does the contact form work?</h2>
+
+        <p>
+          The contact form does not submit information directly to a
+          LockTalk database. After you complete the form, the website
+          opens your email application and prepares an email containing
+          the information you entered.
+        </p>
+
+        <p>
+          You can review, change or delete the email before sending it.
+          LockTalk only receives this information when you choose to send
+          the email.
+        </p>
+      </article>
+
+      <article class="privacy-part">
+        <h2>4. Why do we use your information?</h2>
+
+        <p>We use the information you send to:</p>
+
+        <ul>
+          <li>Respond to your question or enquiry</li>
+          <li>Discuss your workplace or potential LockTalk use case</li>
+          <li>Arrange a research or feedback conversation</li>
+          <li>
+            Understand how multilingual machine procedures are currently
+            handled
+          </li>
+          <li>Improve and validate the LockTalk concept</li>
+        </ul>
+
+        <p>
+          We do not use your contact information for unrelated advertising
+          and we do not sell your personal information.
+        </p>
+      </article>
+
+      <article class="privacy-part">
+        <h2>5. Our legal basis</h2>
+
+        <p>
+          We process your information because you have voluntarily contacted
+          us and because responding to enquiries and conducting research are
+          legitimate interests of the LockTalk project.
+        </p>
+
+        <p>
+          You are not required to provide personal information. However,
+          we need at least your name, email address and message to respond
+          to your enquiry.
+        </p>
+      </article>
+
+      <article class="privacy-part">
+        <h2>6. How long do we keep your information?</h2>
+
+        <p>
+          We retain contact messages for no longer than six months after
+          our last communication with you, unless we need to retain them
+          longer for an ongoing research activity, project agreement or
+          legal obligation.
+        </p>
+
+        <p>
+          After this period, the message and associated personal information
+          will be deleted where reasonably possible.
+        </p>
+      </article>
+
+      <article class="privacy-part">
+        <h2>7. Who can access your information?</h2>
+
+        <p>
+          Your message is initially received by Shady Ghanam, the LockTalk
+          team’s contact person. Information may be discussed with other
+          members of the LockTalk student team when necessary to respond
+          to your enquiry or evaluate feedback.
+        </p>
+
+        <p>
+          We do not sell your information or share it with other
+          organisations for their own marketing purposes.
+        </p>
+
+        <p>
+          Information may be processed through the email and IT services
+          provided by Fontys. These services may process technical and
+          communication data according to their own privacy and security
+          policies.
+        </p>
+      </article>
+
+      <article class="privacy-part">
+        <h2>8. Cookies and external services</h2>
+
+        <p>
+          The current LockTalk website does not use marketing cookies,
+          advertising trackers or analytics cookies.
+        </p>
+
+        <p>
+          The website loads fonts from Google Fonts. When these externally
+          hosted fonts are loaded, technical information such as your IP
+          address and browser information may be transmitted to Google.
+        </p>
+
+        <p>
+          If analytics, embedded services or additional cookies are added
+          in the future, this statement will be updated. Where required,
+          visitors will be asked for permission.
+        </p>
+      </article>
+
+      <article class="privacy-part">
+        <h2>9. How do we protect your information?</h2>
+
+        <p>
+          We take reasonable measures to limit access to personal
+          information and use it only for the purposes described in this
+          statement.
+        </p>
+
+        <p>
+          No email or online communication method can be guaranteed to be
+          completely secure. Please do not send passwords, identification
+          documents, confidential machine information or sensitive personal
+          data through the contact form.
+        </p>
+      </article>
+
+      <article class="privacy-part">
+        <h2>10. Your privacy rights</h2>
+
+        <p>
+          Under the General Data Protection Regulation, you may have the
+          right to:
+        </p>
+
+        <ul>
+          <li>Request access to your personal information</li>
+          <li>Ask us to correct inaccurate information</li>
+          <li>Ask us to delete your information</li>
+          <li>Request that we restrict the use of your information</li>
+          <li>Object to the processing of your information</li>
+          <li>Receive information about how your data is used</li>
+        </ul>
+
+        <p>
+          You can submit a request by emailing
+          <a href="mailto:522386@student.fontys.nl">
+            522386@student.fontys.nl
+          </a>.
+          We may ask for additional information to confirm your identity.
+          We aim to respond to privacy requests within one month.
+        </p>
+      </article>
+
+      <article class="privacy-part">
+        <h2>11. Complaints</h2>
+
+        <p>
+          If you have a concern about how we handle your personal
+          information, please contact us first so we can try to resolve it.
+        </p>
+
+        <p>
+          You also have the right to submit a complaint to the Dutch Data
+          Protection Authority, the Autoriteit Persoonsgegevens.
+        </p>
+      </article>
+
+      <article class="privacy-part">
+        <h2>12. Changes to this statement</h2>
+
+        <p>
+          We may update this privacy statement if the LockTalk website,
+          project or use of personal information changes. The latest version
+          will always be published here with the date of the most recent
+          update.
+        </p>
+      </article>
+
+      <div class="privacy-actions">
+        <a class="btn primary" href="#contact">
+          Contact us about privacy
+        </a>
+
+        <a class="btn ghost" href="#home">
+          Return to home
+        </a>
+      </div>
+
+    </div>
+  </section>
+</div>
     </main>
 
     <footer>
@@ -3944,6 +5554,7 @@ body::before {
           <a href="#who">Who it is for</a>
           <a href="#team">About us</a>
           <a href="#contact">Contact</a>
+            <a href="#privacy">Privacy</a>
         </nav>
       </div>
 
@@ -4009,18 +5620,6 @@ function selectAudienceCard(card) {
     return;
   }
 
-  Array.prototype.forEach.call(
-    audienceCards,
-    function (item) {
-      var selected = item === card;
-
-      item.classList.toggle("is-selected", selected);
-      item.setAttribute(
-        "aria-pressed",
-        selected ? "true" : "false"
-      );
-    }
-  );
 
   audienceTitle.textContent = detail.title;
   audienceText.textContent = detail.text;
@@ -4047,14 +5646,15 @@ Array.prototype.forEach.call(
 
       /* Router */
 
-      var pages = [
-        "home",
-        "how",
-        "features",
-        "who",
-        "team",
-        "contact"
-      ];
+var pages = [
+  "home",
+  "how",
+  "features",
+  "who",
+  "team",
+  "contact",
+  "privacy"
+];
 
 function route() {
   var hash = (window.location.hash || "").replace("#", "");
@@ -4209,7 +5809,7 @@ function route() {
         {
           name: "Create",
           title: "The owner creates the procedure",
-          text: "The machine owner adds the original lock-out/tag-out steps for this specific machine.",
+          text: "The machine owner adds the original lockout/tagout steps for this specific machine.",
           languages: {
             NL: "Source text",
             EN: "Not started",
@@ -4517,7 +6117,7 @@ function route() {
             "mailto:" + contactEmail +
             "?subject=" +
             encodeURIComponent(
-              "Nieuw bericht van LockTalk website"
+              "New message from the LockTalk website"
             ) +
             "&body=" +
             encodeURIComponent(emailBody);
@@ -4599,10 +6199,6 @@ window.addEventListener("scroll", updateSideNavigation, {
 
 updateSideNavigation();
 window.scrollTo(0, 0);
-/* Gele markering starten wanneer deze zichtbaar wordt */
-
-var loadingHighlights =
-  document.querySelectorAll(".loading-highlight");
 
 /* Gele markering starten wanneer deze zichtbaar wordt */
 
