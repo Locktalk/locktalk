@@ -5721,16 +5721,24 @@ function route() {
     }
   });
 
-  Array.prototype.forEach.call(
-    document.querySelectorAll("#mainNav a, #sideNav a"),
-    function (link) {
-      if (link.dataset.page === hash) {
-        link.setAttribute("aria-current", "page");
-      } else {
-        link.removeAttribute("aria-current");
-      }
+var navigationLinks = document.querySelectorAll(
+  "#mainNav a[data-page], #sideNav a[data-page]"
+);
+
+Array.prototype.forEach.call(
+  navigationLinks,
+  function (link) {
+    var isCurrentPage = link.dataset.page === hash;
+
+    link.classList.toggle("is-active", isCurrentPage);
+
+    if (isCurrentPage) {
+      link.setAttribute("aria-current", "page");
+    } else {
+      link.removeAttribute("aria-current");
     }
-  );
+  }
+);
 
 
 
@@ -6310,44 +6318,6 @@ Array.prototype.forEach.call(
 
 route();
 })();
-document
-  .querySelectorAll('a[data-page]')
-  .forEach(function (link) {
-    link.addEventListener("click", function (event) {
-      event.preventDefault();
-
-      var pageName = link.dataset.page;
-      var targetPage = document.getElementById("page-" + pageName);
-
-      if (!targetPage) {
-        return;
-      }
-
-      document.querySelectorAll(".page").forEach(function (page) {
-        page.hidden = page !== targetPage;
-      });
-
-      history.replaceState(null, "", "#" + pageName);
-
-      var targetSection = link.dataset.target
-        ? document.getElementById(link.dataset.target)
-        : null;
-
-      if (targetSection) {
-        requestAnimationFrame(function () {
-          targetSection.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
-        });
-      } else {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-      }
-    });
-  });
   </script>
 </body>
 </html>
