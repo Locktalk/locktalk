@@ -3634,6 +3634,197 @@ body::before {
 .product-svg .hot.is-active .hot-num {
   fill: #12161a !important;
 }
+/* =========================================
+   VALIDATIE EN PILOTPARTNERS
+   ========================================= */
+
+.validation-section {
+  padding-block: 64px;
+}
+
+.validation-block {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.15fr)
+    minmax(300px, 0.85fr);
+  gap: 32px 48px;
+  padding: 36px 34px;
+  border: 2px solid var(--ink);
+  border-left: 12px solid var(--accent);
+  background: var(--surface);
+  box-shadow: 7px 7px 0 var(--ink);
+}
+
+.validation-copy h2 {
+  max-width: 720px;
+  margin-top: 12px;
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 900;
+}
+
+.validation-copy p {
+  max-width: 700px;
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.validation-details {
+  border: 2px solid var(--ink);
+  background: var(--bg);
+}
+
+.validation-details > div {
+  display: grid;
+  gap: 5px;
+  padding: 15px 16px;
+  border-top: 1px solid var(--line);
+}
+
+.validation-details > div:first-child {
+  border-top: 0;
+}
+
+.validation-details strong {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 850;
+}
+
+.validation-details span {
+  color: var(--muted);
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+
+.validation-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .validation-block {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .validation-actions {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .validation-section {
+    padding-block: 48px;
+  }
+
+  .validation-block {
+    padding: 26px 22px;
+    border-left-width: 8px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+
+  .validation-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .validation-actions .btn {
+    width: 100%;
+  }
+}
+/* =========================================
+   COMPACT STAKEHOLDER VALIDATION
+   ========================================= */
+
+.validation-section {
+  padding-block: 42px;
+}
+
+.validation-block {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(240px, 0.6fr);
+  align-items: center;
+  gap: 28px;
+  padding: 28px 30px;
+  border: 2px solid var(--ink);
+  border-left: 9px solid var(--accent);
+  background: var(--surface);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+.validation-copy h2 {
+  margin-top: 8px;
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 900;
+  line-height: 1.08;
+}
+
+.validation-copy p {
+  max-width: 690px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.validation-action {
+  display: grid;
+  justify-items: start;
+  gap: 14px;
+  padding-left: 26px;
+  border-left: 1px solid var(--line);
+}
+
+.validation-action p {
+  max-width: 280px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+@media (max-width: 780px) {
+  .validation-block {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    padding: 25px 23px;
+  }
+
+  .validation-action {
+    justify-items: stretch;
+    padding-top: 20px;
+    padding-left: 0;
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+
+  .validation-action p {
+    max-width: none;
+  }
+
+  .validation-action .btn {
+    width: fit-content;
+  }
+}
+
+@media (max-width: 520px) {
+  .validation-section {
+    padding-block: 32px;
+  }
+
+  .validation-block {
+    padding: 22px 19px;
+    border-left-width: 7px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+
+  .validation-action .btn {
+    width: 100%;
+  }
+}
   </style>
 </head>
 
@@ -4308,10 +4499,6 @@ body::before {
       </div>
 
       <div class="development-actions">
-        <a class="btn primary" href="#contact">
-          Share your workplace challenge
-        </a>
-
         <a class="btn ghost" href="#team">
           Meet the team
         </a>
@@ -4324,39 +4511,33 @@ body::before {
   <!-- VERVOLGPAGINA'S -->
 
 <!-- AFSLUITENDE HOME CTA -->
+<!-- VALIDATIE EN PILOTPARTNERS -->
+<!-- STAKEHOLDER VALIDATION -->
+<!-- STAKEHOLDER CONTACT -->
+<section class="validation-section">
+  <div class="validation-block">
+    <div class="validation-copy">
+      <span class="eyebrow">For industry and investment partners</span>
 
-<section class="home-final">
-
-  <div class="home-final-inner">
-
-    <div class="home-final-copy">
-      <span class="eyebrow">
-        Explore LockTalk
-      </span>
-
-      <h2>
-        See how LockTalk could fit your workplace.
-      </h2>
+      <h2>Interested in LockTalk?</h2>
 
       <p>
-        Explore how procedures are created and approved, or tell us
-        about the machines, languages and safety instructions used
-        within your organisation.
+        We welcome conversations with manufacturing professionals,
+        potential pilot partners and investors who would like to share
+        relevant insights or learn more about the concept.
       </p>
     </div>
 
-    <div class="home-final-actions">
-      <a class="btn primary" href="#how">
-        See how it works
-      </a>
+    <div class="validation-action">
+      <p>
+        Start with a short, exploratory conversation. No commitment required.
+      </p>
 
-      <a class="btn ghost" href="#contact">
-        Contact the team
+      <a class="btn primary" href="#contact">
+        Start a conversation
       </a>
     </div>
-
   </div>
-
 </section>
 
 </div>
@@ -4986,7 +5167,7 @@ body::before {
 
         <p>
           Building the LockTalk brand and bringing our solution to
-          the right manufacturers through clear and consistent marketing
+          the right manufacturers through clear and consistent marketing.
         </p>
 
         <a
@@ -5007,15 +5188,13 @@ body::before {
 
       <div class="team-info">
         <span class="eyebrow">
-          Research &amp; Communication
+          Research &amp; Feasibility Lead
         </span>
 
         <h3>Champoo Ketsoongnern</h3>
 
         <p>
-          Supporting research and communication to help develop
-          and present the LockTalk concept clearly to its intended
-          users.
+          Researching how LockTalk can be built, used by technitians and brought to manufacturers, and turning those findings into clear choices for them.
         </p>
 
         <a
@@ -5258,6 +5437,8 @@ body::before {
                   <option>Safety or maintenance lead</option>
                   <option>Plant or production manager</option>
                   <option>Technician</option>
+                  <option>Potential pilot partner</option>
+                  <option>Investor or business advisor</option>
                   <option>Other</option>
                 </select>
               </div>
@@ -5268,7 +5449,7 @@ body::before {
                 <textarea
                   id="cMsg"
                   name="message"
-                  placeholder="Which machines, how many languages on your floor, and what you currently use for lockout/tagout instructions."
+                  placeholder="Tell us which machines and languages are used in your workplace, how maintenance procedures are currently shared, and whether you would be open to a short interview or prototype test."
                 ></textarea>
               </div>
 
