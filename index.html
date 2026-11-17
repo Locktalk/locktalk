@@ -4613,7 +4613,7 @@ body::before {
             <div class="chat-pick">
               <div class="pick-group">
                 <span class="eyebrow">
-                  Supervisor says, Nederlands
+                  Supervisor says, English
                 </span>
 
                 <div class="pick-row" id="pickSup"></div>
@@ -6010,23 +6010,23 @@ Array.prototype.forEach.call(
 
       var supervisorPhrases = [
         [
-          "Is de hoofdschakelaar al uit?",
+          "Is the main switch already off?",
           "Czy główny wyłącznik jest już wyłączony?"
         ],
         [
-          "Wacht met beginnen tot ik terug ben.",
+          "Wait until I get back before you start.",
           "Poczekaj z rozpoczęciem pracy, aż wrócę."
         ],
         [
-          "Heb je je eigen slot geplaatst?",
+          "Have you placed your own lock?",
           "Czy założyłeś własną kłódkę?"
         ]
       ];
 
       var technicianPhrases = [
-        ["Tak, już zrobione.", "Ja, is al gedaan."],
-        ["Nie rozumiem kroku 4.", "Ik begrijp stap 4 niet."],
-        ["Potrzebuję więcej czasu.", "Ik heb meer tijd nodig."]
+        ["Tak, już zrobione.", "Yes, that has already been done."],
+        ["Nie rozumiem kroku 4.", "I don't understand step 4."],
+        ["Potrzebuję więcej czasu.", "I need more time."]
       ];
 
       var chatLog = document.getElementById("chatLog");
@@ -6046,8 +6046,8 @@ Array.prototype.forEach.call(
 
         label.textContent =
           sender === "supervisor"
-            ? "Supervisor · NL → PL"
-            : "Technician · PL → NL";
+            ? "Supervisor · EN → PL"
+            : "Technician · PL → EN";
 
         var translation = document.createElement("span");
         translation.textContent = phrase[1];
