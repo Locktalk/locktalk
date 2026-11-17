@@ -218,10 +218,27 @@
 .hot-hit { fill: transparent; }
 .hot-ring { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-dasharray: 6 5; opacity: 0; pointer-events: none; transition: opacity 160ms ease; }
 .hot-dot { fill: var(--accent); stroke: var(--ink); stroke-width: 2.5; transition: transform 160ms ease; transform-box: fill-box; transform-origin: center; }
-.hot-num { font-size: 13px !important; font-weight: 600; text-anchor: middle; pointer-events: none; }
+.hot-dot {
+  fill: var(--accent);
+  stroke: var(--ink);
+  stroke-width: 2.5;
+
+  transition: transform 160ms ease;
+  transform-box: fill-box;
+  transform-origin: center;
+}
 .hot:hover .hot-ring, .hot:focus-visible .hot-ring, .hot.is-active .hot-ring { opacity: 1; }
-.hot:hover .hot-dot, .hot:focus-visible .hot-dot, .hot.is-active .hot-dot { transform: scale(1.2); fill: var(--ink); }
-.hot:hover .hot-num, .hot:focus-visible .hot-num, .hot.is-active .hot-num { fill: var(--bg); }
+.hot:hover .hot-dot,
+.hot:focus-visible .hot-dot,
+.hot.is-active .hot-dot {
+  transform: scale(1.2);
+  fill: var(--accent);
+}
+.hot:hover .hot-num,
+.hot:focus-visible .hot-num,
+.hot.is-active .hot-num {
+  fill: #12161a;
+}
 .hot:focus-visible .hot-ring { stroke-width: 4; }
 
 .product-caption { display: grid; gap: 6px; min-height: 112px; padding: 18px 22px 20px; border-top: 2px solid var(--ink); background: var(--bg); }
@@ -3591,6 +3608,32 @@ body::before {
 #approval-process {
   scroll-margin-top: 32px;
 }
+.hot:hover .hot-dot,
+.hot:focus-visible .hot-dot,
+.hot.is-active .hot-dot {
+  fill: var(--accent);
+  transform: scale(1.2);
+}
+
+.hot:hover .hot-num,
+.hot:focus-visible .hot-num,
+.hot.is-active .hot-num {
+  fill: #12161a !important;
+}
+/* Cijfers in de gele hotspots altijd zwart */
+.product-svg .hot-num {
+  fill: #12161a !important;
+  font-size: 13px !important;
+  font-weight: 700;
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+.product-svg .hot:hover .hot-num,
+.product-svg .hot:focus-visible .hot-num,
+.product-svg .hot.is-active .hot-num {
+  fill: #12161a !important;
+}
   </style>
 </head>
 
@@ -4993,14 +5036,14 @@ body::before {
 
       <div class="team-info">
         <span class="eyebrow">
-          Business Development
+          Business Development &amp; Quality Lead
         </span>
 
         <h3>Daan Reijneveld</h3>
 
         <p>
-          Helping shape the business concept and turn the team’s
-          ideas into a focused and practical value proposition.
+          Shaping the business concept into a focused, practical value proposition,
+          and making sure everything we deliver is consistent, polished and ready for submission.
         </p>
 
         <a
